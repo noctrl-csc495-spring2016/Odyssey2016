@@ -1,0 +1,126 @@
+<%= render 'layouts/navbar' %>
+
+<script>
+    $(document).ready(function() {
+        // CALENDAR CONFIGURATION
+        $('#calendar').fullCalendar({
+            weekends: false,
+            defaultView: 'month',
+            dayClick: function(date, jsEvent, view){
+                // Would like to put this in a seperate function to allow us to fake a day click when
+                //    the user picks a day from the boxes, however, by hiding the days in the select
+                //    we are triggering the .change event on #day everytime which is the event we would
+                //    need to use in order to register a fake click.. TBD
+                
+                // Remove the old selected day by getting the original event source
+                $('#calendar').fullCalendar( 'refetchEvents' );
+                // Add a temp event
+                $('#calendar').fullCalendar( 'renderEvent', {id:'TEMP', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
+                
+                // Create a date object to manipulate
+                var dObj = new Date(date);
+                var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                // Update our select drop-downs
+                $('#month').val(monthNames[dObj.getMonth()]);
+                $('#day').val(dObj.getDate() + 1);
+                $('#year').val(dObj.getFullYear());
+                
+                // Trigger the on change to adjust our selects
+                $( "#month" ).trigger( "change" );
+            },
+                header: {
+                left:   'title',
+                center: '',
+                right:  'today prev,next'
+            }
+        })
+        GetAllDays();
+    });
+    
+    // AJAX GET function to retrieve all the days when loading the calendar
+    function GetAllDays() {
+        var events = [];
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/days/all",
+            success: function(data) {
+                $.each(data, function(key, value){
+                    // push the day into our array
+                    events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
+                })
+                // add our built array as a data source to the calendar
+                $('#calendar').fullCalendar( 'addEventSource', events );
+            },
+            error: function(data) {
+                // Uh oh
+                alert(data.responseText);
+            }
+        });
+    }
+</script>
+
+<div class="container white-container">
+    <div class="row">
+        <%= render 'layouts/flash_messages' %>
+        <div class="col-xs-10 col-xs-offset-1">
+            <h2>Configure Pickup Day</h2>
+            <p>To add a day, either select a day on the calendar or manually input the day below.</p>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4 col-md-offset-1 hidden-xs">
+            <div id='calendar' style='width:100%; height:100%; padding-bottom:10%;'></div>
+        </div>
+        <div class="col-md-6 col-md-offset-1 col-xs-12">
+            <div class="row">
+                <br />
+                <div class="col-md-9 col-md-offset-1 col-xs-12">
+                    <%= form_tag(days_create_path, :method=>'post') do %>
+                        <div class="form-group">
+                            Month:
+                            <%= select_tag("month", options_for_select(@month_options, Date::MONTHNAMES[Date.today.month]), :class => 'form-control') %>
+                        </div>
+                        <div class="form-group">
+                            Day:
+                            <%= select_tag("day", options_for_select(@day_options, 1), :class => 'form-control') %>
+                        </div>
+                        <div class="form-group">
+                            Year:
+                            <%= select_tag("year", options_for_select(@year_options, Time.new.year), :class => 'form-control') %>
+                        </div>
+                        <br>
+                        <div class="row form-group">
+                            <div class="col-xs-12">
+                                <center>
+                                    <%= submit_tag "Create", class: "btn btn-success btn-wide" %>
+                                    <%= link_to "Cancel", days_path, :class => 'btn btn-danger btn-wide' %>
+                                </center>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Change the number of days we show based on the month and year selected
+    $("#month, #year").change(function() {
+        // Create date object to manipulate (using whats currently in select boxes)
+        var dateObj = new Date( $("#month").val() + "1 ," + $("#year").val())
+        var numDaysInMonth = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate()
+        // Loop through days in the select to show the correct days based on the year+month
+        $('#day > option').each(function(){
+            // If the day is in this month show it
+            if (Number(this.value) <= numDaysInMonth) {
+                $(this).show();
+            } else { //else hide it
+                $(this).hide();
+            }
+        })
+    });
+</script>

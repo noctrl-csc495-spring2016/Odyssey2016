@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Day:</strong>
+  <%= @pickup.day_id %>
+</p>
+
+<p>
+  <strong>Donor title:</strong>
+  <%= @pickup.donor_title %>
+</p>
+
+<p>
+  <strong>Donor first name:</strong>
+  <%= @pickup.donor_first_name %>
+</p>
+
+<p>
+  <strong>Donor last name:</strong>
+  <%= @pickup.donor_last_name %>
+</p>
+
+<p>
+  <strong>Donor spouse name:</strong>
+  <%= @pickup.donor_spouse_name %>
+</p>
+
+<p>
+  <strong>Donor address line1:</strong>
+  <%= @pickup.donor_address_line1 %>
+</p>
+
+<p>
+  <strong>Donor address line2:</strong>
+  <%= @pickup.donor_address_line2 %>
+</p>
+
+<p>
+  <strong>Donor city:</strong>
+  <%= @pickup.donor_city %>
+</p>
+
+<p>
+  <strong>Donor zip:</strong>
+  <%= @pickup.donor_zip %>
+</p>
+
+<p>
+  <strong>Donor dwelling type:</strong>
+  <%= @pickup.donor_dwelling_type %>
+</p>
+
+<p>
+  <strong>Donor phone:</strong>
+  <%= @pickup.donor_phone %>
+</p>
+
+<p>
+  <strong>Donor email:</strong>
+  <%= @pickup.donor_email %>
+</p>
+
+<p>
+  <strong>Number of items:</strong>
+  <%= @pickup.number_of_items %>
+</p>
+
+<p>
+  <strong>Item notes:</strong>
+  <%= @pickup.item_notes %>
+</p>
+
+<p>
+  <strong>Donor notes:</strong>
+  <%= @pickup.donor_notes %>
+</p>
+
+<p>
+  <strong>Rejected:</strong>
+  <%= @pickup.rejected %>
+</p>
+
+<p>
+  <strong>Rejected reason:</strong>
+  <%= @pickup.rejected_reason %>
+</p>
+
+<%= link_to 'Edit', edit_pickup_path(@pickup) %> |
+<%= link_to 'Back', pickups_path %>

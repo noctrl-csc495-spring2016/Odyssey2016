@@ -1,0 +1,42 @@
+<%= render 'layouts/navbar' %>
+
+   <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-xs-12 well extra-spacing">
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <h2>Truck Reports</h2>
+                        <p>Select a pickup date below to export the daily truck report and MapQuest route information.</p>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <form>
+                            <div class="form-group">
+                                Pickup Day:
+                                <select class="form-control">
+                                    <option value="May 5">May 5</option>
+                                    <option value="May 3">May 3</option>
+                                    <option value="April 22" selected>April 22</option>
+                                    <option value="April 15">April 15</option>
+                                    <option value="April 12">April 12</option>
+                                    <option value="April 5">April 5</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <a href="/reports/report1">
+                                    <btn class="btn btn-success btn-wide extra-right-margin">Download</btn>
+                                </a>
+                                <a href="/reports/report1">
+                                    <btn class="btn btn-danger btn-wide">Cancel</btn>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

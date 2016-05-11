@@ -1,0 +1,60 @@
+<%= render 'layouts/navbar' %>
+
+<div class='container white-container'>
+    <div class="row">
+        <%= render 'layouts/flash_messages' %>
+        <div class="col-xs-10 col-xs-offset-1">
+            <h2>Pickups for <span style="color: #22ADC9"><%= @day.date.strftime("%A, %B %d, %Y") %></span></h2>
+            <p>Select a pickup from the list below to edit it.</p>
+        </div>
+    </div>
+    <% # if there are no pickups for this day, let them delete the day? %>
+    <% if @pickups.empty? %>
+        <div class="row">
+            <div class="col-xs-5 col-xs-offset-1">
+                <a href="/days/<%= @day.id %>">
+                    <btn class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete This Pickup Day</btn>
+                </a>
+            </div>
+        </div>
+    <% end %>
+    <div class="row">
+        <div class="col-xs-11 col-xs-offset-1">
+            <table class="table table-hover table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th>Last Name</th>
+                        <th class="hidden-xs">Town</th>
+                        <th>Item Quantity</th>
+                        <th class="hidden-xs">Item Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if @pickups.any? %>
+                        <% @pickups.each do |pickup| %>
+                            <tr style="cursor:pointer;" data-link="/pickups/<%= pickup.id %>">
+                                <td>
+                                    <%= pickup.donor_name %>
+                                </td>
+                                <td class="hidden-xs">
+                                    <%= pickup.donor_city %>
+                                </td>
+                                <td>
+                                    <%= pickup.number_of_items %>
+                                </td>
+                                <td class="hidden-xs">
+                                    <%= pickup.item_description %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    <% else %>
+                        <tr>
+                            <td colspan="4">There are no pickups scheduled for this day. View the <a href="/pickups">Bullpen</a> to schedule some.</td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
