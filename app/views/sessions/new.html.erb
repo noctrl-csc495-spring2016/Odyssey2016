@@ -1,0 +1,26 @@
+<!-- Nicholas Drazenovic And Emily Huizenga -->
+<%= render 'layouts/login_navbar' %>
+<div class='container'>
+    <div class='row'>
+        <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
+            <h4 class="text-center">Log in to Sharing Connections<br> Pickup Assistant</h4>
+            <br>
+                <%= form_for(:session, url: login_path) do |f| %>
+                <%= render 'layouts/flash_messages' %>
+                <div class="form-group">
+                    <%= f.label :user_id %>
+                    <%= f.text_field :user_id, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <%= f.label :password %>
+                    <%= f.password_field :password, class: 'form-control' %>
+                </div>
+                <div class="form-group">
+                    <center><%= f.submit "Log in", class: "btn btn-primary", style: "width:50%" %></center>
+                </div>
+                <% end %>
+            <br>
+            <p class="text-center">Forgot your password? Please contact admin@sharingconnections.com for assistance.</p>
+        </div>
+    </div>
+</div>

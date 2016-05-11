@@ -1,0 +1,247 @@
+<%= render 'layouts/navbar' %>
+
+    <!-- Main Content -->
+
+    <div class="container white-container">
+
+        <!-- main row container -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Update Pickup</h2>
+                <p>Update pickup information, schedule it, or reject it.</p>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Donor info -->
+            <div class="col-xs-12 col-md-6">
+                <h4>Donor Information</h4>
+                <div class="row">
+                    <div class="col-xs-12 col-md-2">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input class="form-control" type="text" value="Jennifer" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5">
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <span class="red">*</span>
+                            <input class="form-control" type="text" value="Dust" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <span class="red">*</span>
+                            <input class="form-control" type="text" value="630-541-3498" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <span class="red">*</span>
+                            <input class="form-control" type="text" value="jldust@noctrl.edu" />
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Pickup Address <span class="red">*</span></h4>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Line 1</label>
+                            <input class="form-control" type="text" value="1234 Main Street" />
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Line 2</label>
+                            <input class="form-control" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8 col-md-5">
+                        <div class="form-group">
+                            <label>City</label>
+                            <input class="form-control" type="text" value="Downers Grove" />
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-md-2">
+                        <div class="form-group">
+                            <label>State</label>
+                            <select class="form-control">
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AZ">AZ</option>
+                                <option value="AR">AR</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DE">DE</option>
+                                <option value="DC">DC</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="ID">ID</option>
+                                <option value="IL" selected>IL</option>
+                                <option value="IN">IN</option>
+                                <option value="IA">IA</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="ME">ME</option>
+                                <option value="MD">MD</option>
+                                <option value="MA">MA</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MS">MS</option>
+                                <option value="MO">MO</option>
+                                <option value="MT">MT</option>
+                                <option value="NE">NE</option>
+                                <option value="NV">NV</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NY">NY</option>
+                                <option value="NC">NC</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC </option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WV">WV</option>
+                                <option value="WI">WI</option>
+                                <option value="WY">WY</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5">
+                        <div class="form-group">
+                            <label>Zip Code</label>
+                            <input class="form-control" type="text" value="60515" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Dwelling Type</label>
+                            <select class="form-control">
+                                <option value="current" selected>Current Residence</option>
+                                <option value="sellMove">Selling/Moving Home</option>
+                                <option value="storageFacility">Storage Facility</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end left column -->
+
+            <!-- Begin right column -->
+            <div class="col-xs-12 col-md-6">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <h4>Schedule:</h4>
+                        <div class="form-group">
+                            <label>Day: </label>
+                            <select class="form-control">
+                                <option value="1" selected></option>
+                                <option value="2">Tue Apr 12 (4 Pickups)</option>
+                                <option value="3">Fri Apr 22 (5 Pickups)</option>
+                                <option value="4">Mon Apr 25 (3 Pickups)</option>
+                                <option value="5">Thu Apr 28 (8 Pickups)</option>
+                                <option value="6">Mon May 2 (0 Pickups)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="tracked" /> &nbsp;&nbsp;Track Donor
+                        </div>
+                        <a href="/schedule/schedule3">
+                            <btn class="btn btn-success btn-wide">Schedule</btn>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <h4>Reject Pickup: </h4>
+                        <div class="form-group">
+                            <label>Reason: </label>
+                            <select class="form-control">
+                                <option value="1">Damaged</option>
+                                <option value="2">Not First Floor</option>
+                                <option value="3">Too Far away</option>
+                                <option value="4">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="email" /> &nbsp;&nbsp;Email Donor
+                        </div>
+                        <a href="/home/home1">
+                            <btn class="btn btn-danger btn-wide extra-bottom-margin">Reject</btn>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h4>Enter the number of items and a brief description.</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label>Number of Items <span class="red">*</span></label>
+                            <input class="form-control" type="number" min="1" value="3" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Item Notes</label>
+                            <textarea class="form-control custom-control" id="itemNotes" rows="5" maxlength="300" style="resize:none">Young adult bed frame, black bookshelf, black tall dresser with back cover</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Donor Notes</label>
+                            <textarea class="form-control custom-control" id="itemNotes" rows="5" maxlength="300" style="resize:none">Please knock on red door, donor will be home</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <a href="/home/home1">
+                                <btn class="btn btn-success btn-wide extra-right-margin">Update</btn>
+                            </a>
+                            <a href="/home/home1">
+                                <btn class="btn btn-danger btn-wide">Cancel</btn>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end right column -->
+
+        </div>
+        <!-- End main row -->
+    </div>

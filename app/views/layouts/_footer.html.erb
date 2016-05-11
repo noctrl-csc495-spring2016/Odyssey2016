@@ -1,0 +1,23 @@
+<div class='footer'>
+    <div class="container">
+        <div class='col-xs-4 col-md-4'>
+            &copy; 2016
+        </div>
+        <div class='col-xs-4 col-xs-offset-4 col-md-1 col-md-offset-7'>
+            <a href='/about'>About</a>
+        </div>
+    </div>
+</div>
+<script>
+$(document).ready(function() { // borrowed from: https://gist.github.com/daverogers/5375778
+	// get current URL path and assign 'active' class
+	var pathname = '/' + window.location.pathname.split('/')[1];
+	// if we are doing anything with users, its in the dropdown so check that first
+	if(pathname == "/users"){ $('.nav > li[class="dropdown"]').addClass('active'); }
+	// else there will be a nav item that matches the url so light it up
+	else { $('.nav > li > a[href^="'+pathname+'"]').parent().addClass('active'); }
+})
+$("tr[data-link]").click(function() {
+  window.location = this.dataset.link
+})
+</script>

@@ -1,0 +1,41 @@
+<%= render 'layouts/navbar' %>
+
+    <!-- Begin main content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12 well">
+                <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 '>
+                    <h2>User Settings</h2>
+                    <p>Change your password in the fields below.</p>
+                    <br />
+                    <form>
+                        <h5>Username: profBill</h5>
+                        <h5>Email: wtkrieger@noctrl.edu</h5>
+                        <div class="form-group">
+                            <label for="pOld">Old Password: </label>
+                            <input type="password" class="form-control" id="pOld">
+                        </div>
+                        <div class="form-group">
+                            <label for="pNew">New Password: </label>
+                            <input type="password" class="form-control" id="pNew">
+                        </div>
+                        <div class="form-group">
+                            <label for="pConf">Confirm Password: </label>
+                            <input type="password" class="form-control" id="pConf">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <a href="/accounts/accounts1">
+                                <btn class="btn btn-success btn-wide extra-right-margin">Update Password</btn>
+                            </a>
+                            <a href="/accounts/accounts1">
+                                <btn class="btn btn-danger btn-wide">Cancel</btn>
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
