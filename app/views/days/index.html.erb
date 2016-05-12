@@ -1,5 +1,21 @@
 <%= render 'layouts/navbar' %>
 
+<script>
+    $(function() {
+        showFutureDays();
+    });
+
+    function showFutureDays() {
+        $('.past-date').hide();
+        $('.future-date').show();
+    }
+    
+    function showPastDays() {
+        $('.future-date').hide();
+        $('.past-date').show();
+    }
+</script>
+
 <div class='container white-container'>
 
     <div class="row">
@@ -18,7 +34,7 @@
         </div>
         <div class="col-xs-3 text-right">
             <strong>View:</strong>
-            <select>
+            <select id="view-option">
                 <option value="0">Days in the future</option>
                 <option value="1">In the past 30 days</option>
             </select>
@@ -30,20 +46,45 @@
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Scheduled Date</th>
                         <th class="hidden-xs">Number of Pickups</th>
                         <th class="hidden-xs">Cities</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% @days.each do |day| %>
-                        <tr style="cursor:pointer;" data-link="<%= days_path %>/<%= day.id %>">
+                    <% showed_this_week = false %>
+                    <% showed_next_week = false %>
+                    <% showed_after_next_week = false %>
+                    
+                    <% @days.each_with_index  do |day, index| %>
+                        <tr <% if (day.date < Date.today) %>
+                                <%= 'class=past-date' %> 
+                            <% else %>
+                                <%= 'class=future-date' %>
+                            <%end %>
+                            style="cursor:pointer;" data-link="<%= days_path %>/<%= day.id %>">
+                            
+                            <td>
+                            <% if index == 0 %>
+                                <strong>Past <%= (Date.today - day.date).to_i %> Days</strong>
+                            <% elsif is_in_this_week(day.date) && (day.date >= Date.today) && (showed_this_week == false) %>
+                                <strong>This Week</strong>
+                                <% showed_this_week = true %>
+                            <% elsif is_in_next_week(day.date) && (showed_next_week == false) %>
+                                <strong>Next Week</strong>
+                                <% showed_this_week = true %>
+                            <% elsif is_after_next_week(day.date) && (showed_after_next_week == false) %>
+                                <strong>Future</strong>
+                                <% showed_this_week = true %>
+                            <% end %>
+                            </td>
                             <td>
                                 <% # format the date as Day, Month dd, yyyy %>
                                 <%= day.date.strftime('%A, %B %d, %Y') %>
                             </td>
                             <td class="hidden-xs">
-                                <%= day.number_of_pickups %>
+                                <%= day.pickups.count %>
                             </td>
                             <td class="hidden-xs">
                                 <% # For each day, go trhough all pickups. If there are pickups, %>
@@ -68,3 +109,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#view-option').on('change', function() {
+      if(this.value == 0){
+          showFutureDays();
+      }
+      else if(this.value == 1){
+          showPastDays()
+      }
+    });
+</script>
