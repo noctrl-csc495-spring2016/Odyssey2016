@@ -39,9 +39,11 @@ User.create!(username:               "superadmin",
               super_admin:            true)
 
 # Create some days
-3.times do |n|
+20.times do |n|
   d = Date.today + (n).days
-  Day.create!(date: d)
+  if(!d.saturday? && !d.sunday?)
+    Day.create!(date: d)
+  end
 end
 
 Pickup.create!(

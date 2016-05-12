@@ -37,7 +37,7 @@ class DaysController < ApplicationController
     #   Change the number in (#).times in parens to change the number of years
     #   to show.
     @year_options = []
-    (5).times do |y|
+    (2).times do |y|
       @year_options[y] = [(Time.new.year + y).to_s, (Time.new.year + y)]
     end
   end
@@ -56,10 +56,7 @@ class DaysController < ApplicationController
   #   to store month day and year or just a date.
   # The form passes in (:month, :day, :year) only. :month comes in as a named month
   def create
-    
-    month = Date::MONTHNAMES.index(params[:month]) #chang named month to number
     date = ("#{params[:month]} #{params[:day]} #{params[:year]}").to_date
-    
     @day = Day.new(date: date)
     
     # if our query is not empty, we got a day that matched our month, day, and year combo
@@ -85,9 +82,19 @@ class DaysController < ApplicationController
     end
   end
   
-  # To be implemented. Use to unschedule a pickup day
-  def delete
-    # peace and quiet
+  # Delete a day only if it has no pickups
+  def destroy
+    @day = Day.find(params[:id])
+    
+    if(@day.pickups.any?)
+      flash[:danger] = "Cannot remove day. Please unschedule any pickups for this day first."
+    elsif(is_in_past(@day.date))
+      flash[:danger] = "Cannot remove day because it is in the past."
+    else
+      @day.destroy
+      flash[:success] = "Successfully removed day"
+    end
+    redirect_to days_url
   end
 
   private
