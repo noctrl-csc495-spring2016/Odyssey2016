@@ -6,6 +6,28 @@
         $('#calendar').fullCalendar({
             weekends: false,
             defaultView: 'month',
+            //restricting available dates to 12 moths in future
+            viewRender: function(view,element) {
+                var now = new Date();
+                var end = new Date();
+                end.setMonth(now.getMonth() + 12);
+    
+                if ( end < view.end) {
+                    $("#calendar .fc-next-button").hide();
+                    return false;
+                }
+                else {
+                    $("#calendar .fc-next-button").show();
+                }
+    
+                if ( view.start < now) {
+                    $("#calendar .fc-prev-button").hide();
+                    return false;
+                }
+                else {
+                    $("#calendar .fc-prev-button").show();
+                }
+            },
             dayClick: function(date, jsEvent, view){
                 // Would like to put this in a seperate function to allow us to fake a day click when
                 //    the user picks a day from the boxes, however, by hiding the days in the select
@@ -70,13 +92,13 @@
     </div>
     <br />
     <div class="row">
-        <div class="col-md-4 col-md-offset-1 hidden-xs">
+        <div class="col-md-5 col-md-offset-1 hidden-xs">
             <div id='calendar' style='width:100%; height:100%; padding-bottom:10%;'></div>
         </div>
-        <div class="col-md-6 col-md-offset-1 col-xs-12">
+        <div class="col-md-4 col-md-offset-1 col-xs-12">
             <div class="row">
                 <br />
-                <div class="col-md-9 col-md-offset-1 col-xs-12">
+                <div class="col-xs-12">
                     <%= form_tag(days_create_path, :method=>'post') do %>
                         <div class="form-group">
                             Month:
@@ -122,5 +144,11 @@
                 $(this).hide();
             }
         })
+    });
+    
+    $(document).ready(function() {
+        $('.fc-today-button, .fc-button-group > button').each(function(i, obj) {
+            $(this).removeClass('fc-button fc-state-default fc-corner-left fc-corner-right').addClass('btn btn-primary');
+        });
     });
 </script>

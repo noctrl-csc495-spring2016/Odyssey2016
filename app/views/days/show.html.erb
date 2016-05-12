@@ -12,9 +12,7 @@
     <% if @pickups.empty? %>
         <div class="row">
             <div class="col-xs-5 col-xs-offset-1">
-                <a href="/days/<%= @day.id %>">
-                    <btn class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete This Pickup Day</btn>
-                </a>
+                <btn data-href="/days/<%= @day.id %>/destroy" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete This Pickup Day</btn>
             </div>
         </div>
     <% end %>
@@ -23,7 +21,7 @@
             <table class="table table-hover table-striped table-responsive">
                 <thead>
                     <tr>
-                        <th>Last Name</th>
+                        <th>Name</th>
                         <th class="hidden-xs">Town</th>
                         <th>Item Quantity</th>
                         <th class="hidden-xs">Item Description</th>
@@ -34,7 +32,7 @@
                         <% @pickups.each do |pickup| %>
                             <tr style="cursor:pointer;" data-link="/pickups/<%= pickup.id %>">
                                 <td>
-                                    <%= pickup.donor_name %>
+                                    <%= pickup.donor_first_name + " " + pickup.donor_last_name %>
                                 </td>
                                 <td class="hidden-xs">
                                     <%= pickup.donor_city %>
@@ -43,7 +41,7 @@
                                     <%= pickup.number_of_items %>
                                 </td>
                                 <td class="hidden-xs">
-                                    <%= pickup.item_description %>
+                                    <%= pickup.item_notes %>
                                 </td>
                             </tr>
                         <% end %>
@@ -56,5 +54,29 @@
             </table>
         </div>
     </div>
-
 </div>
+
+<% if @pickups.empty? %>
+    <!-- Confirm Delete Modal -->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Remove <%= @day.date.strftime("%A, %B %d, %Y") %>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove <%= @day.date.strftime("%A, %B %d, %Y") %> as a pickups day? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger btn-ok">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+        });
+    </script>
+<% end %>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get    'days/all'               => 'days#all'
   post   'days/create'            => 'days#create'
   get    'days/:id'               => 'days#show'
+  get    'days/:id/destroy'       => 'days#destroy'
   
   
   get    'template'               => 'pages#template'

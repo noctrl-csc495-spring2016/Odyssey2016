@@ -5,7 +5,7 @@ class PickupsController < ApplicationController
   end
 
   def show
-    
+    @pickup = Pickup.find(params[:id])
   end
 
   def new

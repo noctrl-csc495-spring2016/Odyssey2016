@@ -1,27 +1,45 @@
 <%= render 'layouts/navbar' %>
 
+<script>
+    $(function() {
+        showFutureDays();
+    });
+
+    function showFutureDays() {
+        $('.past-date').hide();
+        $('.future-date').show();
+    }
+    
+    function showPastDays() {
+        $('.future-date').hide();
+        $('.past-date').show();
+    }
+</script>
+
 <div class='container white-container'>
 
     <div class="row">
         <%= render 'layouts/flash_messages' %>
         <div class="col-xs-10 col-xs-offset-1">
             <h2>Schedule</h2>
-            <p>Select a pickup from the list below to edit. To add a new donation click 'Add New Pickup Day.'</p>
+            <p>Select a day from the list below to view the pickups for that day. To add a new day click 'Add New Pickup Day.'</p>
         </div>
     </div>
     <br />
     <div class="row">
-        <div class="col-xs-7 col-xs-offset-1">
+        <div class="col-xs-5 col-xs-offset-1">
             <a href="/days/new">
                 <btn class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add New Pickup Day</btn>
             </a>
         </div>
-        <div class="col-xs-3 text-right">
-            <strong>View:</strong>
-            <select>
-                <option value="0">Days in the future</option>
-                <option value="1">In the past 30 days</option>
-            </select>
+        <div class="row vertical-align">
+            <div class="col-xs-5 text-right">
+                <strong>View:</strong>
+                <select id="view-option">
+                    <option value="0">Days in the future</option>
+                    <option value="1">In the past 30 days</option>
+                </select>
+            </div>
         </div>
     </div>
     <br />
@@ -30,20 +48,56 @@
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Scheduled Date</th>
                         <th class="hidden-xs">Number of Pickups</th>
                         <th class="hidden-xs">Cities</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% @days.each do |day| %>
-                        <tr style="cursor:pointer;" data-link="<%= days_path %>/<%= day.id %>">
+                    <% showed_past = false %>
+                    <% showed_this_week = false %>
+                    <% showed_next_week = false %>
+                    <% showed_after_next_week = false %>
+                    <% group_qualifier = nil %>
+                    <% future_days_count = 0 %>
+                    <% past_days_count = 0 %>
+                    
+                    <% @days.each_with_index  do |day, index| %>
+                        
+                        <% if is_in_past(day.date) && (showed_past == false) %>
+                            <% group_qualifier = "Past " + (Date.today - day.date).to_i.to_s + " Days" %>
+                            <% showed_past = true %>
+                        <% elsif is_in_this_week(day.date) && (day.date >= Date.today) && (showed_this_week == false) %>
+                            <% group_qualifier = "This Week" %>
+                            <% showed_this_week = true %>
+                        <% elsif is_in_next_week(day.date) && (showed_next_week == false) %>
+                            <% group_qualifier = "Next Week" %>
+                            <% showed_next_week = true %>
+                        <% elsif is_after_next_week(day.date) && (showed_after_next_week == false) %>
+                            <% group_qualifier = "Future" %>
+                            <% showed_after_next_week = true %>
+                        <% end %>
+                        
+                        
+                        <tr <% if (is_in_past(day.date)) %>
+                                <%= 'class=past-date' %> 
+                                <% past_days_count += 1 %>
+                            <% else %>
+                                <%= 'class=future-date' %>
+                                <% future_days_count += 1 %>
+                            <%end %>
+                            style="cursor:pointer; <%= if group_qualifier then 'border-top:2px solid black' end %>" data-link="<%= days_path %>/<%= day.id %>">
+                            
+                            <td class="text-right">
+                                <strong><em><%= group_qualifier %></em></strong>
+                            </td>
                             <td>
                                 <% # format the date as Day, Month dd, yyyy %>
                                 <%= day.date.strftime('%A, %B %d, %Y') %>
                             </td>
                             <td class="hidden-xs">
-                                <%= day.number_of_pickups %>
+                                <%= day.pickups.count %>
                             </td>
                             <td class="hidden-xs">
                                 <% # For each day, go trhough all pickups. If there are pickups, %>
@@ -62,9 +116,27 @@
                                 <% end %>
                             </td>
                         </tr>
+                        <% group_qualifier = nil %>
+                    <% end %>
+                    <% if future_days_count == 0 %>
+                        <tr class="future-date"><td></td> <td colspan="3">There are no pickup days currently configured. You can <a href="/days/new">add some</a> by clicking the 'Add New Pickup Day' button.</td></tr>
+                    <% end %>
+                    <% if past_days_count == 0 %>
+                        <tr class="past-date"><td></td> <td colspan="3"><blockquote><p>"<em>When your past calls, don't answer. It has nothing new to say.</em>"<p><small>GP</small></p></p></blockquote></td></tr>
                     <% end %>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script>
+    $('#view-option').on('change', function() {
+      if(this.value == 0){
+          showFutureDays();
+      }
+      else if(this.value == 1){
+          showPastDays()
+      }
+    });
+</script>
