@@ -12,7 +12,8 @@
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <form>
+                        <!--Builds form with given action and method-->
+                        <%= form_tag('/reports/donor.csv', :method => 'get') do %>
                             <div class="form-group">
                                 Month:
                                 <!--Builds dropdown menu with all the months as options. Current month is selected-->
@@ -32,7 +33,7 @@
                               <%= submit_tag 'Export', class: 'btn btn-success btn-wide extra-right-margin' %>
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
                             </div>
-                        </form>
+                    <% end %>
                     </div>
                 </div>
             </div>
