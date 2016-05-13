@@ -15,8 +15,8 @@ class Pickup < ActiveRecord::Base
     "STATE", "ZIP", "E-MAIL","DATE DONATED", "ITEMS DONATED"]
     
     #Creates array with given values.
-    attributes = %w{donor_name donor_name donor_name address
-    donor_city state donor_zip donor_email date item_description}
+    attributes = %w{donor_first_name donor_first_name donor_last_name address
+    donor_city state donor_zip donor_email date item_notes}
     
     #Generates csv
     CSV.generate(headers: true) do |csv|
@@ -37,7 +37,7 @@ class Pickup < ActiveRecord::Base
     headers = ["Street","City","State","Zip","Country","Notes"]
     
     #Creates array with given values. 
-    attributes = %w{address donor_city state donor_zip country donor_location_instructions}
+    attributes = %w{address donor_city state donor_zip country donor_notes}
     
     #Generate csv file
     CSV.generate(headers: true) do |csv|
@@ -74,9 +74,9 @@ class Pickup < ActiveRecord::Base
     
     #For each pickup we add a new row and specify the data that will be included in each column. 
     all.each do |pickup|
-      data += [[i,"#{pickup.donor_name}\n#{pickup.donor_phone}",
+      data += [[i,"#{pickup.donor_first_name}\n#{pickup.donor_phone}",
                   "#{pickup.donor_address_line1}\n#{pickup.donor_address_line2}\n#{pickup.donor_city}, IL #{pickup.donor_zip}",
-                  "#{pickup.item_description}\nDonor: '#{pickup.donor_location_instructions}'"]]
+                  "#{pickup.item_notes}\nDonor: '#{pickup.donor_notes}'"]]
       i += 1
     end
     
