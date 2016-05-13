@@ -33,3 +33,14 @@
         </div>
     </div>
 </div>
+<script>
+        //Stack menu when collapsed
+        $('#navbar').on('show.bs.collapse', function () {
+            $('.nav-pills').addClass('nav-stacked');
+        });
+
+        //Unstack menu when not collapsed
+        $('#navbar').on('hide.bs.collapse', function () {
+            $('.nav-pills').removeClass('nav-stacked');
+        });
+    </script>
