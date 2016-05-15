@@ -1,5 +1,7 @@
 class DaysController < ApplicationController
   include DaysHelper
+  before_action :logged_in
+  before_action :admin_or_standard
   
   # Use this action to show all the days on schedule1 screen.
   # previously schedule1.html.erb

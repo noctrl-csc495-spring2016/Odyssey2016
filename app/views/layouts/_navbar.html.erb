@@ -3,7 +3,7 @@
             <div class='navbar-header'>
                 <div class="col-xs-9 col-md-12">
                     <div class='navbar-brand'>
-                        <a id='logo' href='/pickups'><img id='logoImg' src="/assets/SC_logo.png" class="img-responsive" alt="Sharing Connections Logo">
+                        <a id='logo' href='/pickups'><img id='logoImg' src=<%=asset_path("SC_logo.png") %> class="img-responsive" alt="Sharing Connections Logo">
                         </a>
                     </div>
                 </div>
@@ -26,10 +26,21 @@
                     <ul class="dropdown-menu">
                         <li role="presentation"><a href="/users">Admin</a></li>
                         <li><a href="/accounts/account">Settings</a></li>
-                        <li><a href="/">Logout</a></li>
+                        <li><%= link_to "Log out", logout_path, method: "delete" %></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<script>
+        //Stack menu when collapsed
+        $('#navbar').on('show.bs.collapse', function () {
+            $('.nav-pills').addClass('nav-stacked');
+        });
+
+        //Unstack menu when not collapsed
+        $('#navbar').on('hide.bs.collapse', function () {
+            $('.nav-pills').removeClass('nav-stacked');
+        });
+    </script>
