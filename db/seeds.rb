@@ -46,6 +46,14 @@ User.create!(username:               "superadmin",
   end
 end
 
+# Create some days in the past
+20.times do |n|
+  d = Date.today - (n + 1).days
+  if(!d.saturday? && !d.sunday?)
+    Day.create!(date: d)
+  end
+end
+
 Pickup.create!(
             day_id:                       1,
             donor_first_name:             "Anthony",
