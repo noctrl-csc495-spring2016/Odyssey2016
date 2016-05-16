@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-11 col-xs-offset-1">
+        <div class="col-xs-10 col-xs-offset-1">
             <table class="table table-hover table-striped table-responsive">
                 <thead>
                     <tr>
@@ -37,6 +37,10 @@
                                 </td>
                             </tr>
                         <% end %>
+                    <% elsif is_in_past(@day.date) %>
+                        <tr>
+                            <td colspan="4">There were no pickups scheduled for this day.</td>
+                        </tr>
                     <% else %>
                         <tr>
                             <td colspan="4">There are no pickups scheduled for this day. View the <a href="/pickups">Bullpen</a> to schedule some.</td>
@@ -47,7 +51,7 @@
         </div>
     </div>
     <% # if there are no pickups for this day, let them delete the day? %>
-    <% if @pickups.empty? %>
+    <% if @pickups.empty? && !is_in_past(@day.date) %>
         <div id="delete-button" class="row text-right">
             <div class="col-xs-10 col-xs-offset-1">
                 <btn data-href="/days/<%= @day.id %>" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete This Pickup Day</btn>
@@ -56,7 +60,7 @@
     <% end %>
 </div>
 
-<% if @pickups.empty? %>
+<% if @pickups.empty? && !is_in_past(@day.date) %>
     <!-- Confirm Delete Modal -->
     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
