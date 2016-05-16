@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require moment
 //= require fullcalendar
 //= require bootstrap
+//= require exportFiles
