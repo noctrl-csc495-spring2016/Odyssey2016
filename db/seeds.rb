@@ -4,7 +4,7 @@
   password = "password"
   User.create!(username:               "entry-user#{n+1}",
               email:                  email,
-              password_digest:        password,
+              password_digest:        User.digest(password),
               permission_level:       0,
               super_admin:            false)
 end
@@ -15,7 +15,7 @@ end
   password = "password"
   User.create!(username:               "std-user#{n+1}",
               email:                  email,
-              password_digest:        password,
+              password_digest:        User.digest(password),
               permission_level:       1,
               super_admin:            false)
 end
@@ -26,7 +26,7 @@ end
   password = "password"
   User.create!(username:               "admin-user#{n+1}",
               email:                  email,
-              password_digest:        password,
+              password_digest:        User.digest(password),
               permission_level:       2,
               super_admin:            false)
 end
@@ -34,13 +34,21 @@ end
 # Create 1 Super Admin
 User.create!(username:               "superadmin",
               email:                  "superadmin@site.com",
-              password_digest:        "password",
+              password_digest:        User.digest("password"),
               permission_level:       2,
               super_admin:            true)
 
 # Create some days
 20.times do |n|
   d = Date.today + (n).days
+  if(!d.saturday? && !d.sunday?)
+    Day.create!(date: d)
+  end
+end
+
+# Create some days in the past
+20.times do |n|
+  d = Date.today - (n + 1).days
   if(!d.saturday? && !d.sunday?)
     Day.create!(date: d)
   end

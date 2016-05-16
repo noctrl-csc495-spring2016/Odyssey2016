@@ -1,5 +1,8 @@
 class PickupsController < ApplicationController
 
+before_action :logged_in
+before_action :admin_or_standard, except: [:show,:index,:new,:create]
+
 #Bullpen page.
 #Display all pickups where the day_id is null and the rejected flag is false
 def index
@@ -18,6 +21,7 @@ def create
         render 'new'
     end
 end
+
 
 #Show the pickup whose id was accessed
 def show
@@ -80,7 +84,9 @@ def edit
     @pickup = Pickup.find(params[:id])
 end
 
-
+def show
+    @pickup = Pickup.find(params[:id])
+end
 
 #Permit the donor/pickup information to be updated if the update donor button is clicked
 def pickup_params

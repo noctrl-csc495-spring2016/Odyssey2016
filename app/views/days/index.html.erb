@@ -50,7 +50,7 @@
                     <tr>
                         <th></th>
                         <th>Scheduled Date</th>
-                        <th class="hidden-xs">Number of Pickups</th>
+                        <th><span class="hidden-xs">Number of Pickups</span><span class="hidden-sm hidden-md hidden-lg"># Pickups</span></th>
                         <th class="hidden-xs">Cities</th>
                     </tr>
                 </thead>
@@ -66,7 +66,7 @@
                     <% @days.each_with_index  do |day, index| %>
                         
                         <% if is_in_past(day.date) && (showed_past == false) %>
-                            <% group_qualifier = "Past " + (Date.today - day.date).to_i.to_s + " Days" %>
+                            <% group_qualifier = "Past 30 Days" %>
                             <% showed_past = true %>
                         <% elsif is_in_this_week(day.date) && (day.date >= Date.today) && (showed_this_week == false) %>
                             <% group_qualifier = "This Week" %>
@@ -96,7 +96,7 @@
                                 <% # format the date as Day, Month dd, yyyy %>
                                 <%= day.date.strftime('%A, %B %d, %Y') %>
                             </td>
-                            <td class="hidden-xs">
+                            <td>
                                 <%= day.pickups.count %>
                             </td>
                             <td class="hidden-xs">
