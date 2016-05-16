@@ -62,7 +62,8 @@ class Pickup < ActiveRecord::Base
     pdf.render
   end
 
-  private 
+  #Helper private functions
+  private
   
   def date
    Day.find(day_id).date
