@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in
   before_action :is_admin, except: [:update, :edit]
+  
   def index
      @users = User.all.order("UPPER(username)")
   end
@@ -15,15 +16,18 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    if @user.permission_level == 2
+      redirect_to action: "show"
+    end
   end
 
   def create
-    @user = User.new(admin_params)
+    @user = User.new(new_user_params)
     if @user.save
-      flash[:success] = "Successfully updated account"
+      flash[:success] = "Successfully created account"
       redirect_to action: "index"
     else
-      flash.now[:bad_input] = "Input Invalid"
+      flash.now[:danger] = "Input Invalid"
       render 'new'
     end
   end
@@ -31,25 +35,46 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     
-    #user edit
-    if(current_user.username == @user.username && params[:user][:permission_level] == nil)
-      if @user.update_attributes(user_params)
-        redirect_to action: pickups_path
-      else 
+    #is super admin
+    if is_super?
+      
+    #admin edits other user  
+    elsif current_user.permission_level == 2 && current_user.username != @user.username
+    
+      if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
+        flash[:success] = "You totally updated your account mang"
+        redirect_to action: "show"
+      else
+        flash[:danger] = "Passwords invalid or do not match"
+        redirect_to action: "show"
+      end
+      
+    #admin edits self
+    elsif current_user.permission_level == 2 && current_user.username == @user.username
+    
+      if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(user_params)
+        flash[:success] = "Successfully updated account dawg"
+        redirect_to action: "show"
+      else
+        flash[:danger] = "Passwords invalid or do not match"
+        redirect_to action: "show"
+      end
+      
+    
+    #user edits self
+    elsif current_user.username == @user.username
+    
+      if(@user.update_attributes(user_params))
+        flash[:success] = "You totally updated your account mang"
+        redirect_to action: "edit"
+      else
+        flash[:danger] = "Passwords invalid or do not match"
         redirect_to action: "edit"
       end
-    elsif current_user.super_admin == true
-      #do nothing
       
-      #admin edit
-    elsif(current_user.permission_level == 2)
-      if @user.update_attributes(admin_params)
-        redirect_to action: "index"
-      else
-        redirect_to  action: "show"
-    
-      end
     end
+
+    
   end
 
   def destroy
@@ -64,8 +89,12 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password_digest, :username, :permission_level, :super_admin)
     end
     
-    def admin_params
+    def new_user_params
       params.require(:user).permit(:username, :email, :permission_level, :password, :password_confirmation)
+    end
+    
+     def admin_params
+        params.require(:user).permit(:permission_level, :password, :password_confirmation)
     end
     
     def user_params

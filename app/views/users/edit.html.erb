@@ -1,4 +1,4 @@
-<% provide(:title, @user.username) %>
+<% provide(:title, current_user.username) %>
 <body>
 <%= render 'layouts/navbar' %>
 <!-- Begin main content -->
@@ -6,18 +6,20 @@
     <div class="row">
         <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
         <h4 class="text-center">Manage User</h4>
-            <%= form_for (@user), url: {action: "update"}, html: {class: "nifty form"} do |f| %>
+            <%= form_for (current_user), html: {class: "nifty form"} do |f| %>
                         <%= render 'layouts/flash_messages' %>
 
                 <br>
                 <b>User Name: </b>
-                <%= @user.username %>
+                <%= current_user.username %>
                 </br>
                 
                 <br>
                 <b>Email: </b>
-                <%= @user.email %>
+                <%= current_user.email %>
                 </br>
+                
+                
                 
                 <br>
                 <%= f.label :password, "New Password:     "%>

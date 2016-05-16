@@ -8,6 +8,7 @@
       <h4 class="text-center">Manage User</h4>
         <div class="row">
             <%= form_for (@user), url: {action: "create"}, html: {class: "nifty form"} do |f| %>
+              <%= render 'layouts/flash_messages' %>
             
               <%= f.label :username %>
               <%= f.text_field :username, class: 'form-control' %>
