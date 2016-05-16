@@ -12,4 +12,8 @@ module UsersHelper
     current_user && current_user.permission_level == 2
   end
   
+  def is_super?
+    current_user && current_user.super_admin == true
+  end
+  
 end
