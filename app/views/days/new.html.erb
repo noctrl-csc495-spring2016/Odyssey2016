@@ -6,7 +6,7 @@
         $('#calendar').fullCalendar({
             weekends: false,
             defaultView: 'month',
-            //restricting available dates to 12 moths in future
+            /*//restricting available dates to 12 moths in future
             viewRender: function(view,element) {
                 var now = new Date();
                 var end = new Date();
@@ -27,28 +27,9 @@
                 else {
                     $("#calendar .fc-prev-button").show();
                 }
-            },
+            },*/
             dayClick: function(date, jsEvent, view){
-                // Would like to put this in a seperate function to allow us to fake a day click when
-                //    the user picks a day from the boxes, however, by hiding the days in the select
-                //    we are triggering the .change event on #day everytime which is the event we would
-                //    need to use in order to register a fake click.. TBD
-                
-                // Remove the old selected day by getting the original event source
-                $('#calendar').fullCalendar( 'refetchEvents' );
-                // Add a temp event
-                $('#calendar').fullCalendar( 'renderEvent', {id:'TEMP', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
-                
-                // Create a date object to manipulate
-                var dObj = new Date(date);
-                var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                // Update our select drop-downs
-                $('#month').val(monthNames[dObj.getMonth()]);
-                $('#day').val(dObj.getDate() + 1);
-                $('#year').val(dObj.getFullYear());
-                
-                // Trigger the on change to adjust our selects
-                $( "#month" ).trigger( "change" );
+                dayClicked(date, jsEvent, view);
             },
                 header: {
                 left:   'title',
@@ -58,6 +39,30 @@
         })
         GetAllDays();
     });
+    
+    function dayClicked(date, jsEvent, view) {
+        // Remove the old selected day by getting the original event source
+        $('#calendar').fullCalendar( 'refetchEvents' );
+        // Add a temp event
+        $('#calendar').fullCalendar( 'renderEvent', {id:'TEMP', title:'newDay', start: date, rendering:'background', allDay:true, color:'blue'});
+        
+        // Parse the date string because the JS doesn't interprit our date correctly
+        // reference: http://stackoverflow.com/questions/2488313/javascripts-getdate-returns-wrong-date
+        var input = date.format()
+        var parts = input.match(/(\d+)/g);
+        
+        // Create a date object to manipulate
+        var dObj = new Date(parts[0], parts[1]-1, parts[2]);
+        
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        // Update our select drop-downs
+        $('#month').val(monthNames[dObj.getMonth()]);
+        $('#day').val(dObj.getDate());
+        $('#year').val(dObj.getFullYear());
+        
+        // Trigger the on change to adjust our selects
+        $( "#month" ).trigger( "change" );
+    }
     
     // AJAX GET function to retrieve all the days when loading the calendar
     function GetAllDays() {
@@ -134,9 +139,14 @@
 
 <script>
     // Change the number of days we show based on the month and year selected
-    $("#month, #year").change(function() {
+    $("#month, #year, #day").change(function(target) {
         // Create date object to manipulate (using whats currently in select boxes)
-        var dateObj = new Date( $("#month").val() + "1 ," + $("#year").val())
+        var dateObj = new Date( $("#month").val() + " 1," + $("#year").val())
+        
+        // format the date and send the callendar to that date
+        var formattedDate = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+        $("#calendar").fullCalendar( 'gotoDate', formattedDate)
+        
         var numDaysInMonth = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate()
         // Loop through days in the select to show the correct days based on the year+month
         $('#day > option').each(function(){
@@ -147,8 +157,12 @@
                 $(this).hide();
             }
         })
+        
+        if(target.originalEvent)
+        {
+            dayClicked($("#month").val() + " " + $("#day").val() + "," + $("#year").val(), null, null);
+        }
     });
-    
     $(document).ready(function() {
         $('.fc-today-button, .fc-button-group > button').each(function(i, obj) {
             $(this).removeClass('fc-button fc-state-default fc-corner-left fc-corner-right').addClass('btn btn-primary');
