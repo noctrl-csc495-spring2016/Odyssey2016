@@ -16,4 +16,15 @@ module UsersHelper
     current_user && current_user.super_admin == true
   end
   
+  def user_exists?
+    User.find_by_id(params[:id])
+  end
+  
+  def user_exists
+    if !user_exists?
+      flash[:danger] = "User does not exist"
+      redirect_to pickups_path
+    end
+  end
+  
 end

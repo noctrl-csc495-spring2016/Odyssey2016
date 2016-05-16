@@ -1,13 +1,25 @@
 class UsersController < ApplicationController
   before_action :logged_in
+  before_action :user_exists
   before_action :is_admin, except: [:update, :edit]
   
   def index
+    if current_user.super_admin == false
+     @users = User.all.where("super_admin != ?", true).order("UPPER(username)")
+    else
      @users = User.all.order("UPPER(username)")
+    end
   end
 
   def show
+    if(User.find_by_id(params[:id]))
       @user = User.find(params[:id])
+      if !current_user.super_admin == true && @user.super_admin == true
+        flash[:danger] = "You do not have permission to access this page"
+        redirect_to pickups_path
+      end
+    else
+    end
   end
 
   def new
@@ -78,9 +90,18 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "Successfully deleted account"
-    redirect_to users_url
+    if User.find(params[:id]).username != current_user.username
+      
+      User.find(params[:id]).destroy
+      flash[:success] = "Successfully deleted account"
+      redirect_to users_url
+      
+    else
+      
+      flash[:danger] = "You cannot delete yourself"
+      redirect_to action: "show"
+      
+    end
   end
 
   private
@@ -95,7 +116,7 @@ class UsersController < ApplicationController
     
      def admin_params
         params.require(:user).permit(:permission_level, :password, :password_confirmation)
-    end
+     end
     
     def user_params
         params.require(:user).permit(:password, :password_confirmation)
