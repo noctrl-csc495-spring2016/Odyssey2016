@@ -9,29 +9,6 @@ class Pickup < ActiveRecord::Base
   validates :donor_dwelling_type, presence: true
   validates :number_of_items,     presence: true
   
-  #Function that builds csv file with donor info. Called in reports controller.
-  def self.to_donor_csv
-    headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
-    "STATE", "ZIP", "E-MAIL","DATE DONATED", "ITEMS DONATED"]
-    
-    #Creates array with given values.
-    attributes = %w{donor_first_name donor_first_name donor_last_name address
-    donor_city state donor_zip donor_email date item_notes}
-    
-    #Generates csv
-    CSV.generate(headers: true) do |csv|
-      
-      #Add headers
-      csv << headers
-      
-      #For each pickup, a new row is added and the columns are filled with the
-      #values specified in the attributes array
-      all.each do |donor|
-        csv << attributes.map{ |attr| donor.send(attr) }
-      end
-    end
-  end
-  
   #Function that builds csv files with pickup info. Called in reports controller. 
   def self.to_routes_csv
     headers = ["Street","City","State","Zip","Country","Notes"]
@@ -86,8 +63,7 @@ class Pickup < ActiveRecord::Base
     pdf.render
   end
 
-  #Helper private functions
-  private
+  private 
   
   def date
    Day.find(day_id).date
