@@ -1,7 +1,5 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  date: 2016-05-11
+  date: "2016-08-11"
 
 two:
-  date: 2016-05-11
+  date: "1994-08-17"

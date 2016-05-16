@@ -73,6 +73,7 @@
                 })
                 // add our built array as a data source to the calendar
                 $('#calendar').fullCalendar( 'addEventSource', events );
+                $('.loading').fadeOut();
             },
             error: function(data) {
                 // Uh oh
@@ -81,6 +82,8 @@
         });
     }
 </script>
+
+<div class="loading"></div>
 
 <div class="container white-container">
     <div class="row">
@@ -93,7 +96,7 @@
     <br />
     <div class="row">
         <div class="col-md-5 col-md-offset-1 hidden-xs">
-            <div id='calendar' style='width:100%; height:100%; padding-bottom:10%;'></div>
+                <div id='calendar' style='width:100%; height:100%; padding-bottom:10%;'></div>
         </div>
         <div class="col-md-4 col-md-offset-1 col-xs-12">
             <div class="row">

@@ -1,5 +1,6 @@
 class PickupsController < ApplicationController
-
+  before_action :logged_in
+  before_action :admin_or_standard, except: [:show,:index,:new,:create]
   def index
     @pickups = Pickup.all
   end
