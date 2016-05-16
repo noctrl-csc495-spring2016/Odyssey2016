@@ -1,29 +1,64 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @user.username) %>
+<body>
+<%= render 'layouts/navbar' %>
+<!-- Begin main content -->
+<div class="container">
+    <div class="row">
+        <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
+        <h4 class="text-center">Manage User</h4>
+            <%= form_for (@user), html: {class: "nifty form"} do |f| %>
+                <%= render 'layouts/flash_messages' %>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+                <br>
+                <b>User Name: </b>
+                <%= @user.username %>
+                </br>
+                
+                <br>
+                <b>Email: </b>
+                <%= @user.email %>
+                </br>
+                
+                <br> 
+                <b>Change User Level: </b>
+                <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']] %>
+                </br>
+                
+                <br>
+                <%= f.label :current_password, "Current Password:" %>
+                <%= f.password_field :current_password, class: 'form-control' %>
+                
+                
+                <br>
+                <%= f.label :password, "New Password:     "%>
+                <%= f.password_field :password, class: 'form-control' %>
+              
+                <%= f.label :password_confirmation, "Confirm:     " %>
+                <%= f.password_field :password_confirmation, class: 'form-control' %>
+                </br>
+                
+                <% if current_user.super_admin == true && @user.super_admin == true %>
+                <b>Number of pickups on record: </b>
+                </br>
+                
 
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
+                <br>
+                <b>Number of days on record: </b>
+                </br>
+                <br>
+                
+                <%= link_to "Prune pickups", users_index_path, class: "btn btn-primary" %>
+                </br>
+                </br>
+                </br>
+                <% end %>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Permission level:</strong>
-  <%= @user.permission_level %>
-</p>
-
-<p>
-  <strong>Super admin:</strong>
-  <%= @user.super_admin %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+                <%= f.submit "Update Account", class: "btn btn-primary" %>
+                <%= link_to "Cancel", users_index_path, class: "btn btn-primary" %>
+                <%= link_to "Remove User", @user, method: :delete, class: "btn btn-primary"%>   
+                
+            <% end %>
+            </div>
+    </div>
+</div>
+</h1>

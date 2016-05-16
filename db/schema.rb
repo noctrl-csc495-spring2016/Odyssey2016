@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511200725) do
+ActiveRecord::Schema.define(version: 20160516161100) do
 
   create_table "days", force: :cascade do |t|
     t.date     "date",       null: false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160511200725) do
     t.string   "rejected_reason"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "donor_state"
   end
 
   create_table "users", force: :cascade do |t|
