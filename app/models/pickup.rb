@@ -1,36 +1,12 @@
 class Pickup < ActiveRecord::Base
   belongs_to :day
   
-  validates :donor_first_name,    presence: true
   validates :donor_last_name,     presence: true
   validates :donor_address_line1, presence: true
   validates :donor_city,          presence: true
   validates :donor_zip,           presence: true
   validates :donor_dwelling_type, presence: true
   validates :number_of_items,     presence: true
-  
-  #Function that builds csv file with donor info. Called in reports controller.
-  def self.to_donor_csv
-    headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
-    "STATE", "ZIP", "E-MAIL","DATE DONATED", "ITEMS DONATED"]
-    
-    #Creates array with given values.
-    attributes = %w{donor_first_name donor_first_name donor_last_name address
-    donor_city state donor_zip donor_email date item_notes}
-    
-    #Generates csv
-    CSV.generate(headers: true) do |csv|
-      
-      #Add headers
-      csv << headers
-      
-      #For each pickup, a new row is added and the columns are filled with the
-      #values specified in the attributes array
-      all.each do |donor|
-        csv << attributes.map{ |attr| donor.send(attr) }
-      end
-    end
-  end
   
   #Function that builds csv files with pickup info. Called in reports controller. 
   def self.to_routes_csv
