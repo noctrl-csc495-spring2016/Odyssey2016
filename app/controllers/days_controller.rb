@@ -1,5 +1,7 @@
 class DaysController < ApplicationController
   include DaysHelper
+  before_action :logged_in
+  before_action :admin_or_standard
   
   # Use this action to show all the days on schedule1 screen.
   # previously schedule1.html.erb
@@ -42,7 +44,7 @@ class DaysController < ApplicationController
     end
   end
   
-  # Use this action to return all of the days when called from ajax. Used by 
+  # Use this action to return all of the days when called from AJAX. Used by 
   #   the calendar only.
   def all
      @days = Day.where("date >= ?", Date.today)
@@ -51,18 +53,24 @@ class DaysController < ApplicationController
     end
   end
   
-  # Use this action to create a new day from the form on the schedule2 page.
-  #   Is a little clunky, will be cleaned up once we decide on if we are going
-  #   to store month day and year or just a date.
-  # The form passes in (:month, :day, :year) only. :month comes in as a named month
+  # UPDATE
   def create
-    date = ("#{params[:month]} #{params[:day]} #{params[:year]}").to_date
+    # Check that the date entered is valid
+    # i.e. NOT Feb 31, 2017
+    begin
+      date = ("#{params[:month]} #{params[:day]} #{params[:year]}").to_date
+    rescue ArgumentError
+      flash[:danger] = "The date <strong>#{params[:month]} #{params[:day]}, #{params[:year]}</strong> is not valid."
+      redirect_to '/days/new'
+      return
+    end
+    
     @day = Day.new(date: date)
     
     # if our query is not empty, we got a day that matched our month, day, and year combo
     #   i.e.: if the day already exists
     if !Day.where("date = ?", @day.date).empty?
-      flash[:danger] = "That day is already configured as a pickup day"
+      flash[:danger] = "That day is already configured as a pickup day."
       redirect_to '/days/new'
       
     # else if the date is in the past
@@ -91,8 +99,9 @@ class DaysController < ApplicationController
     elsif(is_in_past(@day.date))
       flash[:danger] = "Cannot remove day because it is in the past."
     else
+      @display = @day.date.strftime("%A, %B %d, %Y")
       @day.destroy
-      flash[:success] = "Successfully removed day"
+      flash[:success] = "Successfully removed <strong>" + @display + "</strong> as a pickup day."
     end
     redirect_to days_url
   end

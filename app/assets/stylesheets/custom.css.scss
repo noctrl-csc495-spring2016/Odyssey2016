@@ -54,6 +54,13 @@ a {
     padding-bottom: 30px;
 }
 
+.container.white-container {
+    background-color: white;
+    padding-top: 30px;
+    margin-bottom: 90px;
+    padding-bottom: 30px;
+}
+
 
 /*
 Class to accompany a .well on certain pages if the container needs to be slightly wider
@@ -108,8 +115,8 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 }
 
 .table-hover tbody tr:hover td {
-  background-color: #22ADC9;
-  color: white;
+    background-color: #22ADC9;
+    color: white;
 }
 
 

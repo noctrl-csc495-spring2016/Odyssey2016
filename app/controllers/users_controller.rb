@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  
-  # before_action :logged_in
-   # before_action :is_admin, except: [:update, :edit]
+  before_action :logged_in
+  before_action :is_admin, except: [:update, :edit]
   def index
      @users = User.all.order("UPPER(username)")
   end
