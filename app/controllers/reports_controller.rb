@@ -17,8 +17,8 @@ class ReportsController < ApplicationController
           #is used to access the month %m and year %Y. Casting the month 
           #as an int removes the 0 used to pad single digit months. No particular 
           #order at this point. 
-          donors = Pickup.joins(:day).where("cast(extract(month from date) as int =?",   #strftime('%m', date) as int) = ?",
-          params[:date][:month]).where("strftime('%Y', date) = ?",
+          donors = Pickup.joins(:day).where("cast(extract(month from date) as int =?",   
+          params[:date][:month]).where("extract(year from date) = ?", 
           params[:date][:year])
           
           #sends csv file to the browser with the filename specified in the

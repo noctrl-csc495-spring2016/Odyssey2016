@@ -16,4 +16,3 @@
 //= require moment
 //= require fullcalendar
 //= require bootstrap
-//= require exportFiles
