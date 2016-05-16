@@ -1,6 +1,7 @@
 <%= render 'layouts/navbar' %>
 
     <div class='container white-container'>
+        <%= render 'layouts/flash_messages' %>  <!--Render any flash messages-->
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
                 <h2>Unscheduled Pickups</h2>
@@ -28,42 +29,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Krieger</td>
-                            <td>Naperville</td>
-                            <td>7 items</td>
-                            <td>Lightly used dining table, 6 chairs in good condition</td>
-                        </tr>
-                        <tr onclick="window.document.location='/home/home3';">
-                            <td>Dust</td>
-                            <td>Lisle</td>
-                            <td>3 items</td>
-                            <td>Young adult bed frame, black bookshelf, black tall dresser</td>
-                        </tr>
-                        <tr>
-                            <td>Falimirski</td>
-                            <td>Downers Grove</td>
-                            <td>12 items</td>
-                            <td>Sofa (pullout bed), 2 small lamps, 1 new towel set, 4 cha...</td>
-                        </tr>
-                        <tr>
-                            <td>Smith</td>
-                            <td>Rockford</td>
-                            <td>1 item</td>
-                            <td>Dresser brown, slight scuffing on right side</td>
-                        </tr>
-                        <tr>
-                            <td>Huizenga</td>
-                            <td>Villa Park</td>
-                            <td>5 items</td>
-                            <td>Cleaning supplies (windex, scrub brush, and towels)</td>
-                        </tr>
-                        <tr>
-                            <td>Drazenovic</td>
-                            <td>Bolingbrook</td>
-                            <td>6 items</td>
-                            <td>White bookshelf, kitchen table, 4 chairs (with table), bro...</td>
-                        </tr>
+                        <%@pickups.each do |pickup|%>
+                      
+                            <tr onclick="location.href='<%=edit_pickup_path(pickup)%>'">
+                                <td><%=pickup.donor_last_name%></td>
+                                <td><%=pickup.donor_city%></td>
+                                <td><% if pickup.number_of_items == 10 %>
+                                          <%='10+' %>
+                                      <% else %>
+                                          <%=pickup.number_of_items%>
+                                      <% end %>
+                                      <% if pickup.number_of_items == 1 %>
+                                          <%="item"%>
+                                        <% else %>
+                                            <%="items"%></td>
+                                        <%end%>    
+                                <td><%= truncate(pickup.item_notes, length:65) %></td>
+                            </tr>
+                        <%end%> 
                     </tbody>
                 </table>
             </div>
