@@ -1,6 +1,7 @@
 class ReportsController < ApplicationController  
-  #before_action :logged_in
-  #before_action :admin_or_standard
+  before_action :logged_in
+  before_action :admin_or_standard
+
 
   #reports/donor
   def donor
