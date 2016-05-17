@@ -1,12 +1,16 @@
 class Pickup < ActiveRecord::Base
   belongs_to :day
   
-  validates :donor_last_name,     presence: true
-  validates :donor_address_line1, presence: true
-  validates :donor_city,          presence: true
-  validates :donor_zip,           presence: true
-  validates :donor_dwelling_type, presence: true
-  validates :number_of_items,     presence: true
+  validates :donor_last_name,     presence: { message: "is required." }
+  validates :donor_phone,         presence: { message: "number is required." } 
+  validates :donor_address_line1, presence: { message: "is required." } 
+  validates :donor_city,          presence: { message: "is required." } 
+  validates :donor_zip,           presence: { message: "is required." } 
+  validates :donor_dwelling_type, presence: { message: "is required." } 
+  validates :number_of_items,     presence: { message: "is required." }
+  
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
   
   #Function that builds csv file with donor info. Called in reports controller.
   def self.to_donor_csv
