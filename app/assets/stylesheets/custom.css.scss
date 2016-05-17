@@ -2,13 +2,17 @@
 @import "bootstrap";
 @import "fullcalendar";
 
+/* Variables */
+
+$background=#22ADC9;
+
 /* Custom Styles */
 
 
 /* Give some extra padding for under the navbar*/
 
 body {
-    background-color: #22ADC9;
+    background-color: $background;
     padding-top: 130px;
 }
 
