@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
                 <div class="row">
-                    <div class='col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <h3>Pickup History CSV Export</h3>
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <h2>Pickup History CSV Export</h2>
                         <p>Export data for previous completed and rejected pickups for a month in CSV format.</p>
                         <br>
                     </div>
@@ -21,10 +21,15 @@
                                 <%= select_year(Date.today, {:start_year => Time.now.year, :end_year => 2016},
                                 {:class => "form-control"}) %>
                             </div>
-                            <br>
+                             <br>
                             <div class="form-group">
-                              <%= button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide extra-right-margin'%>
+                                
+                                
+                               <!--Export and cancel buttons-->
+                                <div class="col-xs-12 text-center">
+                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+                              </div>
                             </div>
                     </div>
                 </div>
