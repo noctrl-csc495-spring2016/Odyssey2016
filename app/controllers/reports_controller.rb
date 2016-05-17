@@ -15,8 +15,8 @@ class ReportsController < ApplicationController
          headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
                     "STATE", "ZIP", "E-MAIL","DATE DONATED", "ITEMS DONATED"]
                     
-          attributes = %w{donor_first_name donor_first_name donor_last_name address
-                          donor_city state donor_zip donor_email date item_notes}
+          attributes = %w{donor_first_name donor_spouse_name donor_last_name address
+                          donor_city donor_state donor_zip donor_email date item_notes}
       
           csvFile = CSV.generate(headers: true) do |csv|
             csv << headers
@@ -73,6 +73,56 @@ class ReportsController < ApplicationController
         type: "application/pdf"
       }
     end
+  end
+  
+  def history
+    
+  end
+  
+  def pickup_history
+        headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
+                    "STATE", "ZIP", "E-MAIL","DATE DONATED", "ITEMS DONATED"]
+                    
+          attributes = %w{donor_first_name donor_spouse_name donor_last_name address
+                          donor_city donor_state donor_zip donor_email date item_notes}
+      
+          csvFile = CSV.generate(headers: true) do |csv|
+            csv << headers
+            Day.all.each do |d|
+              if  d.date.year.to_s ==  params[:dateyear] && d.date.mon.to_s == params[:datemonth]
+                d.pickups.all.each do |p|
+                  if p.rejected == false
+                    csv << attributes.map{ |attr| p.send(attr) }
+                  end
+                end
+              end
+            end
+          end
+          send_data csvFile, filename: 
+          "pickups_#{month_name(params[:datemonth])}#{params[:dateyear]}.csv"
+  end
+  
+  def rejected_history
+    headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
+                    "STATE", "ZIP", "E-MAIL","DATE DONATED", "REJECTED REASON"]
+                    
+          attributes = %w{donor_first_name donor_spouse_name donor_last_name address
+                          donor_city donor_state donor_zip donor_email date rejected_reason}
+      
+          csvFile = CSV.generate(headers: true) do |csv|
+            csv << headers
+            Day.all.each do |d|
+              if  d.date.year.to_s ==  params[:dateyear] && d.date.mon.to_s == params[:datemonth]
+                d.pickups.all.each do |p|
+                  if p.rejected == true
+                    csv << attributes.map{ |attr| p.send(attr) }
+                  end
+                end
+              end
+            end
+          end
+          send_data csvFile, filename: 
+          "rejected_#{month_name(params[:datemonth])}#{params[:dateyear]}.csv"
   end
   
   private 
