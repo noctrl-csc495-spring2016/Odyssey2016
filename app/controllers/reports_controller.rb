@@ -51,7 +51,6 @@ class ReportsController < ApplicationController
         
         #Query returns all the pickups for the given date. 
         pickups = Pickup.joins(:day).where("date = ?", params[:pickupday])
-      
         #Sends csv file to the browser with the name addresses.csv. File is
         #genearted by the to_routes_csv function inside our Pickup model. 
         send_data pickups.to_routes_csv, 

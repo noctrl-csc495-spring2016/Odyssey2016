@@ -16,11 +16,9 @@ Rails.application.routes.draw do
   get    'reports/donor'          => 'reports#donor'
   get    'reports/truck'          => 'reports#truck'
 
-    get    'reports/history'    => 'reports#history'
-
-  get    'reports/history'        => 'reports#history'
-  get    'reports/rejected_history'  => 'reports#rejected_history'
-  get    'reports/pickup_history' => 'reports#pickup_history'
+  get    'reports/history'            => 'reports#history'
+  get    'reports/rejected_history'   => 'reports#rejected_history'
+  get    'reports/pickup_history'     => 'reports#pickup_history'
 
   
   get    'days'                   => 'days#index'
