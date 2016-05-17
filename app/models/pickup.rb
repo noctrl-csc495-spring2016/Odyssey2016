@@ -10,10 +10,10 @@ class Pickup < ActiveRecord::Base
   
   #Function that builds csv files with pickup info. Called in reports controller. 
   def self.to_routes_csv
-    headers = ["Street","City","State","Zip","Country","Notes"]
+    headers = ["Street","City","State","Zip"]
     
     #Creates array with given values. 
-    attributes = %w{address donor_city state donor_zip country donor_notes}
+    attributes = %w{address donor_city donor_state donor_zip}
     
     #Generate csv file
     CSV.generate(headers: true) do |csv|
@@ -50,9 +50,9 @@ class Pickup < ActiveRecord::Base
     
     #For each pickup we add a new row and specify the data that will be included in each column. 
     all.each do |pickup|
-      data += [[i,"#{pickup.donor_first_name}\n#{pickup.donor_phone}",
+      data += [[i,"#{pickup.donor_first_name} #{pickup.donor_last_name}\n#{pickup.donor_phone}",
                   "#{pickup.donor_address_line1}\n#{pickup.donor_address_line2}\n#{pickup.donor_city}, IL #{pickup.donor_zip}",
-                  "#{pickup.item_notes}\nDonor: '#{pickup.donor_notes}'"]]
+                  "#{pickup.item_notes}\n#{pickup.donor_notes}\n#{pickup.donor_email}"]]
       i += 1
     end
     
@@ -68,15 +68,7 @@ class Pickup < ActiveRecord::Base
   def date
    Day.find(day_id).date
   end
-  
-  def state
-    "IL"
-  end
-  
-  def country
-    "US"
-  end
-  
+
   def address
     "#{donor_address_line1}, #{donor_address_line2}"
   end

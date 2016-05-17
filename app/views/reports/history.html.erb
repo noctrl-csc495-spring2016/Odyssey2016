@@ -5,14 +5,13 @@
             <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
                 <div class="row">
                     <div class='col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <h3>Donor CSV Export</h3>
-                        <p>Export data for all donors for a month in CSV format.</p>
+                        <h3>Pickup History CSV Export</h3>
+                        <p>Export data for previous completed and rejected pickups for a month in CSV format.</p>
                         <br>
                     </div>
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <%= form_tag('/reports/donor.csv', :method => 'get') do %>
                             <div class="form-group">
                                 Month:
                                 <%= select_month(Date.today, {}, {:class => "extra-right-margin form-control"} ) %>
@@ -24,20 +23,35 @@
                             </div>
                             <br>
                             <div class="form-group">
-<<<<<<< HEAD
-                                <div class="col-xs-12 text-center">
-                              <!--builds submit and cancel buttons.-->
-                              <%= submit_tag 'Export', class: 'btn btn-success btn-wide' %>
-=======
-                              <%= submit_tag 'Export', class: 'btn btn-success btn-wide extra-right-margin' %>
->>>>>>> eff6ff8368010b3c4c5a076a4ffcd9e5afc40437
+                              <%= button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide extra-right-margin'%>
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
-                                </div>
                             </div>
-                    <% end %>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+<script>
+var submitButton = document.getElementById("exportButton");
+var selectMonth = document.getElementById("date_month");
+var selectYear = document.getElementById("date_year");
+
+submitButton.addEventListener("click", exportFiles);
+function exportFiles()
+{
+    var iframe1 = document.createElement('iframe');
+
+    url = "/reports/pickup_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    iframe1.style.display = "none";
+    iframe1.src = url ;
+    document.body.appendChild(iframe1);
+
+    var iframe2 = document.createElement('iframe');
+
+    url = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    iframe2.style.display = "none";
+    iframe2.src = url ;
+    document.body.appendChild(iframe2);
+}
+</script>

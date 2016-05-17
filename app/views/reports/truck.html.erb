@@ -15,17 +15,19 @@
                         <form>
                             <div class="form-group">
                                 Pickup Day:
-                                <!--Builds a dropdown menu with all the formatted dates as options and the-->
-                                  <!--actual date as values. Ex: 2016-01-09 is shown as Jan 9.-->
-                                  <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
+                                <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
                                   [d.date.strftime("%b %-d"), d.date]}),
                                   class: "form-control" %>   
                             </div>
                             <br>
                             <div class="form-group">
+<<<<<<< HEAD
                               <!--Export and cancel buttons-->
                                 <div class="col-xs-12 text-center">
                               <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
+=======
+                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide extra-right-margin'%>
+>>>>>>> eff6ff8368010b3c4c5a076a4ffcd9e5afc40437
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
                                 </div>
                             </div>
