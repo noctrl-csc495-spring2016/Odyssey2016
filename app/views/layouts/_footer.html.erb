@@ -3,10 +3,14 @@
         <div class='col-xs-6'>
             &copy; 2016
         </div>
-        <div class='col-xs-6 text-right'>
+        <div class='col-xs-5 text-right'>
             <a href='/about'>About</a>
         </div>
+        <div class='col-xs-1 text-right'>
+            <a href="" data-toggle="modal" data-target=".help-modal">Help</a>
+        </div>
     </div>
+    <%= render 'layouts/help_modal' %>
 </div>
 <script>
 $(document).ready(function() { // borrowed from: https://gist.github.com/daverogers/5375778
