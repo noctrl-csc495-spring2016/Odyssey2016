@@ -23,9 +23,11 @@
                             </div>
                             <br>
                             <div class="form-group">
-                              <!--Export can cancel buttons-->
-                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide extra-right-margin'%>
+                              <!--Export and cancel buttons-->
+                                <div class="col-xs-12 text-center">
+                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -65,4 +67,4 @@ function exportFiles()
     iframe2.src = url ;
     document.body.appendChild(iframe2);
 }
-</script>    
+</script>
