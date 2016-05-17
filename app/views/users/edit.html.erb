@@ -12,13 +12,11 @@
                 <br>
                 <b>User Name: </b>
                 <%= current_user.username %>
-                </br>
+
                 
                 <br>
                 <b>Email: </b>
                 <%= current_user.email %>
-                </br>
-                
                 
                 
                 <br>
@@ -27,7 +25,7 @@
               
                 <%= f.label :password_confirmation, "Confirm:     " %>
                 <%= f.password_field :password_confirmation, class: 'form-control' %>
-                </br>
+
               
                 <%= f.submit "Update Account", class: "btn btn-primary" %>
                 <%= link_to "Cancel", pickups_path, class: "btn btn-primary" %>
@@ -35,4 +33,3 @@
             </div>
     </div>
 </div>
-</h1>
