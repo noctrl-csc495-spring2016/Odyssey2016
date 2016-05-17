@@ -68,7 +68,7 @@ class Pickup < ActiveRecord::Base
   def date
    Day.find(day_id).date
   end
-  
+
   def address
     "#{donor_address_line1}, #{donor_address_line2}"
   end

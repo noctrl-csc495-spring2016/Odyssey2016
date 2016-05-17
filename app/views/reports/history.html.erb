@@ -31,27 +31,27 @@
             </div>
         </div>
     </div>
-    
+
 <script>
 var submitButton = document.getElementById("exportButton");
 var selectMonth = document.getElementById("date_month");
 var selectYear = document.getElementById("date_year");
 
-submitButton.addEventListener("click", exportFiles);    
+submitButton.addEventListener("click", exportFiles);
 function exportFiles()
 {
     var iframe1 = document.createElement('iframe');
-    
+
     url = "/reports/pickup_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     iframe1.style.display = "none";
     iframe1.src = url ;
     document.body.appendChild(iframe1);
-  
+
     var iframe2 = document.createElement('iframe');
-    
+
     url = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     iframe2.style.display = "none";
     iframe2.src = url ;
     document.body.appendChild(iframe2);
 }
-</script> 
+</script>

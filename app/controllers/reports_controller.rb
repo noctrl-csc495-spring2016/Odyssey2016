@@ -76,16 +76,16 @@ class ReportsController < ApplicationController
   end
   
   def history
-    
+
   end
-  
+
   def pickup_history
-        headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
+        headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN",
                     "STATE", "ZIP", "E-MAIL","DATE DONATED", "ITEMS DONATED"]
-                    
+
           attributes = %w{donor_first_name donor_spouse_name donor_last_name address
                           donor_city donor_state donor_zip donor_email date item_notes}
-      
+
           csvFile = CSV.generate(headers: true) do |csv|
             csv << headers
             Day.all.each do |d|
@@ -98,17 +98,17 @@ class ReportsController < ApplicationController
               end
             end
           end
-          send_data csvFile, filename: 
+          send_data csvFile, filename:
           "pickups_#{month_name(params[:datemonth])}#{params[:dateyear]}.csv"
   end
-  
+
   def rejected_history
-    headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
+    headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN",
                     "STATE", "ZIP", "E-MAIL","DATE DONATED", "REJECTED REASON"]
-                    
+
           attributes = %w{donor_first_name donor_spouse_name donor_last_name address
                           donor_city donor_state donor_zip donor_email date rejected_reason}
-      
+
           csvFile = CSV.generate(headers: true) do |csv|
             csv << headers
             Day.all.each do |d|
@@ -121,10 +121,10 @@ class ReportsController < ApplicationController
               end
             end
           end
-          send_data csvFile, filename: 
+          send_data csvFile, filename:
           "rejected_#{month_name(params[:datemonth])}#{params[:dateyear]}.csv"
   end
-  
+
   private 
   
   def month_name(number)
