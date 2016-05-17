@@ -4,7 +4,12 @@
 
 /* Variables */
 
-$background=#22ADC9;
+$background:#22ADC9;
+$links:#22ADC9;
+$backgroundNCC: #C1272D;
+$redStar: #FD0004;
+$gray: #777;
+$containerColor:white;
 
 /* Custom Styles */
 
@@ -17,7 +22,7 @@ body {
 }
 
 .ncc {
-    background-color: #C1272D;
+    background-color: $backgroundNCC;
 }
 
 
@@ -33,7 +38,7 @@ and give it some spacing*/
 /* basic link coloring*/
 
 a {
-    color: #22ADC9;
+    color: $links;
 }
 
 
@@ -52,14 +57,14 @@ a {
 */
 
 .white-container {
-    background-color: white;
+    background-color: $containerColor;
     padding-top: 30px;
     margin-bottom: 90px;
     padding-bottom: 30px;
 }
 
 .container.white-container {
-    background-color: white;
+    background-color: $containerColor;
     padding-top: 30px;
     margin-bottom: 90px;
     padding-bottom: 30px;
@@ -123,7 +128,7 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 }
 
 .table-hover tbody tr:hover td {
-    background-color: #22ADC9;
+    background-color: $background;
     color: white;
 }
 
@@ -131,7 +136,7 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 /* formating for Home2*/
 
 .red {
-    color: #FD0004;
+    color: $redStar;
 }
 
 .half-width {
@@ -157,15 +162,14 @@ input[type=number] {
     float: left;
     margin-right: 10px;
     font-size: 1.7em;
-    color: #777;
+    color: $gray;
     letter-spacing: -1px;
     padding-top: 0px;
     padding-left: 0px;
     font-weight: bold;
-}
-
-#logo:hover {
-    text-decoration: none;
+    :hover {
+        text-decoration: none;
+    }
 }
 
 
@@ -191,7 +195,7 @@ input[type=number] {
 }
 
 .nav-pills li a {
-    color: #22ADC9;
+    color: $links;
 }
 
 nav.navbar {
