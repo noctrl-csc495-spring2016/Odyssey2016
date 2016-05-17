@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get    'reports'                => 'reports#index'
   get    'reports/donor'          => 'reports#donor'
   get    'reports/truck'          => 'reports#truck'
+    get    'reports/history'    => 'reports#history'
   
   get    'days'                   => 'days#index'
   get    'days/new'               => 'days#new'
