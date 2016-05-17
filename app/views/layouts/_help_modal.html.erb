@@ -96,6 +96,14 @@
               </div>
           </div>
           </div>
+          <div class="item">
+            <div class="row" style="padding:75px;">
+              <div class="col-xs-6 col-xs-offset-1">
+                  <h2><span class="glyphicon glyphicon-ok"></span> &nbsp;&nbsp; Thats it!</h2>
+                  <button class="btn btn-default">OK</button>
+              </div>
+            </div>
+          </div>
         </div>
         
         <!-- Controls -->
@@ -109,3 +117,21 @@
     </div>
   </div>
 </div>
+
+<script>
+$(document).ready(function() { 
+  $('#carousel').children('.left.carousel-control').hide();
+});
+$('#carousel').on('slid.bs.carousel', '', function() {
+  var $this = $(this);
+
+  $this.children('.carousel-control').show();
+
+  if($('.carousel-inner .item:first').hasClass('active')) {
+    $this.children('.left.carousel-control').hide();
+  } else if($('.carousel-inner .item:last').hasClass('active')) {
+    $this.children('.right.carousel-control').hide();
+  }
+
+});
+</script>
