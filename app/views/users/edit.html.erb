@@ -7,16 +7,18 @@
         <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
         <h4 class="text-center">Manage User</h4>
             <%= form_for (current_user), html: {class: "nifty form"} do |f| %>
-                        <%= render 'layouts/flash_messages' %>
+                <%= render 'layouts/flash_messages' %>
 
                 <br>
                 <b>User Name: </b>
                 <%= current_user.username %>
+                </br>
 
                 
                 <br>
                 <b>Email: </b>
                 <%= current_user.email %>
+                </br>
                 
                 
                 <br>
@@ -25,8 +27,8 @@
               
                 <%= f.label :password_confirmation, "Confirm:     " %>
                 <%= f.password_field :password_confirmation, class: 'form-control' %>
+                </br>
 
-              
                 <%= f.submit "Update Account", class: "btn btn-primary" %>
                 <%= link_to "Cancel", pickups_path, class: "btn btn-primary" %>
             <% end %>

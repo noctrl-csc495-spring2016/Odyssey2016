@@ -17,7 +17,7 @@ module UsersHelper
   end
   
   def user_exists?
-    User.find_by_id(params[:id])
+      User.find_by_id(params[:id])
   end
   
   def user_exists
