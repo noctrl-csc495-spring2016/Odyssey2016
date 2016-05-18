@@ -52,6 +52,15 @@ class UsersController < ApplicationController
     #is super admin
     if is_super?
       
+      #confirm password then update users info
+      if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
+        flash[:success] = "You totally updated your account mang"
+        redirect_to action: "show"
+      else
+        flash[:danger] = "Passwords invalid or do not match"
+        redirect_to action: "show"
+      end
+      
     #admin edits other user  
     elsif is_admin? && current_user.username != @user.username
     
