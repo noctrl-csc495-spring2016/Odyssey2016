@@ -3,7 +3,11 @@
     <!-- Main Content -->
 
     <div class="container white-container">
+        
     <%= render 'layouts/flash_messages' %>  <!--Render any flash messages-->
+      
+
+    
         <!-- main row container -->
         <div class="row">
             <div class="col-xs-12">
@@ -33,7 +37,7 @@
                         <div class="form-group">
                             <label>Last Name</label>
                             <span class="red">*</span>
-                            <%= f.text_field :donor_last_name, class: 'form-control' %>
+                            <%= f.text_field :donor_last_name, class: 'form-control'%>
                         </div>
                     </div>
                 </div>
@@ -49,7 +53,6 @@
                     <div class="col-xs-12 col-md-6">
                         <div class="form-group">
                             <label>Email Address</label>
-                            <span class="red">*</span>
                             <%= f.text_field :donor_email, class: 'form-control' %>
                         </div>
                     </div>

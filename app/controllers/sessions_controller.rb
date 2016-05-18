@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
       redirect_to pickups_path
     else
       # Otherwise, keep them on the login page.
-      flash.now[:danger] = 'Invalid user ID/password combination'
+      flash.now[:danger] = 'Invalid username or password'
       render 'new'
     end
   end
