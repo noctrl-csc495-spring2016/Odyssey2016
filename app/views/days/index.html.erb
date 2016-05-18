@@ -22,7 +22,7 @@
         <%= render 'layouts/flash_messages' %>
         <div class="col-xs-10 col-xs-offset-1">
             <h2>Schedule</h2>
-            <p>Select a day from the list below to view the pickups for that day. To add a new day click 'Add New Pickup Day.'</p>
+            <p>Click the 'Add New Day' button to create a new day or select a day from the list below to view or delete it.</p>
         </div>
     </div>
     <br />
@@ -90,7 +90,7 @@
                             style="cursor:pointer; <%= if group_qualifier then 'border-top:2px solid black' end %>" data-link="<%= days_path %>/<%= day.id %>">
                             
                             <td class="text-right">
-                                <strong><em><%= group_qualifier %></em></strong>
+                                <strong><%= group_qualifier %></strong>
                             </td>
                             <td>
                                 <% # format the date as Day, Month dd, yyyy %>
@@ -112,7 +112,7 @@
                                     <% end %>
                                 <% else %>
                                     <% # only show this if no pickups for the given day %>
-                                    <small><em>No scheduled pickups</em></small>
+                                    <small>No scheduled pickups</small>
                                 <% end %>
                             </td>
                         </tr>
