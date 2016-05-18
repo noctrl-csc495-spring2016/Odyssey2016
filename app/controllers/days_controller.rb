@@ -47,7 +47,7 @@ class DaysController < ApplicationController
   # Use this action to return all of the days when called from AJAX. Used by 
   #   the calendar only.
   def all
-     @days = Day.where("date >= ?", Date.today)
+     @days = Day.where("date >= ?", 30.days.ago)
      respond_to do |format|
       format.json { render json: @days }
     end
