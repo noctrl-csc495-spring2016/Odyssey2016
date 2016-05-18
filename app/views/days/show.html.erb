@@ -22,7 +22,7 @@
                 <tbody>
                     <% if @pickups.any? %>
                         <% @pickups.each do |pickup| %>
-                            <tr style="cursor:pointer;" data-link="/pickups/<%= pickup.id %>">
+                            <tr style="cursor:pointer;" data-link="/pickups/<%= pickup.id %>/edit">
                                 <td>
                                     <%= pickup.donor_first_name + " " + pickup.donor_last_name %>
                                 </td>

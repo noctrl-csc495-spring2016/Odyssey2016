@@ -6,28 +6,6 @@
         $('#calendar').fullCalendar({
             weekends: false,
             defaultView: 'month',
-            /*//restricting available dates to 12 moths in future
-            viewRender: function(view,element) {
-                var now = new Date();
-                var end = new Date();
-                end.setMonth(now.getMonth() + 12);
-    
-                if ( end < view.end) {
-                    $("#calendar .fc-next-button").hide();
-                    return false;
-                }
-                else {
-                    $("#calendar .fc-next-button").show();
-                }
-    
-                if ( view.start < now) {
-                    $("#calendar .fc-prev-button").hide();
-                    return false;
-                }
-                else {
-                    $("#calendar .fc-prev-button").show();
-                }
-            },*/
             dayClick: function(date, jsEvent, view){
                 dayClicked(date, jsEvent, view);
             },
@@ -74,7 +52,12 @@
             success: function(data) {
                 $.each(data, function(key, value){
                     // push the day into our array
-                    events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
+                    if(Date.parse(value.date)-Date.parse(new Date()) < 0){
+                        events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'gray'});
+                    }
+                    else {
+                        events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'green'});
+                    }
                 })
                 // add our built array as a data source to the calendar
                 $('#calendar').fullCalendar( 'addEventSource', events );
