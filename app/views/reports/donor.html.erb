@@ -4,39 +4,36 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
                 <div class="row">
-                    <div class='col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <h3>Donor CSV Export</h3>
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <h2>Donor CSV Export</h2>
                         <p>Export data for all donors for a month in CSV format.</p>
                         <br>
                     </div>
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <!--Builds form with given action and method-->
                         <%= form_tag('/reports/donor.csv', :method => 'get') do %>
                             <div class="form-group">
                                 Month:
-                                <!--Builds dropdown menu with all the months as options. Current month is selected-->
-                                <!--when page loads-->
                                 <%= select_month(Date.today, {}, {:class => "extra-right-margin form-control"} ) %>
                             </div>
                             <div class="form-group">
                                 Year:
-                                <!--Builds a dropdown menu. Options are current year all the way back to 2016.-->
-                                <!--Current year is selected when page loads. -->
                                 <%= select_year(Date.today, {:start_year => Time.now.year, :end_year => 2016},
                                 {:class => "form-control"}) %>
                             </div>
                             <br>
                             <div class="form-group">
+
+                            <div class="col-xs-12 text-center">
                               <!--builds submit and cancel buttons.-->
-                              <%= submit_tag 'Export', class: 'btn btn-success btn-wide extra-right-margin' %>
+                              <%= submit_tag 'Export', class: 'btn btn-success btn-wide' %>
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+                            </div>
                             </div>
                     <% end %>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>

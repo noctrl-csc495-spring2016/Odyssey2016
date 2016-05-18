@@ -2,7 +2,7 @@
 
    <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1 col-xs-12 well extra-spacing">
+            <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                         <h2>Truck Reports</h2>
@@ -15,17 +15,18 @@
                         <form>
                             <div class="form-group">
                                 Pickup Day:
-                                <!--Builds a dropdown menu with all the formatted dates as options and the-->
-                                  <!--actual date as values. Ex: 2016-01-09 is shown as Jan 9.-->
-                                  <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
+                                <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
                                   [d.date.strftime("%b %-d"), d.date]}),
                                   class: "form-control" %>   
                             </div>
                             <br>
                             <div class="form-group">
-                              <!--Export can cancel buttons-->
-                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide extra-right-margin'%>
+
+                              <!--Export and cancel buttons-->
+                                <div class="col-xs-12 text-center">
+                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -44,25 +45,38 @@ var select = document.getElementById("pickupday");
 
 // Attaches an onClick listener to the export button 
 submitButton.addEventListener("click", exportFiles);    
+
 //This function is called everytime the user clicks the export button
 function exportFiles()
 {
   //Used iframes to be able to download multiple files
 
-    var iframe1 = document.createElement('iframe');
+    // var iframe1 = document.createElement('iframe');
     
-    //Url is built using the selected value in the dropdown menu
-    url = "/reports/truck.pdf?pickupday=" + select.value;
+    // //Url is built using the selected value in the dropdown menu
+    // url = "/reports/truck.pdf?pickupday=" + select.value;
+    // iframe1.style.display = "none";
+    // iframe1.src = url ;
+    // document.body.appendChild(iframe1);
+  
+    // var iframe2 = document.createElement('iframe');
+    
+    // //Url is build using the selected value in the dropdown menu
+    // url = "/reports/truck.csv?pickupday=" + select.value;
+    // iframe2.style.display = "none";
+    // iframe2.src = url ;
+    // document.body.appendChild(iframe2);
+
+    url1 = "/reports/truck.pdf?pickupday=" + select.value;
+    url2 = "/reports/truck.csv?pickupday=" + select.value;
+    createiframe(url1);
+    window.setTimeout(function() {createiframe(url2)}, 500);
+}
+
+function createiframe(url){
+    var iframe1 = document.createElement('iframe');
     iframe1.style.display = "none";
     iframe1.src = url ;
     document.body.appendChild(iframe1);
-  
-    var iframe2 = document.createElement('iframe');
-    
-    //Url is build using the selected value in the dropdown menu
-    url = "/reports/truck.csv?pickupday=" + select.value;
-    iframe2.style.display = "none";
-    iframe2.src = url ;
-    document.body.appendChild(iframe2);
 }
-</script>    
+</script>

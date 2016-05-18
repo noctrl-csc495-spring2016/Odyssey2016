@@ -12,35 +12,12 @@ class Pickup < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
   
-  #Function that builds csv file with donor info. Called in reports controller.
-  def self.to_donor_csv
-    headers = ["FIRST", "SPOUSE", "LAST", "ADDRESS", "TOWN", 
-    "STATE", "ZIP", "E-MAIL","DATE DONATED", "ITEMS DONATED"]
-    
-    #Creates array with given values.
-    attributes = %w{donor_first_name donor_first_name donor_last_name address
-    donor_city state donor_zip donor_email date item_notes}
-    
-    #Generates csv
-    CSV.generate(headers: true) do |csv|
-      
-      #Add headers
-      csv << headers
-      
-      #For each pickup, a new row is added and the columns are filled with the
-      #values specified in the attributes array
-      all.each do |donor|
-        csv << attributes.map{ |attr| donor.send(attr) }
-      end
-    end
-  end
-  
   #Function that builds csv files with pickup info. Called in reports controller. 
   def self.to_routes_csv
-    headers = ["Street","City","State","Zip","Country","Notes"]
+    headers = ["Street","City","State","Zip"]
     
     #Creates array with given values. 
-    attributes = %w{address donor_city state donor_zip country donor_notes}
+    attributes = %w{address donor_city donor_state donor_zip}
     
     #Generate csv file
     CSV.generate(headers: true) do |csv|
@@ -77,9 +54,9 @@ class Pickup < ActiveRecord::Base
     
     #For each pickup we add a new row and specify the data that will be included in each column. 
     all.each do |pickup|
-      data += [[i,"#{pickup.donor_first_name}\n#{pickup.donor_phone}",
+      data += [[i,"#{pickup.donor_first_name} #{pickup.donor_last_name}\n#{pickup.donor_phone}",
                   "#{pickup.donor_address_line1}\n#{pickup.donor_address_line2}\n#{pickup.donor_city}, IL #{pickup.donor_zip}",
-                  "#{pickup.item_notes}\nDonor: '#{pickup.donor_notes}'"]]
+                  "#{pickup.item_notes}\n#{pickup.donor_notes}\n#{pickup.donor_email}"]]
       i += 1
     end
     
@@ -95,15 +72,7 @@ class Pickup < ActiveRecord::Base
   def date
    Day.find(day_id).date
   end
-  
-  def state
-    "IL"
-  end
-  
-  def country
-    "US"
-  end
-  
+
   def address
     "#{donor_address_line1}, #{donor_address_line2}"
   end
