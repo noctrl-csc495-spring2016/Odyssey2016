@@ -9,9 +9,11 @@ class Pickup < ActiveRecord::Base
   validates :donor_dwelling_type, presence: { message: "is required." } 
   validates :number_of_items,     presence: { message: "is required." }
   
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
   
+
   #Function that builds csv files with pickup info. Called in reports controller. 
   def self.to_routes_csv
     headers = ["Street","City","State","Zip"]
