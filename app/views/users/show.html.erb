@@ -36,27 +36,10 @@
                 <%= f.label :password_confirmation, "Confirm:     " %>
                 <%= f.password_field :password_confirmation, class: 'form-control' %>
                 </br>
-                
-                <% if current_user.super_admin == true && @user.super_admin == true %>
-                <b>Number of pickups on record: </b>
-                </br>
-                
-
-                <br>
-                <b>Number of days on record: </b>
-                </br>
-                <br>
-                
-                <%= link_to "Prune pickups", users_index_path, class: "btn btn-primary" %>
-                </br>
-                </br>
-                </br>
-                <% end %>
-
+              
                 <%= f.submit "Update Account", class: "btn btn-primary" %>
                 <%= link_to "Cancel", users_index_path, class: "btn btn-primary" %>
-                <%= link_to "Remove User", @user, method: :delete, class: "btn btn-primary"%>   
-                
+                <%= link_to "Remove User", @user, method: :delete, class: "btn btn-primary"%>    
             <% end %>
             </div>
     </div>

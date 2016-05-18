@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
   before_action :logged_in
-  before_action :user_exists
+  before_action :user_exists, except: [:index, :new, :create]
   before_action :is_admin, except: [:update, :edit]
   
   def index
-    if current_user.super_admin == false
+    #display superadmin only if superadmin is logged in
+    if !is_super? 
      @users = User.all.where("super_admin != ?", true).order("UPPER(username)")
     else
      @users = User.all.order("UPPER(username)")
@@ -12,13 +13,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    if(User.find_by_id(params[:id]))
-      @user = User.find(params[:id])
-      if !current_user.super_admin == true && @user.super_admin == true
-        flash[:danger] = "You do not have permission to access this page"
-        redirect_to pickups_path
-      end
-    else
+    @user = User.find(params[:id])
+    
+    #tell user superadmin does not exist to hide his superduper secret existence
+    if !is_super? && @user.super_admin == true
+      flash[:danger] = "User does not exist"
+      redirect_to pickups_path
     end
   end
 
@@ -26,6 +26,8 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+    
+  #admins have a different profile page so we redirect them to 'show'
   def edit
     @user = User.find(params[:id])
     if @user.permission_level == 2
@@ -51,8 +53,9 @@ class UsersController < ApplicationController
     if is_super?
       
     #admin edits other user  
-    elsif current_user.permission_level == 2 && current_user.username != @user.username
+    elsif is_admin? && current_user.username != @user.username
     
+      #confirm password then update users info
       if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
         flash[:success] = "You totally updated your account mang"
         redirect_to action: "show"
@@ -62,9 +65,10 @@ class UsersController < ApplicationController
       end
       
     #admin edits self
-    elsif current_user.permission_level == 2 && current_user.username == @user.username
+    elsif is_admin? && current_user.username == @user.username
     
-      if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(user_params)
+      #confirm password then update users info
+      if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
         flash[:success] = "Successfully updated account dawg"
         redirect_to action: "show"
       else
@@ -85,11 +89,12 @@ class UsersController < ApplicationController
       end
       
     end
-
     
   end
 
   def destroy
+    
+    #check user is not deleting self
     if User.find(params[:id]).username != current_user.username
       
       User.find(params[:id]).destroy

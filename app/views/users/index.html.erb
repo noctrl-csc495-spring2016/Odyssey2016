@@ -14,6 +14,7 @@
     <div class='container white-container'>
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
+            <%= render 'layouts/flash_messages' %>
 
                 <h2>Users</h2>
                 <p>Select a user from the list below to edit. To add a new user click 'Add New User'</p>
@@ -29,7 +30,6 @@
         <br />
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
-            <%= render 'layouts/flash_messages' %>
                 <!-- Table of users -->
                 <table class="table table-hover table-striped">
                     <thead>
