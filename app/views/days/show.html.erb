@@ -22,7 +22,7 @@
                 <tbody>
                     <% if @pickups.any? %>
                         <% @pickups.each do |pickup| %>
-                            <tr style="cursor:pointer;" data-link="/pickups/<%= pickup.id %>">
+                            <tr style="cursor:pointer;" data-link="/pickups/<%= pickup.id %>/edit">
                                 <td>
                                     <%= pickup.donor_first_name + " " + pickup.donor_last_name %>
                                 </td>
@@ -54,33 +54,8 @@
     <% if @pickups.empty? && !is_in_past(@day.date) %>
         <div id="delete-button" class="row text-right">
             <div class="col-xs-10 col-xs-offset-1">
-                <btn data-href="/days/<%= @day.id %>" data-toggle="modal" data-target="#confirm-delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete This Pickup Day</btn>
+                <a rel="nofollow" data-method="delete" data-href="/days/<%= @day.id %>" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete This Pickup Day</a>
             </div>
         </div>
     <% end %>
 </div>
-
-<% if @pickups.empty? && !is_in_past(@day.date) %>
-    <!-- Confirm Delete Modal -->
-    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Remove <%= @day.date.strftime("%A, %B %d, %Y") %>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to remove <%= @day.date.strftime("%A, %B %d, %Y") %> as a pickups day? This action cannot be undone.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <a rel="nofollow" data-method="delete" class="btn btn-danger btn-ok">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {
-            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-        });
-    </script>
-<% end %>
