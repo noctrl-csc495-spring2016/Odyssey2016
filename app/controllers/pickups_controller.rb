@@ -65,6 +65,7 @@ def update
         @pickup.day_id = nil
         if @pickup.update_attributes(rejected_params)
             flash[:success] = "Pickup has been rejected."
+            RejectionMailer.reject_pickup(@pickup).deliver_now
             redirect_to "/pickups"
         else
             flash.now[:danger] = "Pickup could not be rejected."
