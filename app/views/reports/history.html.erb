@@ -45,18 +45,30 @@ var selectYear = document.getElementById("date_year");
 submitButton.addEventListener("click", exportFiles);
 function exportFiles()
 {
-    var iframe1 = document.createElement('iframe');
+    // var iframe1 = document.createElement('iframe');
 
-    url = "/reports/pickup_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    // url = "/reports/pickup_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    // iframe1.style.display = "none";
+    // iframe1.src = url ;
+    // document.body.appendChild(iframe1);
+
+    // var iframe2 = document.createElement('iframe');
+
+    // url = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    // iframe2.style.display = "none";
+    // iframe2.src = url ;
+    // document.body.appendChild(iframe2);
+    
+    url1 = "/reports/pickup_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    url2 = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    createiframe(url1);
+    window.setTimeout(function() {createiframe(url2)}, 500);
+}
+
+function createiframe(url){
+    var iframe1 = document.createElement('iframe');
     iframe1.style.display = "none";
     iframe1.src = url ;
     document.body.appendChild(iframe1);
-
-    var iframe2 = document.createElement('iframe');
-
-    url = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
-    iframe2.style.display = "none";
-    iframe2.src = url ;
-    document.body.appendChild(iframe2);
 }
 </script>
