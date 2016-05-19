@@ -75,18 +75,13 @@ def update
         @pickup.rejected = true                                     #Set rejected to true and update the rejected params
         @pickup.day_id = nil
         if @pickup.update_attributes(rejected_params)
-<<<<<<< HEAD
-            RejectionMailer.reject_pickup(@pickup).deliver_now
-            flash[:success] = "Pickup has been rejected."
-            redirect_to "/pickups"
-=======
             if @pickup.send_email == true && @pickup.donor_email != nil
+                RejectionMailer.reject_pickup(@pickup).deliver_now
                 render 'reject'
             else
                 flash[:success] = "Pickup has been rejected."
                 redirect_to "/pickups"
             end
->>>>>>> d482f9f5f8f710dc0404e5aabed8f262f33b161c
         else
             flash.now[:danger] = "Pickup could not be rejected."
             render 'edit'
