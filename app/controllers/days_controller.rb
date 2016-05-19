@@ -47,7 +47,7 @@ class DaysController < ApplicationController
   # Use this action to return all of the days when called from AJAX. Used by 
   #   the calendar only.
   def all
-     @days = Day.where("date >= ?", Date.today)
+     @days = Day.where("date >= ?", 30.days.ago)
      respond_to do |format|
       format.json { render json: @days }
     end
@@ -70,21 +70,21 @@ class DaysController < ApplicationController
     # if our query is not empty, we got a day that matched our month, day, and year combo
     #   i.e.: if the day already exists
     if !Day.where("date = ?", @day.date).empty?
-      flash[:danger] = "That day is already configured as a pickup day."
+      flash[:danger] = "<strong>" + @day.date.strftime("%A, %B %d, %Y") + "</strong> is already scheduled as a pickup day."
       redirect_to '/days/new'
       
     # else if the date is in the past
     elsif @day.date < Date.today
-      flash[:danger] = "The day you entered is in the past! Please enter a day that is in the future."
+      flash[:danger] = "<strong>" + @day.date.strftime("%A, %B %d, %Y") + "</strong> is in the past! Please enter a day that is in the future."
       redirect_to '/days/new'
     
     # else the day must be good so we make it
     else
       if @day.save
-        flash[:success] = "The day was succesfully added"
+        flash[:success] = "<strong>" + @day.date.strftime("%A, %B %d, %Y") + "</strong> was succesfully added"
         redirect_to '/days'
       else
-        flash[:danger] = "Day could not be added"
+        flash[:danger] = "<strong>" + @day.date.strftime("%A, %B %d, %Y") + "</strong> could not be added"
         redirect_to '/days/new'
       end
     end
@@ -95,9 +95,9 @@ class DaysController < ApplicationController
     @day = Day.find(params[:id])
     
     if(@day.pickups.any?)
-      flash[:danger] = "Cannot remove day. Please unschedule any pickups for this day first."
+      flash[:danger] = "Cannot remove <strong>" + @day.date.strftime("%A, %B %d, %Y") + "</strong>. Please unschedule any pickups for this day first."
     elsif(is_in_past(@day.date))
-      flash[:danger] = "Cannot remove day because it is in the past."
+      flash[:danger] = "Cannot remove <strong>" + @day.date.strftime("%A, %B %d, %Y") + "</strong> because it is in the past."
     else
       @display = @day.date.strftime("%A, %B %d, %Y")
       @day.destroy

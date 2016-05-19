@@ -12,6 +12,7 @@ def populate_day_options
     
     #Need an array of arrays to populate options_for_select
     optionsArray = Array.new
+    optionsArray.push ["", nil]
     
     #Get each possible day and number of pickups associated with that day
     @possibleDays.each do |d|
@@ -47,4 +48,13 @@ def populate_state_options
             ['WI'], ['WY']]
 end
 
+def build_error_message_string(pickup)
+    
+    String error_messages = "This form contains errors:<ul>"
+    pickup.errors.full_messages.each do |key, value|
+        error_messages += "<li>#{key}</li>"
+    end
+    error_messages += "</ul>"
+    return error_messages
+end
 end
