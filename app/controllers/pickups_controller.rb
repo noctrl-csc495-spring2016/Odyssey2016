@@ -49,8 +49,15 @@ def update
         end
     elsif params[:schedule]                                         #Schedule button was clicked
         if @pickup.update_attributes(day_and_pickup_params)
-            flash[:success] = "Pickup has been scheduled."
-            redirect_to "/pickups"
+            if @pickup.day_id == nil
+                @pickup.errors.add(:date,"not valid. Select a day to schedule pickup.")
+                String error_messages = build_error_message_string(@pickup)
+                flash.now[:danger] = error_messages
+                render 'edit'
+            else
+                flash[:success] = "Pickup has been scheduled."
+                redirect_to "/pickups"
+            end
         else 
             flash.now[:danger] = "Pickup could not be scheduled."
             render 'edit'

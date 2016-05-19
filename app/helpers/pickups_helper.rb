@@ -12,6 +12,7 @@ def populate_day_options
     
     #Need an array of arrays to populate options_for_select
     optionsArray = Array.new
+    optionsArray.push ["", nil]
     
     #Get each possible day and number of pickups associated with that day
     @possibleDays.each do |d|
