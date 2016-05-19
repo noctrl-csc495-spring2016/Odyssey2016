@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get    'reports'                => 'reports#index'
   get    'reports/donor'          => 'reports#donor'
   get    'reports/truck'          => 'reports#truck'
+
   get    'reports/rejected_history'   => 'reports#rejected_history'
 
   get    'days'                   => 'days#index'
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   get    'users/index'            => 'users#index'
   get    'accounts/account'       => 'users#show'
   
+  get     'pickups/:id/reject'       => "pickups#reject"
   resources :pickups
   resources :users
 

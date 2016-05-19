@@ -12,7 +12,11 @@
         <div class="row">
             <div class="col-xs-12">
                 <h2>Update Pickup</h2>
+                <% if !is_entry? %>
                 <p>Update pickup information, schedule it, or reject it.</p>
+                <%else%>
+                    <p>Update pickup information.</p>
+                <%end%>
             </div>
         </div>
         <div class="row">
@@ -103,13 +107,14 @@
                 </div>
             </div>
             <!-- end left column -->
-
+        
             <% @isScheduled = false%>
             <%if (@pickup.day_id != nil)%>
                 <%@isScheduled = true%>
             <%end%>
             <!-- Begin right column -->
             <div class="col-xs-12 col-md-6">
+                <% if !is_entry? %>
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
                         <h4>Schedule:</h4>
@@ -137,12 +142,14 @@
                             <%=f.select(:rejected_reason, options_for_select([['Does not meet standards','Does not meet standards'], ['Drop-down crib', 'Drop-down crib'], ['Out of area','Out of area'],['Other', 'Other']],:selected => @pickup.rejected_reason),{},:class => "form-control")%>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" id="email" /> &nbsp;&nbsp;Email Donor
+                             <%= f.check_box :send_email%> &nbsp;&nbsp;&nbsp;Email Donor
                         </div>
                         <%= f.submit "Reject", name: "reject", class: "btn btn-danger btn-wide" %>
                         
                     </div>
+                    
                 </div>
+                <%end%>
                 <div class="row">
                     <div class="col-xs-12">
                         <h4>Enter the number of items and a brief description.</h4>

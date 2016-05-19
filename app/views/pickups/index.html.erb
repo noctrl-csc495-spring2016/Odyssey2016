@@ -44,7 +44,10 @@
                                         <% else %>
                                             <%="items"%></td>
                                         <%end%>    
-                                <td><%= truncate(pickup.item_notes, length:65) %></td>
+                                <td><%if pickup.item_notes.blank?%>
+                                        <%="None"%>
+                                    <%end%>
+                                <%= truncate(pickup.item_notes, length:65) %></td>
                             </tr>
                         <%end%> 
                     </tbody>
