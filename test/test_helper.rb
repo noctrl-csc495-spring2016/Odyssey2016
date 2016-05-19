@@ -21,6 +21,10 @@ class ActiveSupport::TestCase
     end
   end
   
+  def log_out_as(user, options = {})
+    session.delete(:user_id)
+  end
+  
   private
 
     # Returns true inside an integration test.

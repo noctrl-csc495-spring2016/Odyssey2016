@@ -2,7 +2,6 @@
 
 <!-- Designed by Nicholas Drazenovic & Emily Huizenga -->
 <!DOCTYPE html>
-
 <head>
 </head>
 
@@ -17,14 +16,13 @@
             <%= render 'layouts/flash_messages' %>
 
                 <h2>Users</h2>
-                <p>Select a user from the list below to edit. To add a new user click 'Add New User'</p>
+                <p> Click the 'Add New User' button to create a new user or select a user from the list below to edit or delete them.</p>
             </div>
         </div>
         <br />
         <div class="row">
             <div class="col-xs-5 col-xs-offset-1">
-        <%= button_to "Create New User", 
-            { :action => "new" }, :method => :get, class: 'btn btn-success'  %>                
+                <btn class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add New User</btn>
             </div>
         </div>
         <br />
@@ -39,9 +37,9 @@
                         </tr>
                     </thead>
                         <% @users.each do |user| %> 
-                        <tr>
+                        <tr onclick="location.href='<%=user_path(user)%>'">
                             <td>
-                                <%= link_to user.username, user %>
+                                <%= user.username %>
                             </td>
                             <td>
                                 <%= user.email %>
