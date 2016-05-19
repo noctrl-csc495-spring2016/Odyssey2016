@@ -1,7 +1,7 @@
 class PickupsController < ApplicationController
 
 before_action :logged_in
-before_action :admin_or_standard, except: [:show,:index,:new,:create]
+
 
 #Bullpen page.
 #Display all pickups where the day_id is null and the rejected flag is false
@@ -23,7 +23,9 @@ def create
     end
 end
 
-
+def reject
+    @pickup = Pickup.find(params[:id])
+end
 #Show the pickup whose id was accessed
 def show
     @pickups = Pickup.find(params[:id])
