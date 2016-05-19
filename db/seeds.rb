@@ -61,6 +61,7 @@ Pickup.create!(
             donor_address_line1:          "1060 W Addison St",
             donor_address_line2:          "Suite 101",
             donor_city:                   "Chicago",
+            donor_state:                  "IL",
             donor_zip:                    "60613",
             donor_dwelling_type:          "Historic Ball Park",
             donor_phone:                  "(773) 404-2827",
