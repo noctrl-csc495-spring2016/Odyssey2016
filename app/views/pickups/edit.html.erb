@@ -142,7 +142,7 @@
                             <%=f.select(:rejected_reason, options_for_select([['Does not meet standards','Does not meet standards'], ['Drop-down crib', 'Drop-down crib'], ['Out of area','Out of area'],['Other', 'Other']],:selected => @pickup.rejected_reason),{},:class => "form-control")%>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" id="email" /> &nbsp;&nbsp;Email Donor
+                             <%= f.check_box :send_email%> &nbsp;&nbsp;&nbsp;Email Donor
                         </div>
                         <%= f.submit "Reject", name: "reject", class: "btn btn-danger btn-wide" %>
                         
