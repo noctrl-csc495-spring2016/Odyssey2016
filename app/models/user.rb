@@ -14,7 +14,12 @@ class User < ActiveRecord::Base
     BCrypt::Password.create(string, cost: cost)
   end
   
+  # Iterates through the Pickup DB and removes all pickups > 6 months old
   def User.prune_pickups
-    
+    Pickup.all.each do |pickup|
+      if pickup.updated_at < 6.months.ago
+        pickup.destroy
+      end
+    end
   end
 end
