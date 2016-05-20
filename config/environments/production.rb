@@ -70,18 +70,16 @@ Rails.application.configure do
     host = 'frozen-garden-98586.herokuapp.com'
     
     config.action_mailer.default_url_options = { host:host, port: '3000' }
-    config.action_mailer.perform_deliveries = true
-    config.action_mailer.default :charset => "utf-8"
+
     
     config.action_mailer.smtp_setings = {
       address: "smtp.gmail.com",
       port: 587,
-      domain: "mail.google.com",
+      domain: "gmail.com",
       authentication: "plain",
       enable_starttls_auto: true,
-      user_name: ENV['gmail_username'],
-      password: ENV['gmail_password'],
-      ssl: true
+      user_name: "odyssey.alpha@gmail.com",
+      password:  "fdlcekhxlmxqyoet"
     }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
