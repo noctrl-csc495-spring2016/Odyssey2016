@@ -7,12 +7,6 @@ Rails.application.routes.draw do
   get    'home/home2'             => 'pages#home2'
   get    'home/home3'             => 'pages#home3'
   
-
-  
-  get    'admin/admin1'           => 'pages#admin1'
-  get    'admin/admin2'           => 'pages#admin2'
-  get    'admin/admin3'           => 'pages#admin3'
-  
   get    'reports'                => 'reports#index'
   get    'reports/donor'          => 'reports#donor'
   get    'reports/truck'          => 'reports#truck'
@@ -34,6 +28,7 @@ Rails.application.routes.draw do
   get    'accounts/account'       => 'users#show'
   
   get     'pickups/:id/reject'       => "pickups#reject"
+  post    'users/prune'           => 'users#prune'
   resources :pickups
   resources :users
 

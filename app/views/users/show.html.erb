@@ -50,9 +50,6 @@
                 </div>
                 <br>
 
-                <div class="form-group">
-                        <%= link_to "Prune pickups", User.prune_pickups, class: "btn btn-primary" %>
-                </div>
                 <% end %>
 
                 <div class="form-group">
@@ -63,10 +60,20 @@
                 </div>
                 <br>
                 <br>
+                <div class="form-group">
+                    <div class="col-xs-12 text-center">
+                        <% if current_user.super_admin == true && @user.super_admin == true %>
+                            <%= link_to "Prune Pickups", "/users/prune", method: :post, class: 'btn btn-danger'%>
+                        <% end %>
+                    </div>
+                </div>
+                <br>
                 <br>
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                        <%= link_to "Remove User", @user, method: :delete, class: 'text-danger'%>
+                        <% if current_user.id != @user.id %>
+                            <%= link_to "Remove User", @user, method: :delete, class: 'text-danger'%>
+                        <% end %>
                 </div>
                 </div>
             <% end %>
