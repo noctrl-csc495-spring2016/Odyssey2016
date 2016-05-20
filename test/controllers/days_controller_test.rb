@@ -12,6 +12,7 @@ class DaysControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:days)
+    assert_select "title", "Odyssey | Schedule"
   end
 
   test "should get new" do
@@ -19,6 +20,7 @@ class DaysControllerTest < ActionController::TestCase
     
     get :new
     assert_response :success
+    assert_select "title", "Odyssey | Add New Day"
   end
 
   test "should create day and not create duplicate" do
@@ -42,6 +44,7 @@ class DaysControllerTest < ActionController::TestCase
     
     get :show, id: @day
     assert_response :success
+    assert_select "title", "Odyssey | " + @day.date.strftime("%B %d, %Y")
   end
 
   test "should destroy day" do
