@@ -13,6 +13,10 @@ class Pickup < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
   
+  def send_rejection_email 
+    RejectionMailer.reject_pickup(self).deliver_now
+  end
+  
 
   #Function that builds csv files with pickup info. Called in reports controller. 
   def self.to_routes_csv
