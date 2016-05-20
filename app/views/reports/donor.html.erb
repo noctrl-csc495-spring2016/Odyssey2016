@@ -6,7 +6,11 @@
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                         <h2>Donor CSV Export</h2>
-                        <p>Export data for all donors for a month in CSV format.</p>
+                        <p>Select a month and year to export data for all donors for that month.</p>
+                        <p>
+                        The donors report is saved as donors_[MONTH][YEAR].pdf <br>
+                        The rejected pickups report is saved as rejected_[MONTH][YEAR].csv
+                        </p>
                         <br>
                     </div>
                 </div>
@@ -27,7 +31,7 @@
 
                             <div class="col-xs-12 text-center">
                               <!--builds submit and cancel buttons.-->
-                              <%= submit_tag 'Export', class: 'btn btn-success btn-wide' %>
+                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
                             </div>
                             </div>
@@ -37,3 +41,25 @@
             </div>
         </div>
     </div>
+    
+<script>
+var submitButton = document.getElementById("exportButton");
+var selectMonth = document.getElementById("date_month");
+var selectYear = document.getElementById("date_year");
+
+submitButton.addEventListener("click", exportFiles);
+function exportFiles()
+{
+    url1 = "/reports/donor.csv?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    url2 = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
+    createiframe(url1);
+    window.setTimeout(function() {createiframe(url2)}, 500);
+}
+
+function createiframe(url){
+    var iframe1 = document.createElement('iframe');
+    iframe1.style.display = "none";
+    iframe1.src = url ;
+    document.body.appendChild(iframe1);
+}
+</script>

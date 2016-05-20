@@ -1,7 +1,7 @@
 class PickupsController < ApplicationController
 
 before_action :logged_in
-before_action :admin_or_standard, except: [:show,:index,:new,:create]
+
 
 #Bullpen page.
 #Display all pickups where the day_id is null and the rejected flag is false
@@ -23,7 +23,9 @@ def create
     end
 end
 
-
+def reject
+    @pickup = Pickup.find(params[:id])
+end
 #Show the pickup whose id was accessed
 def show
     @pickups = Pickup.find(params[:id])
@@ -47,8 +49,15 @@ def update
         end
     elsif params[:schedule]                                         #Schedule button was clicked
         if @pickup.update_attributes(day_and_pickup_params)
-            flash[:success] = "Pickup has been scheduled."
-            redirect_to "/pickups"
+            if @pickup.day_id == nil
+                @pickup.errors.add(:date,"not valid. Select a day to schedule pickup.")
+                String error_messages = build_error_message_string(@pickup)
+                flash.now[:danger] = error_messages
+                render 'edit'
+            else
+                flash[:success] = "Pickup has been scheduled."
+                redirect_to "/pickups"
+            end
         else 
             flash.now[:danger] = "Pickup could not be scheduled."
             render 'edit'
@@ -66,12 +75,20 @@ def update
         @pickup.rejected = true                                     #Set rejected to true and update the rejected params
         @pickup.day_id = nil
         if @pickup.update_attributes(rejected_params)
-            flash[:success] = "Pickup has been rejected."
-            redirect_to "/pickups"
+            if @pickup.send_email == true && @pickup.donor_email != nil
+                render 'reject'
+            else
+                flash[:success] = "Pickup has been rejected."
+                redirect_to "/pickups"
+            end
         else
             flash.now[:danger] = "Pickup could not be rejected."
             render 'edit'
         end
+    elsif params[:send]
+        #Email Donor
+        flash[:success] = "Email has been sent."
+        redirect_to '/pickups'
     end
 end
 
@@ -107,7 +124,7 @@ end
 
 #Permit the rejected fields to be updated in database if reject button is clicked
 def rejected_params
-    params.require(:pickup).permit(:rejected, :rejected_reason)
+    params.require(:pickup).permit(:rejected, :rejected_reason, :send_email)
 end
 
 

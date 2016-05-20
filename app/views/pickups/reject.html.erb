@@ -1,0 +1,34 @@
+<%= render 'layouts/navbar' %>
+
+    <div class='container white-container'>
+        <h2>Preview of Email to be Sent</h2><br/>
+        To: <%=@pickup.donor_email%><br/>
+        From: noreply@sharingconnections.org
+        <br/><br/>
+        
+        <%if @pickup.rejected_reason == "Does not meet standards"%>
+            <%=render 'layouts/rejected_does_not_meet_standards'%>
+        <%elsif @pickup.rejected_reason == "Drop-down crib"%>
+            <%=render 'layouts/rejected_drop_side_cribs'%>
+        <%elsif @pickup.rejected_reason == "Out of area"%>
+            <%=render 'layouts/rejected_out_of_area'%>
+        <%elsif @pickup.rejected_reason == "Other"%>
+            <%=render 'layouts/rejected_other'%>
+        <%end%>
+        
+        <div class="row">
+            <div class="col-xs-12">
+                <br/><br/><br/>
+                <%= form_for(@pickup) do |f| %>
+                <div class="form-group">
+                    <%= f.submit "Send", name: "send", class: "btn btn-success btn-wide extra-right-margin" %>
+                    <a href="/pickups">
+                        <btn class="btn btn-danger btn-wide">Cancel</btn>
+                    </a>
+                </div>
+                <%end%>
+            </div>
+        </div>
+            
+    </div>
+     
