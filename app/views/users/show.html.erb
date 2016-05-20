@@ -17,47 +17,42 @@
                     <%= @user.email %></h5>
 
                 <br>
+                <div class="form-group">
                 <%= f.label :current_password, "Admin Password:" %>
                 <%= f.password_field :current_password, class: 'form-control' %>
+                </div>
                 
-                <br>
-                <b>User Name: </b>
-                <%= @user.username %>
-                </br>
-                
-                <br>
-                <b>Email: </b>
-                <%= @user.email %>
-                </br>
-                
-                <br> 
-                <b>Change User Level: </b>
-                <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']] %>
-                </br>
-                
-                <br>
-                <%= f.label :password, "New Password:     "%>
-                    <%= f.password_field :password, class: 'form-control' %></div>
-              <div class="form-group">
-                <%= f.label :password_confirmation, "Confirm:     " %>
-                  <%= f.password_field :password_confirmation, class: 'form-control' %></div>
-                
-                <% if current_user.super_admin == true && @user.super_admin == true %>
-                <b>Number of pickups on record: </b>
-                <%= Pickup.all.count %>
-                </br>
-                
+                <div class="form-group">
+                <label>User Level:</label>
+                    <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']] , {}, {:class => 'form-control'}%>
+                </div>
 
-                <br>
-                <b>Number of days on record: </b>
-                <%= Day.all.count %>
-                </br>
-                <br>
                 
-                <%= link_to "Prune pickups", User.prune_pickups, class: "btn btn-primary" %>
-                </br>
-                </br>
-                </br>
+                <div class="form-group">
+                <%= f.label :password, "New Password:"%>
+                <%= f.password_field :password, class: 'form-control' %>
+                </div>
+                
+                <div class="form-group">
+                <%= f.label :password_confirmation, "Confirm:" %>
+                <%= f.password_field :password_confirmation, class: 'form-control' %>
+                </div>
+                
+                <div class="form-group">
+                <% if current_user.super_admin == true && @user.super_admin == true %>
+                <h5>Number of pickups on record: &nbsp;
+                    <%= Pickup.all.count %></h5>
+                </div>
+                <br>
+                <div class="form-group">
+                <h5>Number of days on record:  &nbsp;
+                    <%= Day.all.count %></h5>
+                </div>
+                <br>
+
+                <div class="form-group">
+                        <%= link_to "Prune pickups", User.prune_pickups, class: "btn btn-primary" %>
+                </div>
                 <% end %>
 
                 <div class="form-group">
@@ -71,7 +66,7 @@
                 <br>
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
-                <%= link_to "Remove User", @user, method: :delete%>
+                        <%= link_to "Remove User", @user, method: :delete, class: 'text-danger'%>
                 </div>
                 </div>
             <% end %>
