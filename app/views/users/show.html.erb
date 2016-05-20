@@ -16,7 +16,6 @@
                 <h5>Email:
                     <%= @user.email %></h5>
 
-<<<<<<< HEAD
                 <br>
                 <%= f.label :current_password, "Admin Password:" %>
                 <%= f.password_field :current_password, class: 'form-control' %>
@@ -37,20 +36,6 @@
                 </br>
                 
                 <br>
-=======
-                <br> 
-                <div class="form-group">
-                <label>User Level: </label>
-                    <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']], {}, {class: "form-control"}%>
-                </div>
-                <div class="form-group">
-                <%= f.label :current_password, "Current Password:" %>
-                <%= f.password_field :current_password, class: 'form-control' %>
-                </div>
-                
-                
-                <div class="form-group">
->>>>>>> 0ee79ca7bdafb152fc0c7d41b69f26a26e9b0b48
                 <%= f.label :password, "New Password:     "%>
                     <%= f.password_field :password, class: 'form-control' %></div>
               <div class="form-group">
@@ -58,7 +43,6 @@
                   <%= f.password_field :password_confirmation, class: 'form-control' %></div>
                 
                 <% if current_user.super_admin == true && @user.super_admin == true %>
-<<<<<<< HEAD
                 <b>Number of pickups on record: </b>
                 <%= Pickup.all.count %>
                 </br>
@@ -74,16 +58,6 @@
                 </br>
                 </br>
                 </br>
-=======
-                <h5>Number of pickups on record: </h5>
-
-                
-
-                <br>
-                <h5>Number of days on record: </h5>
-                <br>
-                <%= link_to "Prune pickups", users_index_path, class: "btn btn-primary" %>
->>>>>>> 0ee79ca7bdafb152fc0c7d41b69f26a26e9b0b48
                 <% end %>
 
                 <div class="form-group">
