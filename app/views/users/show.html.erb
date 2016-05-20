@@ -4,59 +4,73 @@
 <!-- Begin main content -->
 <div class="container">
     <div class="row">
-        <div class='col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2 well'>
-        <h4 class="text-center">Manage User</h4>
+     <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
+            <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+            <h2>Edit User</h2>
+            <p>Change the user's password or level. The user can also be removed from the system.</p>
+            <br>
             <%= form_for (@user), html: {class: "nifty form"} do |f| %>
                 <%= render 'layouts/flash_messages' %>
+                <h5>Username:
+                    <%= @user.username %></h5>
+                <h5>Email:
+                    <%= @user.email %></h5>
 
                 <br>
-                <b>User Name: </b>
-                <%= @user.username %>
-                </br>
-                
-                <br>
-                <b>Email: </b>
-                <%= @user.email %>
-                </br>
-                
-                <br> 
-                <b>Change User Level: </b>
-                <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']] %>
-                </br>
-                
-                <br>
-                <%= f.label :current_password, "Current Password:" %>
+                <div class="form-group">
+                <%= f.label :current_password, "Admin Password:" %>
                 <%= f.password_field :current_password, class: 'form-control' %>
+                </div>
                 
-                
-                <br>
-                <%= f.label :password, "New Password:     "%>
-                <%= f.password_field :password, class: 'form-control' %>
-              
-                <%= f.label :password_confirmation, "Confirm:     " %>
-                <%= f.password_field :password_confirmation, class: 'form-control' %>
-                </br>
-                
-                <% if current_user.super_admin == true && @user.super_admin == true %>
-                <b>Number of pickups on record: </b>
-                </br>
-                
+                <div class="form-group">
+                <label>User Level:</label>
+                    <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']] , {}, {:class => 'form-control'}%>
+                </div>
 
-                <br>
-                <b>Number of days on record: </b>
-                </br>
-                <br>
                 
-                <%= link_to "Prune pickups", users_index_path, class: "btn btn-primary" %>
-                </br>
-                </br>
-                </br>
+                <div class="form-group">
+                <%= f.label :password, "New Password:"%>
+                <%= f.password_field :password, class: 'form-control' %>
+                </div>
+                
+                <div class="form-group">
+                <%= f.label :password_confirmation, "Confirm:" %>
+                <%= f.password_field :password_confirmation, class: 'form-control' %>
+                </div>
+                
+                <div class="form-group">
+                <% if current_user.super_admin == true && @user.super_admin == true %>
+                <h5>Number of pickups on record: &nbsp;
+                    <%= Pickup.all.count %></h5>
+                </div>
+                <br>
+                <div class="form-group">
+                <h5>Number of days on record:  &nbsp;
+                    <%= Day.all.count %></h5>
+                </div>
+                <br>
+
+                <div class="form-group">
+                        <%= link_to "Prune pickups", User.prune_pickups, class: "btn btn-primary" %>
+                </div>
                 <% end %>
-                <%= f.submit "Update Account", class: "btn btn-primary" %>
-                <%= link_to "Cancel", users_index_path, class: "btn btn-primary" %>
-                <%= link_to "Remove User", @user, method: :delete, class: "btn btn-primary"%>    
+
+                <div class="form-group">
+                    <div class="col-xs-12 text-center">
+                    <%= f.submit "Update User", class: "btn btn-success btn-wide" %>
+                    <%= link_to "Cancel", users_index_path, class: "btn btn-danger btn-wide" %>
+                </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="form-group">
+                    <div class="col-xs-12 text-center">
+                        <%= link_to "Remove User", @user, method: :delete, class: 'text-danger'%>
+                </div>
+                </div>
             <% end %>
             </div>
     </div>
 </div>
-</h1>
+</div>
