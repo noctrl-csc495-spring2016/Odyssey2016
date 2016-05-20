@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :logged_in
-  before_action :user_exists, except: [:index, :new, :create]
+  before_action :user_exists, except: [:index, :new, :create, :prune]
   before_action :is_admin, except: [:update, :edit]
+  before_action :is_super, only: [:prune]
   
   def index
     #display superadmin only if superadmin is logged in
@@ -104,6 +105,19 @@ class UsersController < ApplicationController
     end
 
     
+  end
+  
+  # Iterates through the Pickup DB and removes entries > 6 months old.
+  def prune
+    count = 0
+    Pickup.all.each do |pickup|
+      if pickup.updated_at < 6.months.ago
+        pickup.destroy
+        count += 1
+      end
+    end
+    flash[:success] = pluralize(count, 'pickup was', 'pickups were') + "removed."
+    redirect_to users_index_path
   end
 
   def destroy

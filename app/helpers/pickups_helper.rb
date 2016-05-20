@@ -57,4 +57,5 @@ def build_error_message_string(pickup)
     error_messages += "</ul>"
     return error_messages
 end
+
 end
