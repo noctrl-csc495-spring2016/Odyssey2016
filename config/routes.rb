@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root                               'sessions#new'
   get    'about'                  => 'pages#about'
+    get  'help'                     => 'pages#help'
 
   get    'home/home1'             => 'pages#home1'
   get    'home/home2'             => 'pages#home2'
@@ -24,8 +25,7 @@ Rails.application.routes.draw do
   post   'days/create'            => 'days#create'
   get    'days/:id'               => 'days#show'
   delete 'days/:id'               => 'days#destroy'
-  
-  get    'template'               => 'pages#template'
+
   get    'login'                  => 'sessions#new'
   post   'login'                  => 'sessions#create'
   delete 'logout'                 => 'sessions#destroy'
