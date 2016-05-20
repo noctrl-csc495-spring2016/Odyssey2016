@@ -4,3 +4,24 @@ bill:
   password_digest: <%= User.digest('password') %>
   permission_level: 2
   super_admin: false
+  
+charlie:
+  username: 'charlie'
+  email: 'admin@exam.com'
+  password_digest: <%= User.digest('password') %>
+  permission_level: 2
+  super_admin: false
+  
+corey:
+  username: 'corey'
+  email: 'coreysucks@coreysuckshard.com'
+  password_digest: <%= User.digest('password') %>
+  permission_level: 1
+  super_admin: false
+  
+gerardo:
+  username: 'gerardo'
+  email: 'cubssuck@cubsarentgood.com'
+  password_digest: <%= User.digest('password') %>
+  permission_level: 2
+  super_admin: true

@@ -10,6 +10,10 @@
                 <%= render 'layouts/flash_messages' %>
 
                 <br>
+                <%= f.label :current_password, "Admin Password:" %>
+                <%= f.password_field :current_password, class: 'form-control' %>
+                
+                <br>
                 <b>User Name: </b>
                 <%= @user.username %>
                 </br>
@@ -25,11 +29,6 @@
                 </br>
                 
                 <br>
-                <%= f.label :current_password, "Current Password:" %>
-                <%= f.password_field :current_password, class: 'form-control' %>
-                
-                
-                <br>
                 <%= f.label :password, "New Password:     "%>
                 <%= f.password_field :password, class: 'form-control' %>
               
@@ -39,15 +38,17 @@
                 
                 <% if current_user.super_admin == true && @user.super_admin == true %>
                 <b>Number of pickups on record: </b>
+                <%= Pickup.all.count %>
                 </br>
                 
 
                 <br>
                 <b>Number of days on record: </b>
+                <%= Day.all.count %>
                 </br>
                 <br>
                 
-                <%= link_to "Prune pickups", users_index_path, class: "btn btn-primary" %>
+                <%= link_to "Prune pickups", User.prune_pickups, class: "btn btn-primary" %>
                 </br>
                 </br>
                 </br>
