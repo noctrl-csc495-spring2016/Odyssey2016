@@ -208,3 +208,33 @@ nav.navbar {
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }
+
+
+/* Help Page Styles */
+
+.hidden-default {
+    display: none;
+}
+
+.question {
+    overflow: hidden;
+}
+
+.question h4 {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.img-icon {
+    display: inline;
+    float: right;
+    vertical-align: middle;
+    height: 10%;
+    width: 10%;
+}
+
+@media print {
+    .hidden-default {
+        display: inline;
+    }
+}
