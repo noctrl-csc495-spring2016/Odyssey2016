@@ -80,7 +80,8 @@ Rails.application.configure do
       authentication: "plain",
       enable_starttls_auto: true,
       user_name: ENV['gmail_username'],
-      password: ENV['gmail_password']
+      password: ENV['gmail_password'],
+      ssl: true
     }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
