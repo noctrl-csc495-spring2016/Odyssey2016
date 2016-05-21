@@ -8,6 +8,7 @@ $background:#22ADC9;
 $links:#22ADC9;
 $backgroundNCC: #C1272D;
 $redStar: #FD0004;
+$dangerColor: #d9534f;
 $gray: #777;
 $containerColor:white;
 
@@ -90,6 +91,10 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 
 .text-lg {
     font-size: 18px;
+}
+
+.text-danger {
+    color: $dangerColor;
 }
 
 
@@ -202,4 +207,34 @@ nav.navbar {
     // Animation
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
+}
+
+
+/* Help Page Styles */
+
+.hidden-default {
+    display: none;
+}
+
+.question {
+    overflow: hidden;
+}
+
+.question h4 {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.img-icon {
+    display: inline;
+    float: right;
+    vertical-align: middle;
+    height: 10%;
+    width: 10%;
+}
+
+@media print {
+    .hidden-default {
+        display: inline;
+    }
 }

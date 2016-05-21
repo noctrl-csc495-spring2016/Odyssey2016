@@ -1,0 +1,84 @@
+<% provide(:title, "About") %>
+<%= render 'layouts/navbar' %>
+
+<div class="container white-container">
+<div class="row">
+    <div class="col-xs-12">
+    <h2>Help</h2>
+    <p>Click on a question below to view its answer.</p>
+    </div>
+    </div>
+<div class="row">
+    <br>
+
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+
+    <div class="well question">
+        <h4>What's a pickup?</h4><img src="<%=asset_path("dg.jpg") %>" class="img-responsive img-icon" alt="Village of Downer's Grove">
+        <div class="answer hidden-default">
+            <ul>
+                <li>Pickup = pickup items donated to Sharing Connections, like furniture.</li>
+                <li>People call or email Sharing Connections to donate items. We take their info. In Odyssey, this is when you create a new Pickup. Later, the donor is called and the Pickup is scheduled.</li>
+                <li>Odyssey helps manage this process.</li>
+            </ul>
+        </div>
+        </div>
+
+        <div class="well question">
+            <h4>How do I add a new Pickup?</h4>
+            <div class="answer hidden-default">
+                <ol>
+                    <li>Click Home at the top</li>
+                    <li>Click on the green plus sign</li>
+                    <li>Fill in the form with donor/pickup info</li>
+                </ol>
+            </div>
+        </div>
+
+         <div class="well question">
+            <h4>How do I schedule a Pickup?</h4>
+            <div class="answer hidden-default">
+                <ol>
+                    <li>First you have to add the Pickup (See Question 2)</li>
+                    <li>Click on Home at the top</li>
+                    <li>Select the pickup you want to schedule.</li>
+                    <li>Under “Schedule:”, select a day and you’re set</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How do I change Pickup or donor info?</h4>
+            <div class="answer hidden-default">
+                <ol>
+                    <li>For pickups that are unscheduled, go to the Home page</li>
+                    <ol>
+                        <li>From the Home page, click on the pickup you want to edit</li>
+                    </ol>
+                    <li>For pickups that are already schedule, go to the Schedule page</li>
+                    <ol>
+                        <li>Select the pickup day that the pickup is scheduled for</li>
+                        <li>On the Pickup Day screen, select the pickup you want to edit</li>
+                    </ol>
+                    <li>Make your changes to the pickup or donor information</li>
+                    <li>Click the 'Update Pickup' button at the bottom of the page to save your changes</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</div><!-- End main container-->
+
+<script>
+
+$(document).ready(function() {
+    $(".question").on('click',  function() {
+        $(this).find('.answer').slideToggle();
+    });
+
+
+});
+
+</script>

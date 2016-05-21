@@ -1,16 +1,11 @@
 Rails.application.routes.draw do
   root                               'sessions#new'
   get    'about'                  => 'pages#about'
+    get  'help'                     => 'pages#help'
 
   get    'home/home1'             => 'pages#home1'
   get    'home/home2'             => 'pages#home2'
   get    'home/home3'             => 'pages#home3'
-  
-
-  
-  get    'admin/admin1'           => 'pages#admin1'
-  get    'admin/admin2'           => 'pages#admin2'
-  get    'admin/admin3'           => 'pages#admin3'
   
   get    'reports'                => 'reports#index'
   get    'reports/donor'          => 'reports#donor'
@@ -24,8 +19,7 @@ Rails.application.routes.draw do
   post   'days/create'            => 'days#create'
   get    'days/:id'               => 'days#show'
   delete 'days/:id'               => 'days#destroy'
-  
-  get    'template'               => 'pages#template'
+
   get    'login'                  => 'sessions#new'
   post   'login'                  => 'sessions#create'
   delete 'logout'                 => 'sessions#destroy'
@@ -34,6 +28,7 @@ Rails.application.routes.draw do
   get    'accounts/account'       => 'users#show'
   
   get     'pickups/:id/reject'       => "pickups#reject"
+  post    'users/prune'           => 'users#prune'
   resources :pickups
   resources :users
 

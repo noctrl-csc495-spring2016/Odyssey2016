@@ -80,7 +80,7 @@ def update
                 String error_messages = build_error_message_string(@pickup)
                 flash.now[:danger] = error_messages
                 render 'edit'
-            elsif @pickup.send_email == true
+            elsif @pickup.send_email == true && @pickup.donor_email != nil
                 render 'reject'
             else
                 flash[:success] = "Pickup has been rejected."
@@ -91,7 +91,7 @@ def update
             render 'edit'
         end
     elsif params[:send]
-        #Email Donor
+        @pickup.send_rejection_email
         flash[:success] = "Email has been sent."
         redirect_to '/pickups'
     end

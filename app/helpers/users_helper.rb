@@ -27,4 +27,11 @@ module UsersHelper
     end
   end
   
+  def is_super
+    if !is_super?
+      flash[:danger] = "You do not have permission to view this page."
+      redirect_to pickups_path
+    end
+  end
+  
 end
