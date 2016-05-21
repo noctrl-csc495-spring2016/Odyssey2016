@@ -1,5 +1,25 @@
-<h1>RejectionMailer#reject_pickup</h1>
-
-<p>
- Hi, <%= @pickup.donor_last_name %>, find me in app/views/rejection_mailer/reject_pickup.html.erb
-</p>
+        <p><%if @pickup.donor_first_name.blank?%>
+            Hello,
+            <%else%>
+            Hello <%=@pickup.donor_first_name%>,<br/>
+            <%end%>
+        </p>
+        
+        <%if @pickup.rejected_reason == "Does not meet standards"%>
+            <%=render 'layouts/rejected_does_not_meet_standards'%>
+        <%elsif @pickup.rejected_reason == "Drop-down crib"%>
+            <%=render 'layouts/rejected_drop_side_cribs'%>
+        <%elsif @pickup.rejected_reason == "Out of area"%>
+            <%=render 'layouts/rejected_out_of_area'%>
+        <%elsif @pickup.rejected_reason == "Other"%>
+            <%=render 'layouts/rejected_other'%>
+        <%end%>
+        
+        <p>Thank you for understanding,</p>
+        Sharing Connections<br/>
+        5111 Chase Ave.<br/>
+        Downers Grove, IL 60515<br/>
+        630.971.0565 x 300</br>
+        pickup@sharingconnections.org<br/><br/>
+        Mission: Share Good Things With Good People.</br><br/>
+        Vision: Tonight, everyone eats at a table and sleeps in a bed.
