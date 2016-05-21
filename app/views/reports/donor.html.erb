@@ -17,7 +17,6 @@
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <%= form_tag('/reports/donor.csv', :method => 'get') do %>
                             <div class="form-group">
                                 Month:
                                 <%= select_month(Date.today, {}, {:class => "extra-right-margin form-control"} ) %>
@@ -36,7 +35,6 @@
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
                             </div>
                             </div>
-                    <% end %>
                     </div>
                 </div>
             </div>

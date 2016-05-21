@@ -17,7 +17,6 @@
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <form>
                             <div class="form-group">
                                 Pickup Day:
                                 <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
@@ -33,7 +32,6 @@
                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -55,23 +53,6 @@ submitButton.addEventListener("click", exportFiles);
 function exportFiles()
 {
   //Used iframes to be able to download multiple files
-
-    // var iframe1 = document.createElement('iframe');
-    
-    // //Url is built using the selected value in the dropdown menu
-    // url = "/reports/truck.pdf?pickupday=" + select.value;
-    // iframe1.style.display = "none";
-    // iframe1.src = url ;
-    // document.body.appendChild(iframe1);
-  
-    // var iframe2 = document.createElement('iframe');
-    
-    // //Url is build using the selected value in the dropdown menu
-    // url = "/reports/truck.csv?pickupday=" + select.value;
-    // iframe2.style.display = "none";
-    // iframe2.src = url ;
-    // document.body.appendChild(iframe2);
-
     url1 = "/reports/truck.pdf?pickupday=" + select.value;
     url2 = "/reports/truck.csv?pickupday=" + select.value;
     createiframe(url1);

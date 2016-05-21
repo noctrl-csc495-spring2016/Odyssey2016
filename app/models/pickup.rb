@@ -61,7 +61,7 @@ class Pickup < ActiveRecord::Base
     #For each pickup we add a new row and specify the data that will be included in each column. 
     all.each do |pickup|
       data += [[i,"#{pickup.donor_first_name} #{pickup.donor_last_name}\n#{pickup.donor_phone}",
-                  "#{pickup.donor_address_line1}\n#{pickup.donor_address_line2}\n#{pickup.donor_city}, IL #{pickup.donor_zip}",
+                  "#{pickup.donor_address_line1}\n#{pickup.donor_address_line2}\n#{pickup.donor_city}, #{pickup.donor_state} #{pickup.donor_zip}",
                   "#{pickup.item_notes}\n#{pickup.donor_notes}\n#{pickup.donor_email}"]]
       i += 1
     end
@@ -74,12 +74,15 @@ class Pickup < ActiveRecord::Base
 
   #Helper private functions
   private
-  
+
   def date
    Day.find(day_id).date
   end
-
+  
+  def rejected_date
+    updated_at.strftime("%m/%d/%Y")
+  end
   def address
-    "#{donor_address_line1}, #{donor_address_line2}"
+    "#{donor_address_line1} #{donor_address_line2}"
   end
 end
