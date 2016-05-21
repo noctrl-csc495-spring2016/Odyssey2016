@@ -1,4 +1,3 @@
-<% provide(:title, "Reject Pickup") %>
 <%= render 'layouts/navbar' %>
 
     <div class='container white-container'>
@@ -6,6 +5,12 @@
         To: <%=@pickup.donor_email%><br/>
         From: noreply@sharingconnections.org
         <br/><br/>
+        <p><%if @pickup.donor_first_name.blank?%>
+            Hello,
+            <%else%>
+            Hello <%=@pickup.donor_first_name%>,<br/>
+            <%end%>
+        </p>
         
         <%if @pickup.rejected_reason == "Does not meet standards"%>
             <%=render 'layouts/rejected_does_not_meet_standards'%>
@@ -16,6 +21,16 @@
         <%elsif @pickup.rejected_reason == "Other"%>
             <%=render 'layouts/rejected_other'%>
         <%end%>
+        
+        <p>Thank you for understanding,</p>
+        Sharing Connections<br/>
+        5111 Chase Ave.<br/>
+        Downers Grove, IL 60515<br/>
+        630.971.0565 x 300</br>
+        pickup@sharingconnections.org<br/><br/>
+        Mission: Share Good Things With Good People.</br><br/>
+        Vision: Tonight, everyone eats at a table and sleeps in a bed.
+        
         
         <div class="row">
             <div class="col-xs-12">
