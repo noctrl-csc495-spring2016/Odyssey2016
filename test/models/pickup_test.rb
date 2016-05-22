@@ -12,6 +12,29 @@ class PickupTest < ActiveSupport::TestCase
     assert @pickup.valid?
   end
   
+  test "donor email validation" do
+    @pickup.donor_email = "foo@invalid"
+    assert_not @pickup.valid?
+  end
+  
+  #Number of items validation. Must be a number and must be
+  #Greater than 0
+  test "Number of Items out of range" do
+    @pickup.number_of_items = -1
+    assert_not @pickup.valid?
+  end
+  
+  #Make sure number of items is a number
+  test "Number of Items not a number" do
+    @pickup.number_of_items = "AAA"
+    assert_not @pickup.valid?
+  end
+  
+  #Make sure number of items is present
+  test "number_of_items should be present" do
+    @pickup.number_of_items = ""
+    assert_not @pickup.valid?
+  end
   #Test for missing requirements
   test "donor_phone should be present" do
     @pickup.donor_phone = "  "
@@ -37,4 +60,6 @@ class PickupTest < ActiveSupport::TestCase
     @pickup.donor_zip = "  "
     assert_not @pickup.valid?
   end
+  
+
 end
