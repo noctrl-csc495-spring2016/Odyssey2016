@@ -1,18 +1,17 @@
 require 'test_helper'
 
-class PickupsNewFormTest < ActionDispatch::IntegrationTest
-  
+class PickupsIntegrationTest < ActionDispatch::IntegrationTest
 setup do 
   @pickup = Pickup.first
 end
   
-test "Scheduled Pickups do not appear in the bullpen" do
+test "Scheduled pickups do not appear in the bullpen" do
   log_in_as(users(:bill))
   get pickups_path
   assert_select "a[href=?]", edit_pickup_path(@pickup), false
 end
 
-test "Rejected Pickups do not appear in the bullpen" do
+test "Rejected pickups do not appear in the bullpen" do
   log_in_as(users(:bill))
   @pickup.day_id = nil
   @pickup.rejected = true
@@ -94,7 +93,7 @@ test "Make sure update, schedule, and reject appear on edit form for at least st
   assert_select "input[value=?]",  "Reject"
 end
 
-test "Make sure schedule button appears for unscheduled pickup" do
+test "Make sure schedule button appears for unscheduled pickup on edit form" do
   log_in_as(users(:bill))
   @unscheduledPickup = Pickup.create(     donor_last_name:  'Prucha',
                                           donor_phone:  '(630) 555-5555',
@@ -109,13 +108,12 @@ test "Make sure schedule button appears for unscheduled pickup" do
   assert_select "input[value=?]",  "Unschedule", false
 end
 
-test "Make sure unschedule button appears for scheduled pickup" do
+test "Make sure unschedule button appears for scheduled pickup on edit form" do
   log_in_as(users(:bill))
   get edit_pickup_path(@pickup)
   assert_template 'pickups/edit'
   assert_select "input[value=?]",  "Schedule", false
   assert_select "input[value=?]",  "Unschedule", true
 end
-
 
 end
