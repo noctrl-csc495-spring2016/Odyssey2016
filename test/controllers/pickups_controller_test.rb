@@ -6,7 +6,7 @@ setup do
   @pickup = Pickup.first
 end
 
-#Test the various conroller functions and templates associated with them
+#Test the various controller functions and templates associated with them
 test "should get pickups" do
   log_in_as(users(:bill))
   get :index
@@ -32,17 +32,17 @@ end
 
 test "should get reject" do 
   log_in_as(users(:bill))
-  @rejectedPickup = Pickup.create( donor_last_name:  'Prucha',
-                                          donor_phone:  '(630) 555-5555',
-                                          donor_address_line1:  '15 Drury Lane',
-                                          donor_city: 'Naperville',
-                                          donor_email: 'markprucha@yahoo.com',
-                                          donor_dwelling_type: 'Current residence',
-                                          donor_zip: '60540',
-                                          number_of_items: 2,
-                                          send_email: true,
-                                          rejected: true,
-                                          rejected_reason: 'Out of area')
+  @rejectedPickup = Pickup.create(  donor_last_name:  'Prucha',
+                                    donor_phone:  '(630) 555-5555',
+                                    donor_address_line1:  '15 Drury Lane',
+                                    donor_city: 'Naperville',
+                                    donor_email: 'markprucha@yahoo.com',
+                                    donor_dwelling_type: 'Current residence',
+                                    donor_zip: '60540',
+                                    number_of_items: 2,
+                                    send_email: true,
+                                    rejected: true,
+                                    rejected_reason: 'Out of area')
   get :reject, id: @pickup
   assert_response :success
   assert_template 'pickups/reject'

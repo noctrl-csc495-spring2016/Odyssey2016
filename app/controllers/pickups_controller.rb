@@ -172,7 +172,6 @@ def try_reject_pickup(pickup)
 end
 
 #Method to handle errors if donor tries to email rejection without a valid donor_email present
-
 def check_for_missing_email_before_emailing(pickup)
     @pickup = pickup
     
