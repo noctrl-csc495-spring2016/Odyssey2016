@@ -6,6 +6,22 @@ setup do
   @pickup = Pickup.first
 end
   
+test "Scheduled Pickups do not appear in the bullpen" do
+  log_in_as(users(:bill))
+  get pickups_path
+  assert_select "a[href=?]", edit_pickup_path(@pickup), false
+end
+
+test "Rejected Pickups do not appear in the bullpen" do
+  log_in_as(users(:bill))
+  @pickup.day_id = nil
+  @pickup.rejected = true
+  @pickup.rejected_reason = "Out of Area"
+  @pickup.save
+  get pickups_path
+  assert_select "a[href=?]", edit_pickup_path(@pickup), false
+end
+
 #Test to submit a form with valid pickup information
 test "should create new pickup from form" do
   log_in_as(users(:bill))
@@ -37,7 +53,7 @@ test "failed to create new pickup from form because of missing attributes" do
                                             donor_zip: '60540',
                                             number_of_items: 2}
   end
-  assert flash.empty? == false    #There should be a flash message
+  assert flash.empty? == false    #There should be a flash message with missing attributes
   assert_template 'pickups/new'   #Should re-render 'new'
 end
 
@@ -56,7 +72,7 @@ test "Failed to accept email submitted in form" do
                                             donor_zip: '60540',
                                             number_of_items: 2}
   end
-  assert flash.empty? == false    #There should be a flash message
+  assert flash.empty? == false    #There should be a flash message with invalid email
   assert_template 'pickups/new'   #Should re-render 'new'
 end
 
@@ -80,7 +96,7 @@ end
 
 test "Make sure schedule button appears for unscheduled pickup" do
   log_in_as(users(:bill))
-      @unscheduledPickup = Pickup.create( donor_last_name:  'Prucha',
+  @unscheduledPickup = Pickup.create(     donor_last_name:  'Prucha',
                                           donor_phone:  '(630) 555-5555',
                                           donor_address_line1:  '15 Drury Lane',
                                           donor_city: 'Naperville',
@@ -100,7 +116,6 @@ test "Make sure unschedule button appears for scheduled pickup" do
   assert_select "input[value=?]",  "Schedule", false
   assert_select "input[value=?]",  "Unschedule", true
 end
-
 
 
 end
