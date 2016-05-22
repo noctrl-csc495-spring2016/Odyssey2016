@@ -27,7 +27,11 @@ end
 #http://apidock.com/ruby/DateTime/strftime
 #Date.parse parses the date_string to date type and strftime then formats the date as desired.
 def get_day_of_week(date)
-    return date.to_datetime.strftime("%a, %b %d")
+    if (date.blank?)
+        return ""
+    else
+        return date.to_datetime.strftime("%a, %b %d")
+    end
 end
 
 #Plurality check to see if pickup or pickups should be written next to a date

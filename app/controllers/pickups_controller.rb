@@ -33,66 +33,25 @@ end
 
 #Update a pickup
 #Information is submitted when one of the buttons on the edit form is clicked.
-#Because the edit form contains five potential buttons (update donor, schedule, unschedule, reject, and cancel),
+#Because the edit form contains five potential buttons (update, schedule, unschedule, reject, send, cancel_email),
 #we need five separate cases.
 #http://stackoverflow.com/questions/3332449/rails-multi-submit-buttons-in-one-form
 def update
     @pickup = Pickup.find(params[:id])
     if params[:update]                                              #Update donor button was clicked
-        if @pickup.update_attributes(pickup_params)
-            flash[:success] = "Pickup information has been updated."
-            redirect_to "/pickups"
-        else
-          String error_messages = build_error_message_string(@pickup)
-          flash.now[:danger] = error_messages
-          render 'edit'
-        end
+        try_update_pickup(@pickup)
     elsif params[:schedule]                                         #Schedule button was clicked
-        if @pickup.update_attributes(day_and_pickup_params)
-            if @pickup.day_id == nil
-                @pickup.errors.add(:date,"not valid. Select a day to schedule pickup.")
-                String error_messages = build_error_message_string(@pickup)
-                flash.now[:danger] = error_messages
-                render 'edit'
-            else
-                flash[:success] = "Pickup has been scheduled."
-                redirect_to "/pickups"
-            end
-        else 
-            flash.now[:danger] = "Pickup could not be scheduled."
-            render 'edit'
-        end
-    elsif params[:unschedule]                                        #Reschedule button was clicked
-        @pickup.day_id = nil
-        if @pickup.update_attributes(pickup_params)
-            flash[:success] = "Pickup has been unscheduled."
-            redirect_to "/pickups"
-        else
-            flash.now[:danger] = "Pickup could not be unscheduled."
-            render 'edit'
-        end    
-    elsif params[:reject]                                           
-        @pickup.rejected = true                                     #Set rejected to true and update the rejected params
-        @pickup.day_id = nil
-        if @pickup.update_attributes(rejected_params)
-            if @pickup.send_email == true && @pickup.donor_email.blank? == true
-                @pickup.errors.add(:donor_email,"must be present to send rejection email.")
-                String error_messages = build_error_message_string(@pickup)
-                flash.now[:danger] = error_messages
-                render 'edit'
-            elsif @pickup.send_email == true && @pickup.donor_email != nil
-                render 'reject'
-            else
-                flash[:success] = "Pickup has been rejected."
-                redirect_to "/pickups"
-            end
-        else
-            flash.now[:danger] = "Pickup could not be rejected."
-            render 'edit'
-        end
-    elsif params[:send]
+        try_schedule_pickup(@pickup)
+    elsif params[:unschedule]                                       #Unschedule button was clicked
+        try_unschedule_pickup(@pickup)
+    elsif params[:reject]                                           #Reject button was clicked  
+        try_reject_pickup(@pickup)
+    elsif params[:send]                                             #Send button was clicked
         @pickup.send_rejection_email
         flash[:success] = "Email has been sent."
+        redirect_to '/pickups'
+    elsif params[:cancel_email]                                     #Cancel button on email preview was clicked
+        flash[:success] = "Pickup has been rejected. Email was not sent."
         redirect_to '/pickups'
     end
 end
@@ -140,6 +99,76 @@ def build_error_message_string(pickup)
     end
     error_messages += "</ul>"
     return error_messages
+end
+
+def try_update_pickup(pickup)
+    @pickup = pickup
+    if @pickup.update_attributes(pickup_params)
+        flash[:success] = "Pickup information has been updated."
+        redirect_to "/pickups"
+    else
+      String error_messages = build_error_message_string(@pickup)
+      flash.now[:danger] = error_messages
+      render 'edit'
+    end
+end
+
+def try_unschedule_pickup(pickup)
+    @pickup = pickup
+    @pickup.day_id = nil
+    if @pickup.update_attributes(pickup_params)
+        flash[:success] = "Pickup has been unscheduled."
+        redirect_to "/pickups"
+    else
+        flash.now[:danger] = "Pickup could not be unscheduled."
+        render 'edit'
+    end    
+end
+
+def try_schedule_pickup(pickup)
+    @pickup = pickup
+    if @pickup.update_attributes(day_and_pickup_params)
+            if @pickup.day_id == nil
+                @pickup.errors.add(:date,"not valid. Select a day to schedule pickup.")
+                String error_messages = build_error_message_string(@pickup)
+                flash.now[:danger] = error_messages
+                render 'edit'
+            else
+                flash[:success] = "Pickup has been scheduled."
+                redirect_to "/pickups"
+            end
+    else 
+        flash.now[:danger] = "Pickup could not be scheduled."
+        render 'edit'
+    end
+end
+
+def try_reject_pickup(pickup)
+    @pickup = pickup
+    @pickup.rejected = true                                     #Set rejected to true and update the rejected params
+        @pickup.day_id = nil
+        if @pickup.update_attributes(rejected_params)
+            check_for_missing_email_before_emailing(@pickup)
+        else
+            flash.now[:danger] = "Pickup could not be rejected."
+            render 'edit'
+        end
+end
+
+def check_for_missing_email_before_emailing(pickup)
+    @pickup = pickup
+    if @pickup.send_email == true && @pickup.donor_email.blank? == true
+        @pickup.errors.add(:donor_email,"address must be present to send rejection email.")
+        String error_messages = build_error_message_string(@pickup)
+        flash.now[:danger] = error_messages
+        render 'edit'
+    elsif @pickup.send_email == true && @pickup.donor_email != nil
+        render 'reject'
+    else
+        flash[:success] = "Pickup has been rejected."
+        redirect_to "/pickups"
+    end
+    
 end
 
 end
