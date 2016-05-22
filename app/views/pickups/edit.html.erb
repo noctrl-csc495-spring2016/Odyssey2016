@@ -6,9 +6,6 @@
     <div class="container white-container">
         
     <%= render 'layouts/flash_messages' %>  <!--Render any flash messages-->
-      
-
-    
         <!-- main row container -->
         <div class="row">
             <div class="col-xs-12">
@@ -124,7 +121,12 @@
                             <%if (@isScheduled == false)%>
                               <%=f.select(:day_id, options_for_select(populate_day_options,:selected => @pickup.day_id),{},:class => "form-control")%>
                             <%else%>
-                                <br/>This pickup has been scheduled for <br/><%= get_day_of_week(@pickup.day.date) %>.
+                                <!--http://stackoverflow.com/questions/13965953/rails-has-many-error-undefined-method-for-nilnilclass-->
+                                <!--The following line is for testing purposes only. Because of the has_many relationship between days and pickups, even though the day will not be blank here-->
+                                <!--we must check and set myDate to empty if it is otherwise the test will fail. An easier method would be to just call get_day_of_week(@pickup.day.date) This-->
+                                <!--will work in our case, but due to Rails configuration, it will cause the test to fail.-->
+                               <%@myDate = @pickup.day.blank? ? "" : @pickup.day.date%>
+                                <br/>This pickup has been scheduled for <br/><%= get_day_of_week(@myDate) %>.
                             <%end%>
                         </div>
                         <div class="form-group">

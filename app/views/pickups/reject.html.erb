@@ -38,9 +38,7 @@
                 <%= form_for(@pickup) do |f| %>
                 <div class="form-group">
                     <%= f.submit "Send", name: "send", class: "btn btn-success btn-wide extra-right-margin" %>
-                    <a href="/pickups">
-                        <btn class="btn btn-danger btn-wide">Cancel</btn>
-                    </a>
+                    <%= f.submit "Cancel", name: "cancel_email", class: "btn btn-danger btn-wide" %>
                 </div>
                 <%end%>
             </div>
