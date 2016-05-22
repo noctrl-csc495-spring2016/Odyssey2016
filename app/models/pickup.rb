@@ -7,8 +7,7 @@ class Pickup < ActiveRecord::Base
   validates :donor_city,          presence: { message: "is required." } 
   validates :donor_zip,           presence: { message: "is required." } 
   validates :donor_dwelling_type, presence: { message: "is required." } 
-  validates :number_of_items,     presence: { message: "is required." }
-  
+  validates :number_of_items,     presence: { message: "is required." }, numericality: {greater_than: 0}
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
