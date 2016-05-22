@@ -35,7 +35,7 @@
                             <tr onclick="location.href='<%=edit_pickup_path(pickup)%>'">
                                 <td><%=pickup.donor_last_name%></td>
                                 <td><%=pickup.donor_city%></td>
-                                <td><% if pickup.number_of_items == 10 %>
+                                <td><% if pickup.number_of_items >= 10 %>
                                           <%='10+' %>
                                       <% else %>
                                           <%=pickup.number_of_items%>
