@@ -2,6 +2,7 @@
 <html>
 <head>
   <title><%= content_for?(:title) ? "Odyssey | " + yield(:title) :  "Odyssey" %></title>
+  <%= favicon_link_tag 'favicon.ico' %>
   <!-- Viewport -->
   <meta name='viewport' content="width=device-width, initial-scale=1, maximum-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
