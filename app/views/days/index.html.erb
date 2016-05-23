@@ -116,10 +116,10 @@
                         <% group_qualifier = nil %>
                     <% end %>
                     <% if future_days_count == 0 %>
-                        <tr class="future-date"><td></td> <td colspan="3">There are no pickup days currently configured. You can <a href="/days/new">add some</a> by clicking the 'Add New Pickup Day' button.</td></tr>
+                        <tr class="future-date"><td></td> <td colspan="3">There are currently no pickup days. You can <a href="/days/new"><span style="color:orange;">add some</span></a> by clicking the 'Add New Pickup Day' button.</td></tr>
                     <% end %>
                     <% if past_days_count == 0 %>
-                        <tr class="past-date"><td></td> <td colspan="3"></td></tr>
+                        <tr class="past-date"><td></td> <td colspan="3">There are currently no pickups days that have been scheduled within the past 30 days.</td></tr>
                     <% end %>
                 </tbody>
             </table>
