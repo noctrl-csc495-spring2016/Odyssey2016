@@ -13,12 +13,16 @@
 </div>
 <script>
 $(document).ready(function() { // borrowed from: https://gist.github.com/daverogers/5375778
-	// get current URL path and assign 'active' class
-	var pathname = '/' + window.location.pathname.split('/')[1];
-	// if we are doing anything with users, its in the dropdown so check that first
-	if(pathname == "/users"){ $('.nav > li[class="dropdown"]').addClass('active'); }
-	// else there will be a nav item that matches the url so light it up
-	else { $('.nav > li > a[href^="'+pathname+'"]').parent().addClass('active'); }
+	//Set a unnoticable delay here so that on pages where we get routed to "/" the rails code has
+	//    enough time to redirect us so our route doesnt match "/" but rather "/pickups".
+	setTimeout(function() {
+    	// get current URL path and assign 'active' class
+    	var pathname = '/' + window.location.pathname.split('/')[1];
+    	// if we are doing anything with users, its in the dropdown so check that first
+    	if(pathname == "/users"){ $('.nav > li[class="dropdown"]').addClass('active'); }
+    	// else there will be a nav item that matches the url so light it up
+    	else { $('.nav > li > a[href^="'+pathname+'"]').parent().addClass('active'); }
+	}, 50);
 })
 $("tr[data-link]").click(function() {
   window.location = this.dataset.link
