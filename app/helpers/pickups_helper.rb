@@ -44,6 +44,7 @@ def check_plurality(numberOfPickups)
     end
 end
 
+#Method to populate the state options for the new and edit pickup forms.
 def populate_state_options
     return [['AL'],['AK'], ['AZ'], ['AR'], ['CA'], ['CO'], ['CT'], ['DE'], ['DC'], ['FL'], ['GA'], ['HI'], ['ID'],
             ['IL'], ['IN'], ['IA'], ['KS'], ['KY'], ['LA'], ['ME'], ['MD'], ['MA'], ['MI'], ['MN'], ['MS'],
@@ -52,10 +53,11 @@ def populate_state_options
             ['WI'], ['WY']]
 end
 
+#Method to build error messages for a pickup
 def build_error_message_string(pickup)
     
     String error_messages = "This form contains errors:<ul>"
-    pickup.errors.full_messages.each do |key, value|
+    pickup.errors.full_messages.each do |key, value| #Get all error messages and return them as string.
         error_messages += "<li>#{key}</li>"
     end
     error_messages += "</ul>"
