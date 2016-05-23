@@ -2,6 +2,17 @@ class PickupsController < ApplicationController
 
 before_action :logged_in
 
+#NOTE ON REDIRECT_TO VS RENDER:
+#Render tells the controller to render a view without passing any data. We use this for when we must re-render
+#forms such as when an a user submits a form with invalid or missing data.For example if a user 
+#is on a new pickup form and tries to add a pickup with missing information, a 
+#redirect_to pickups/new would cause the user to lose all fields he or she already filled out. 
+#A render, by default remembers those fields and since the controller is not involved
+#those fields stay filled out.
+#For more information: 
+#http://stackoverflow.com/questions/17236122/what-is-the-difference-between-link-to-redirect-to-and-render
+
+
 
 #Bullpen page.
 #Display all pickups where the day_id is null and the rejected flag is false
@@ -15,7 +26,7 @@ def create
   @pickup = Pickup.new(pickup_params)                    #Pass pickup params from form into new pickup
     if @pickup.save                                      #Saves if required fields were filled in.
       flash[:success] = "Pickup has been added."
-      redirect_to "/pickups"
+      redirect_to "/pickups"                             
     else
       String error_messages = build_error_message_string(@pickup)
       flash.now[:danger] = error_messages
