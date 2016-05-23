@@ -93,17 +93,17 @@
                             <%end %>
                             style="cursor:pointer; <%= if group_qualifier then 'border-top:2px solid black' end %>" data-link="<%= days_path %>/<%= day.id %>">
                             
-                            <td class="text-right">
+                            <td class="text-right col-xs-2">
                                 <strong><%= group_qualifier %></strong>
                             </td>
-                            <td>
+                            <td class="col-xs-3">
                                 <% # format the date as Day, Month dd, yyyy %>
                                 <%= day.date.strftime('%A, %B %d, %Y') %>
                             </td>
-                            <td>
+                            <td class="col-xs-2">
                                 <%= day.pickups.count %>
                             </td>
-                            <td class="hidden-xs">
+                            <td class="hidden-xs col-xs-4">
                                 <% #display all the cities we are going to for the given day, if any %>
                                 <% if day.pickups.any? %>
                                     <%= day.pickups.collect{|pickup| pickup.donor_city}.join(", ") %>
