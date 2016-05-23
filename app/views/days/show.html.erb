@@ -38,6 +38,7 @@
                                 </td>
                             </tr>
                         <% end %>
+                    <% # show a different message depending on if our date is in the past or not %>
                     <% elsif is_in_past(@day.date) %>
                         <tr>
                             <td colspan="4">There were no pickups scheduled for this day.</td>
@@ -51,7 +52,7 @@
             </table>
         </div>
     </div>
-    <% # if there are no pickups for this day, let them delete the day? %>
+    <% # if there are no pickups for this day, let them delete the day %>
     <% if @pickups.empty? && !is_in_past(@day.date) %>
         <div id="delete-button" class="row text-right">
             <div class="col-xs-10 col-xs-offset-1">

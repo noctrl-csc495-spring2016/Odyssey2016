@@ -3,9 +3,11 @@
 
 <script>
     $(function() {
+        // on page load, filter to only show days in the future
         showFutureDays();
     });
 
+    // functions to filter the days we are going to show
     function showFutureDays() {
         $('.past-date').hide();
         $('.future-date').show();
@@ -56,6 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% # some variable to keep track of which group labels we have displayed %>
                     <% showed_past = false %>
                     <% showed_this_week = false %>
                     <% showed_next_week = false %>
@@ -64,8 +67,8 @@
                     <% future_days_count = 0 %>
                     <% past_days_count = 0 %>
                     
-                    <% @days.each_with_index  do |day, index| %>
-                        
+                    <% @days.each do |day| %>
+                        <% # conditions to check if we have displayed each group label %>
                         <% if is_in_past(day.date) && (showed_past == false) %>
                             <% group_qualifier = "Past 30 Days" %>
                             <% showed_past = true %>
@@ -80,7 +83,7 @@
                             <% showed_after_next_week = true %>
                         <% end %>
                         
-                        
+                        <% # depending on if the day is in the past or in the future, assign it a different class %>
                         <tr <% if (is_in_past(day.date)) %>
                                 <%= 'class=past-date' %> 
                                 <% past_days_count += 1 %>
@@ -101,16 +104,9 @@
                                 <%= day.pickups.count %>
                             </td>
                             <td class="hidden-xs">
-                                <% # For each day, go trhough all pickups. If there are pickups, %>
-                                <% #     loop through and print all the cities for that pickups. %>
+                                <% #display all the cities we are going to for the given day, if any %>
                                 <% if day.pickups.any? %>
-                                    <% day.pickups.each do |p| %>
-                                        <%= p.donor_city %>
-                                        <% if p != day.pickups.last %>
-                                            <% # put a comma inbetween the cities if its not the last pickup %>
-                                            <%= ',' %>
-                                        <% end %>
-                                    <% end %>
+                                    <%= day.pickups.collect{|pickup| pickup.donor_city}.join(", ") %>
                                 <% else %>
                                     <% # only show this if no pickups for the given day %>
                                     <small>No scheduled pickups</small>
@@ -123,7 +119,7 @@
                         <tr class="future-date"><td></td> <td colspan="3">There are no pickup days currently configured. You can <a href="/days/new">add some</a> by clicking the 'Add New Pickup Day' button.</td></tr>
                     <% end %>
                     <% if past_days_count == 0 %>
-                        <tr class="past-date"><td></td> <td colspan="3"><blockquote><p>"<em>When your past calls, don't answer. It has nothing new to say.</em>"<p><small>GP</small></p></p></blockquote></td></tr>
+                        <tr class="past-date"><td></td> <td colspan="3"></td></tr>
                     <% end %>
                 </tbody>
             </table>
