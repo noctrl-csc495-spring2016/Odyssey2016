@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_action :logged_in
   before_action :admin_or_standard
 
+  #Render html page or export donor csv file
   def donor
       respond_to do |format|
         format.html
@@ -38,6 +39,7 @@ class ReportsController < ApplicationController
       end
   end
 
+#Render the html page, mapquest csv, or pdf files. csv and pdf downloads are in pickup.rb
   def truck
     respond_to do |format|
       format.html {
@@ -77,6 +79,7 @@ class ReportsController < ApplicationController
     end
   end
 
+  #get rejected pickups from specified month and year
   def rejected_history
     headers = ["Title", "First", "Last", "Phone", "E-Mail", "Address 1", "Address 2", "City",
                "State", "Zip", "Rejected Reason", "Rejected Date"]
@@ -104,7 +107,7 @@ class ReportsController < ApplicationController
   end
 
   private 
-  
+  #get 3 letter month abreviation from month number
   def month_name(number)
     case number
     when "1"
@@ -134,6 +137,7 @@ class ReportsController < ApplicationController
     end
   end
 
+  #generate the file name for truck reports
   def filename_date(date)
     Date.parse(date).strftime("%b%-d").downcase
   end
