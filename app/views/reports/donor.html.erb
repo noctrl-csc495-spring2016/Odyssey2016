@@ -9,8 +9,8 @@
                         <h2>Donor CSV Export</h2>
                         <p>Select a month and year to export data for all donors for that month.</p>
                         <p>
-                        The donors report is saved as donors_[MONTH][YEAR].pdf <br>
-                        The rejected pickups report is saved as rejected_[MONTH][YEAR].csv
+                        The donors report is saved as <b>donors_[MONTH][YEAR].pdf</b> <br>
+                        The rejected pickups report is saved as <b>rejected_[MONTH][YEAR].csv</b>
                         </p>
                         <br>
                     </div>
@@ -46,19 +46,25 @@ var submitButton = document.getElementById("exportButton");
 var selectMonth = document.getElementById("date_month");
 var selectYear = document.getElementById("date_year");
 
+// Attaches an onClick listener to the export button 
 submitButton.addEventListener("click", exportFiles);
+
 function exportFiles()
 {
+    //Builds urls using the month and year selected 
     url1 = "/reports/donor.csv?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     url2 = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     createiframe(url1);
+    
+    //Timeout needed to download multiple files in IE
     window.setTimeout(function() {createiframe(url2)}, 500);
 }
 
+//Creates a hidden iframe with the given url
 function createiframe(url){
-    var iframe1 = document.createElement('iframe');
-    iframe1.style.display = "none";
-    iframe1.src = url ;
-    document.body.appendChild(iframe1);
+    var iframe = document.createElement('iframe');
+    iframe.style.display = "none";
+    iframe.src = url ;
+    document.body.appendChild(iframe);
 }
 </script>
