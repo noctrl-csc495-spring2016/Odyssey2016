@@ -32,8 +32,7 @@
                     <tbody>
                         <!--Display Unscheduled Pickups-->
                         <%@pickups.each do |pickup|%>
-                      
-                            <tr onclick="location.href='<%=edit_pickup_path(pickup)%>'">
+                            <tr style="cursor:pointer;" onclick="location.href='<%=edit_pickup_path(pickup)%>'">
                                 <td><%=pickup.donor_last_name%></td>
                                 <td><%=pickup.donor_city%></td>
                                 <td><% if pickup.number_of_items >= 10 %>
@@ -52,6 +51,11 @@
                                 <%= truncate(pickup.item_notes, length:65) %></td>
                             </tr>
                         <%end%> 
+                        <% if !@pickups.any? %>
+                          <tr>
+                            <td colspan="4"> All pickups are currently scheduled! Check out the <a href="/days">schedule</a> to see when.</td>
+                          </tr>
+                        <% end %>
                     </tbody>
                 </table>
             </div>

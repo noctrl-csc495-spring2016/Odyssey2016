@@ -39,7 +39,7 @@
                         </tr>
                     </thead>
                         <% @users.each do |user| %> 
-                        <tr onclick="location.href='<%=user_path(user)%>'">
+                        <tr style="cursor:pointer;" onclick="location.href='<%=user_path(user)%>'">
                             <td>
                                 <%= user.username %>
                             </td>
