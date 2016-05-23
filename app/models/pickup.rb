@@ -17,7 +17,7 @@ class Pickup < ActiveRecord::Base
   end
   
 
-  #Function that builds csv files with pickup info. Called in reports controller. 
+  #Function that builds csv file with address info. Called in reports controller. 
   def self.to_routes_csv
     headers = ["Street","City","State","Zip"]
     
@@ -26,8 +26,6 @@ class Pickup < ActiveRecord::Base
     
     #Generate csv file
     CSV.generate(headers: true) do |csv|
-      
-      #Add headers
       csv << headers
       
       #For each pickup, a new row is added and the columns are filled with the 
@@ -44,28 +42,28 @@ class Pickup < ActiveRecord::Base
     pickupdate = Date.parse(day)
     pdf = Prawn::Document.new
     
-    #Adds sharing connections logo to pdf
+    #Add sharing connections logo to pdf
     pdf.image "#{Rails.root}/app/assets/images/SC_logo.png", :width => 200, :position => :right
     pdf.move_down 10
     
-    #Adds title to pdf.
+    #Add title to pdf.
     pdf.text  pickupdate.strftime("Pickup Schedule for %A %b %d, %Y") , 
                     :align => :center, :style => :bold, :size => 14
     pdf.move_down 10
     
-    #Data that will be used to generate our table. First row contains the headers. 
+    #data will be used to generate our table. First row contains the headers. 
     data = [["", "<b>Name/Contact</b>", "<b>Address</b>", "<b>Donor Items/Notes</b>"]]
     i = 1;
     
     #For each pickup we add a new row and specify the data that will be included in each column. 
     all.each do |pickup|
-      data += [[i,"#{pickup.donor_first_name} #{pickup.donor_last_name}\n#{pickup.donor_phone}",
+      data += [[i,"#{pickup.donor_title} #{pickup.donor_first_name} #{pickup.donor_last_name}\n#{pickup.donor_phone}",
                   "#{pickup.donor_address_line1}\n#{pickup.donor_address_line2}\n#{pickup.donor_city}, #{pickup.donor_state} #{pickup.donor_zip}",
                   "#{pickup.item_notes}\n#{pickup.donor_notes}\n#{pickup.donor_email}"]]
       i += 1
     end
     
-    #Adds table to pdf
+    #Add table to pdf
     pdf.table(data, :header => true, :cell_style => { :size => 10, :inline_format => true},
                     :position => :center, :column_widths => [15,130,135,240])
     pdf.render
@@ -81,6 +79,7 @@ class Pickup < ActiveRecord::Base
   def rejected_date
     updated_at.strftime("%m/%d/%Y")
   end
+  
   def address
     "#{donor_address_line1} #{donor_address_line2}"
   end
