@@ -30,6 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!--Display Unscheduled Pickups-->
                         <%@pickups.each do |pickup|%>
                       
                             <tr onclick="location.href='<%=edit_pickup_path(pickup)%>'">
@@ -40,12 +41,12 @@
                                       <% else %>
                                           <%=pickup.number_of_items%>
                                       <% end %>
-                                      <% if pickup.number_of_items == 1 %>
+                                      <% if pickup.number_of_items == 1 %> <!--Display item instead of items if 1-->
                                           <%="item"%>
                                         <% else %>
                                             <%="items"%></td>
                                         <%end%>    
-                                <td><%if pickup.item_notes.blank?%>
+                                <td><%if pickup.item_notes.blank?%> <!--Display none if item_notes is blank-->
                                         <%="None"%>
                                     <%end%>
                                 <%= truncate(pickup.item_notes, length:65) %></td>

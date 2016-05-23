@@ -145,6 +145,7 @@
                             <label>Reason: </label>
                             <%=f.select(:rejected_reason, options_for_select([['Does not meet standards','Does not meet standards'], ['Drop-down crib', 'Drop-down crib'], ['Out of area','Out of area'],['Other', 'Other']],:selected => 'Other'),{},:class => "form-control")%>
                         </div>
+                        <!--Checkbox is checked if donor_email was provided-->
                         <div class="form-group">
                             <%if (@pickup.donor_email.blank?)%>
                              <%= f.check_box :send_email%> &nbsp;&nbsp;&nbsp;Email Donor
