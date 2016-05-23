@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :is_admin, except: [:update, :edit]
   before_action :is_super, only: [:prune]
   
+  #Diplays all users, each user in a row
   def index
     #display superadmin only if superadmin is logged in
     if !is_super? 
@@ -13,6 +14,9 @@ class UsersController < ApplicationController
     end
   end
 
+  #Called when an admin clicks on a user in the table on the users index page.
+  #Displays the user's info and allows admin to change their password and/or
+  #permission level.
   def show
     @user = User.find(params[:id])
     
@@ -28,7 +32,8 @@ class UsersController < ApplicationController
   end
 
     
-  #admins have a different profile page so we redirect them to 'show'
+  #Called when a user selects "Settings".  If the user is admin, they are
+  #redirected to 'show'.
   def edit
     @user = User.find(params[:id])
     if @user.permission_level == 2
@@ -36,6 +41,7 @@ class UsersController < ApplicationController
     end
   end
 
+  #Called when the admin wants to create a new user
   def create
     @user = User.new(new_user_params)
     if @user.save
@@ -116,7 +122,7 @@ class UsersController < ApplicationController
         count += 1
       end
     end
-    flash[:success] = pluralize(count, 'pickup was', 'pickups were') + "removed."
+    flash[:success] = pluralize(count, 'pickup was', 'pickups were') + " removed."
     redirect_to users_index_path
   end
 
