@@ -19,10 +19,10 @@ class Pickup < ActiveRecord::Base
 
   #Function that builds csv file with address info. Called in reports controller. 
   def self.to_routes_csv
-    headers = ["Street","City","State","Zip"]
+    headers = ["Street","City","State","Zip", "Country", "Notes"]
     
     #Creates array with given values. 
-    attributes = %w{address donor_city donor_state donor_zip}
+    attributes = %w{address donor_city donor_state donor_zip country donor_notes}
     
     #Generate csv file
     CSV.generate(headers: true) do |csv|
@@ -65,7 +65,7 @@ class Pickup < ActiveRecord::Base
     
     #Add table to pdf
     pdf.table(data, :header => true, :cell_style => { :size => 10, :inline_format => true},
-                    :position => :center, :column_widths => [15,130,135,240])
+                    :position => :center, :column_widths => [25,130,135,240])
     pdf.render
   end
 
@@ -82,5 +82,9 @@ class Pickup < ActiveRecord::Base
   
   def address
     "#{donor_address_line1} #{donor_address_line2}"
+  end
+  
+  def country
+    "US"
   end
 end

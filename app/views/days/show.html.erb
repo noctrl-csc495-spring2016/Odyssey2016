@@ -15,7 +15,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>City</th>
+                        <th>Town</th>
                         <th>Item Quantity</th>
                         <th class="hidden-xs">Item Description</th>
                     </tr>
@@ -33,25 +33,29 @@
                                 <td>
                                     <%= pickup.number_of_items %>
                                 </td>
-                                <td class="hidden-xs">
-                                    <%= pickup.item_notes %>
+                                <td class="hidden-xs col-md-5">
+                                    <%if pickup.item_notes.blank?%>
+                                        <%="None"%>
+                                    <%end%>
+                                    <%= truncate(pickup.item_notes, length:65) %>
                                 </td>
                             </tr>
                         <% end %>
+                    <% # show a different message depending on if our date is in the past or not %>
                     <% elsif is_in_past(@day.date) %>
                         <tr>
                             <td colspan="4">There were no pickups scheduled for this day.</td>
                         </tr>
                     <% else %>
                         <tr>
-                            <td colspan="4">There are no pickups scheduled for this day. View the <a href="/pickups">Home page</a> to schedule some.</td>
+                            <td colspan="4">There are no pickups scheduled for this day. View the <a href="/pickups"><span style="color:orange;">Home page</span></a> to schedule some.</td>
                         </tr>
                     <% end %>
                 </tbody>
             </table>
         </div>
     </div>
-    <% # if there are no pickups for this day, let them delete the day? %>
+    <% # if there are no pickups for this day, let them delete the day %>
     <% if @pickups.empty? && !is_in_past(@day.date) %>
         <div id="delete-button" class="row text-right">
             <div class="col-xs-10 col-xs-offset-1">

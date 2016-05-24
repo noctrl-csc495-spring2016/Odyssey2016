@@ -5,6 +5,7 @@
     $(document).ready(function() {
         // CALENDAR CONFIGURATION
         $('#calendar').fullCalendar({
+            events: null,
             weekends: false,
             defaultView: 'month',
             dayClick: function(date, jsEvent, view){
@@ -19,6 +20,8 @@
         GetAllDays();
     });
     
+    //function to trigger a day click. This function is seperated out from the calendar configuration
+    //    so that we can simulate a day click when a user picks a day from the form.
     function dayClicked(date, jsEvent, view) {
         // Remove the old selected day by getting the original event source
         $('#calendar').fullCalendar( 'refetchEvents' );
@@ -38,9 +41,6 @@
         $('#month').val(monthNames[dObj.getMonth()]);
         $('#day').val(dObj.getDate());
         $('#year').val(dObj.getFullYear());
-        
-        // Trigger the on change to adjust our selects
-        $( "#month" ).trigger( "change" );
     }
     
     // AJAX GET function to retrieve all the days when loading the calendar
@@ -52,7 +52,7 @@
             url: "/days/all",
             success: function(data) {
                 $.each(data, function(key, value){
-                    // push the day into our array
+                    // push the day into our array. If the day is in the future, make it green. Else make it gray
                     if(Date.parse(value.date)-Date.parse(new Date()) < 0){
                         events.push({title:key, start:value.date, rendering:'background', allDay:true, color:'gray'});
                     }
@@ -62,7 +62,6 @@
                 })
                 // add our built array as a data source to the calendar
                 $('#calendar').fullCalendar( 'addEventSource', events );
-                $('.loading').fadeOut();
             },
             error: function(data) {
                 // Uh oh
@@ -127,7 +126,7 @@
         var dateObj = new Date( $("#month").val() + " 1," + $("#year").val())
         
         // format the date and send the callendar to that date
-        var formattedDate = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+        var formattedDate = dateObj.getFullYear() + "-" + ("0" + (dateObj.getMonth() + 1)).slice(-2) + "-" + ("0" + dateObj.getDate()).slice(-2);
         $("#calendar").fullCalendar( 'gotoDate', formattedDate)
         
         var numDaysInMonth = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate()
@@ -146,6 +145,8 @@
             dayClicked($("#month").val() + " " + $("#day").val() + "," + $("#year").val(), null, null);
         }
     });
+    
+    //some extra js to re-style the default calendar buttons
     $(document).ready(function() {
         $('.fc-today-button, .fc-button-group > button').each(function(i, obj) {
             $(this).removeClass('fc-button fc-state-default fc-corner-left fc-corner-right').addClass('btn btn-primary');

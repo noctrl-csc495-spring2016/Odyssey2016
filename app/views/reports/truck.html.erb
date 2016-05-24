@@ -9,8 +9,8 @@
                         <h2>Truck Reports</h2>
                         <p>Select a pickup date below to export the daily truck report and MapQuest route information.</p>
                         <p>
-                        The truck report is saved as <b>truck_[DATE].pdf</b> <br>
-                        The mapquest report is saved as <b>mapquest_[DATE].csv</b>
+                        The truck report is saved as <strong>truck_[DATE].pdf</strong> <br>
+                        The mapquest report is saved as <strong>mapquest_[DATE].csv</strong>
                         </p>
                         <br>
                     </div>
@@ -19,31 +19,44 @@
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                             <div class="form-group">
                                 Pickup Day:
-                                <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
-                                  [d.date.strftime("%b %-d"), d.date]}),
-                                  class: "form-control" %>   
+                                <!--Checks to see if there are scheduled pickups and populates options accordingly-->
+                                <%if @days.empty?%>
+                                    <%= select_tag 'pickupday' , "<option>No scheduled pickups</option>".html_safe, 
+                                    class: "form-control" %>
+                                <%else%>
+                                    <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
+                                                    [d.date.strftime("%A %b %-d, %Y"), d.date]}),
+                                                    class: "form-control" %> 
+                                <%end%>
                             </div>
                             <br>
                             <div class="form-group">
-
                               <!--Export and cancel buttons-->
                                 <div class="col-xs-12 text-center">
-                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
-                              <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
+                                <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
+                                <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
                                 </div>
                             </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+    
+<!--In order to have the ability to download multiple files with a single request/click -->
+<!--of a button, I attached a javascript function to the export button. -->
 <script>
 var submitButton = document.getElementById("exportButton");
 var select = document.getElementById("pickupday");
+var redirect = false;
 
-// Attaches an onClick listener to the export button 
-submitButton.addEventListener("click", exportFiles);    
+if (select.value == "No scheduled pickups"){
+    // Disables export button if there are not scheduled pickups
+    submitButton.disabled = true;
+}else{
+    // Attaches an onClick listener to the export button 
+    submitButton.addEventListener("click", exportFiles); 
+}
 
 function exportFiles()
 {
@@ -51,7 +64,7 @@ function exportFiles()
     url1 = "/reports/truck.pdf?pickupday=" + select.value;
     url2 = "/reports/truck.csv?pickupday=" + select.value;
     createiframe(url1);
-    
+    redirect = true;
     //Timeout needed to download multiple files in IE
     window.setTimeout(function() {createiframe(url2)}, 500);
 }
@@ -62,5 +75,12 @@ function createiframe(url){
     iframe.style.display = "none";
     iframe.src = url ;
     document.body.appendChild(iframe);
+    
+    //Used boolean to make sure the redirect did not happen before both files 
+    //have been downloaded. If I redirect at the end of the exportFiles function
+    //the redirect occurs  before the second report is downloaded. 
+    if(redirect){
+        window.location = '/reports';
+    }
 }
 </script>

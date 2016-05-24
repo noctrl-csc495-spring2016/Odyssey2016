@@ -9,8 +9,8 @@
                         <h2>Donor CSV Export</h2>
                         <p>Select a month and year to export data for all donors for that month.</p>
                         <p>
-                        The donors report is saved as <b>donors_[MONTH][YEAR].pdf</b> <br>
-                        The rejected pickups report is saved as <b>rejected_[MONTH][YEAR].csv</b>
+                        The donors report is saved as <strong>donors_[MONTH][YEAR].pdf</strong> <br>
+                        The rejected pickups report is saved as <strong>rejected_[MONTH][YEAR].csv</strong>
                         </p>
                         <br>
                     </div>
@@ -41,10 +41,13 @@
         </div>
     </div>
     
+<!--In order to have the ability to download multiple files with a single request/click -->
+<!--of a button, I attached a javascript function to the export button. -->
 <script>
 var submitButton = document.getElementById("exportButton");
 var selectMonth = document.getElementById("date_month");
 var selectYear = document.getElementById("date_year");
+var redirect = false;
 
 // Attaches an onClick listener to the export button 
 submitButton.addEventListener("click", exportFiles);
@@ -55,7 +58,7 @@ function exportFiles()
     url1 = "/reports/donor.csv?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     url2 = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     createiframe(url1);
-    
+    redirect = true;
     //Timeout needed to download multiple files in IE
     window.setTimeout(function() {createiframe(url2)}, 500);
 }
@@ -66,5 +69,12 @@ function createiframe(url){
     iframe.style.display = "none";
     iframe.src = url ;
     document.body.appendChild(iframe);
+    
+    //Used boolean to make sure the redirect did not happen before both files 
+    //have been downloaded. If I redirect at the end of the exportFiles function
+    //the redirect occurs  before the second report is downloaded. 
+    if(redirect){
+        window.location = '/reports';
+    }
 }
 </script>
