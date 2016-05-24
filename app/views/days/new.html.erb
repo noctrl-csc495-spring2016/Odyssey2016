@@ -41,9 +41,6 @@
         $('#month').val(monthNames[dObj.getMonth()]);
         $('#day').val(dObj.getDate());
         $('#year').val(dObj.getFullYear());
-        
-        // Trigger the on change to adjust the number of days to show (depends on the month and year currently selected)
-        $( "#month" ).trigger( "change" );
     }
     
     // AJAX GET function to retrieve all the days when loading the calendar
