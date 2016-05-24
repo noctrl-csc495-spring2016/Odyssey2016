@@ -65,7 +65,7 @@ class Pickup < ActiveRecord::Base
     
     #Add table to pdf
     pdf.table(data, :header => true, :cell_style => { :size => 10, :inline_format => true},
-                    :position => :center, :column_widths => [15,130,135,240])
+                    :position => :center, :column_widths => [25,130,135,240])
     pdf.render
   end
 
