@@ -19,17 +19,22 @@
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                             <div class="form-group">
                                 Pickup Day:
-                                <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
-                                  [d.date.strftime("%b %-d"), d.date]}),
-                                  class: "form-control" %>   
+                                <!--Checks to see if there are scheduled pickups and populates options accordingly-->
+                                <%if @days.empty?%>
+                                    <%= select_tag 'pickupday' , "<option>No scheduled pickups</option>".html_safe, 
+                                    class: "form-control" %>
+                                <%else%>
+                                    <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
+                                                    [d.date.strftime("%A %b %-d, %Y"), d.date]}),
+                                                    class: "form-control" %> 
+                                <%end%>
                             </div>
                             <br>
                             <div class="form-group">
-
                               <!--Export and cancel buttons-->
                                 <div class="col-xs-12 text-center">
-                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
-                              <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
+                                <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
+                                <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
                                 </div>
                             </div>
                     </div>
@@ -45,8 +50,14 @@
 var submitButton = document.getElementById("exportButton");
 var select = document.getElementById("pickupday");
 
-// Attaches an onClick listener to the export button 
-submitButton.addEventListener("click", exportFiles);    
+
+if (select.value == "No scheduled pickups"){
+    // Disables export button if there are not scheduled pickups
+    submitButton.disabled = true;
+}else{
+    // Attaches an onClick listener to the export button 
+    submitButton.addEventListener("click", exportFiles); 
+}
 
 function exportFiles()
 {
