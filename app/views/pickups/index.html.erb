@@ -26,7 +26,7 @@
                             <th>Last Name</th>
                             <th>Town</th>
                             <th>Quantity</th>
-                            <th>Item Description</th>
+                            <th class="hidden-xs">Item Description</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +45,7 @@
                                         <% else %>
                                             <%="items"%></td>
                                         <%end%>    
-                                <td><%if pickup.item_notes.blank?%> <!--Display none if item_notes is blank-->
+                                <td class="hidden-xs col-md-5"><%if pickup.item_notes.blank?%> <!--Display none if item_notes is blank-->
                                         <%="None"%>
                                     <%end%>
                                 <%= truncate(pickup.item_notes, length:65) %></td>
@@ -53,7 +53,7 @@
                         <%end%> 
                         <% if !@pickups.any? %>
                           <tr>
-                            <td colspan="4"> All pickups are currently scheduled! Check out the <a href="/days">schedule</a> to see when.</td>
+                            <td colspan="4"> All pickups are currently scheduled! Check out the <a href="/days"><span style="color:orange;">schedule</span></a> to see when.</td>
                           </tr>
                         <% end %>
                     </tbody>
