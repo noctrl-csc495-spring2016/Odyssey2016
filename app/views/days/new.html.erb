@@ -126,7 +126,7 @@
         var dateObj = new Date( $("#month").val() + " 1," + $("#year").val())
         
         // format the date and send the callendar to that date
-        var formattedDate = dateObj.getFullYear() + "-" + (dateObj.getMonth() + 1) + "-" + dateObj.getDate();
+        var formattedDate = dateObj.getFullYear() + "-" + ("0" + (dateObj.getMonth() + 1)).slice(-2) + "-" + ("0" + dateObj.getDate()).slice(-2);
         $("#calendar").fullCalendar( 'gotoDate', formattedDate)
         
         var numDaysInMonth = new Date(dateObj.getFullYear(), dateObj.getMonth() + 1, 0).getDate()
