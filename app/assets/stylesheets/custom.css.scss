@@ -234,6 +234,11 @@ nav.navbar {
     margin-left: 0.5%;
 }
 
+span.fa.fa-truck.helpIcon {
+    float: right;
+    font-size: 48px;
+}
+
 @media print {
     .hidden-default {
         display: inline;
