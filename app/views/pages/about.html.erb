@@ -1,11 +1,24 @@
+
+<!-- Written by Jennifer Dust -->
+<head>
 <% provide(:title, "About the Team | CSC 495 Capstone") %>
+<!-- Loading screen -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(window).load(function() {
+	$(".loader").fadeOut("slow");
+})
+</script>
+
+</head>
+
 <body class="ncc ncc-img">
+<div class="loader"></div>
 <div class="navbarAbout navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <div class="col-xs-9 col-md-12">
-        <div class="navbar-brand"> 
-         <a id="logo" href="/"><img id='logoImg' src="<%=asset_path("NCC_logo.png") %>" class="img-responsive" alt="Odyssey Pick About"></a> </div>
+        <div class="navbar-brand"> <a id="logo" href="/"><img id='logoImg' src="<%=asset_path("NCC_logo.png") %>" class="img-responsive" alt="Odyssey Pick About"></a> </div>
       </div>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
     </div>
@@ -22,11 +35,10 @@
   <div class="well">
     <h2 id="aboutTeam" class="text-center">About Project Odyssey</h2>
     <div id="content">
-      <p>Our project team consists of 13 seniors majoring in computer science at North Central College, led by a computer science faculty member, as part of the program's capstone experience. Our project involved creating a scheduling assistant for Sharing Connections. Professor Bill and Jennifer D met with the folks at Sharking Connections to make sure we understood their current process in order to best translate that to a web application. Once preliminary mockups were made, we got to work creating the application's front-end design and back-end functionality. <br/>
-        <br/>
-        During development, we used Agile and Scrum methodologies, which emphasize individuals over processes, working software over documentation, customer collaboration, and quick responses to changes. To build the front-end user interface, our Bootstrap team used the Bootstrap framework, which includes a library of HTML, CSS, and JavaScript tools to create dynamic, stylish applications. The product's back-end was written using Ruby on Rails, a powerful, modern programming language and framework for web-based applications.<br/>
-        <br/>
-        Throughout the whole process, our team collaborated using the Slack application to communicate outside the classroom and GitHub platform to store and share our code. We also used the Cloud9 web-based development environment, which allowed us to easliy access the project from anywhere and integrate with GitHub.</p>
+      <p>The Odyssey Pickup Assistant was written in Spring 2016 by the students of the CSC 495 Capstone class at North Central College. A colgrouporative and agile design process was emphasized throughout the project. We relied on various new technologies while building Odyssey including: Ruby on Rails, git Github, Cloud9, Bootstrap, Slack, Herkou, and others. <br/> <br/>
+
+Odyssey is custom software written for Sharing Connections, a Downers Grove-based charity. We wish to thank everyone at Sharing Connections for their support and contribution during this effort.
+        </p>
     </div>
     <p><a class="btn ncc-button btn-primary btn-lg" href="http://northcentralcollege.edu/home" target="_blank" role="button">Learn More About NCC &raquo;</a></p>
   </div>
@@ -37,84 +49,126 @@
   <h2   class="text-center" style="color:white" >The Team</h2>
   
   <!-- Row 1 {5} -->
-  <div class="margin">
-    <div class="hexrow">
-      <div data-toggle="modal" data-target="#Row1_Hex1"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div data-toggle="modal" data-target="#Row1_Hex2"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row1_Hex3"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row1_Hex4"> <span>Rachel R</span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row1_Hex5"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row1_Hex6"> <span>Mark P</span>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    
-    <!-- Row 2 {4}-->
-    <div class="hexrow">
-      <div  data-toggle="modal" data-target="#Row2_Hex1"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row2_Hex2"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row2_Hex3"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row2_Hex4"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row2_Hex5"> <span>Charlie M</span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row2_Hex6"> <span>Eric Z</span>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    
-    <!-- Row 3 {4} -->
-    <div class="hexrow">
-      <div id="Row3_Hex1" class="invis"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row3_Hex2"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div id="Row3_Hex3" class="invis"> <span></span>
-        <div></div>
-        <div></div>
-      </div>
-      <div  data-toggle="modal" data-target="#Row3_Hex4"> <span>Kyle L</span>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /container -->
+ <section id="group">	
+    <article>
+
+        <div class="group_item" data-toggle="modal" data-target="#Row1_Hex1">		
+        <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("Bill_about.jpg") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row1_Hex2">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("Chase_about.jpg") %>";>                
+                </div>
+             </div>
+         </div>
+         </div>
+ <div class="group_item" data-toggle="modal" data-target="#Row1_Hex3">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image: src="<%=asset_path("Kriger_about.jpg") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+ <div class="group_item" data-toggle="modal" data-target="#Row1_Hex4">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("Mark_about.jpg") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+              <div class="group_item" data-toggle="modal" data-target="#Row2_Hex1">        
+        <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("Emily_about.jpg") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row2_Hex2">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("Jen_about.jpg") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row2_Hex3">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("NickD_about.png") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row3_Hex1">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("Bilal_about.jpg") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row3_Hex2">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("Gerardo_about.jpg") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row3_Hex3">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("placeholder.png") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row3_Hex4">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("NickO_about.png") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row4_Hex1">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("placeholder.png") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+          <div class="group_item" data-toggle="modal" data-target="#Row4_Hex2">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("placeholder.png") %>;">    
+                </div>
+             </div>
+         </div>
+         </div>
+           <div class="group_item" data-toggle="modal" data-target="#Row4_Hex3">
+          <div class="hexagon hexagon2">
+            <div class="hexagon-in1">
+                <div class="hexagon-in2" style="background-image:  src="<%=asset_path("placeholder.png") %>;">                
+                </div>
+             </div>
+         </div>
+         </div>
+
+         
+          
+	</article>
+</section>
 
 <!-- End Hexagons --> 
 
@@ -134,7 +188,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="aboutText col-sm-8"> CSC495 Spring 2016, making app development look easy. </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Bill Moers" src="<%=asset_path("Bill_Hex.png") %>" class="img-responsive"> </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Bill Moers"  src="<%=asset_path("Bill_Hex.png") %>"> </div>
           </div>
         </div>
       </div>
@@ -153,7 +207,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="aboutText col-sm-8"> Authenticating and authorizing both code and user login. </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Chase Smith" src="<%=asset_path("Chase_Hex.png") %>" class="img-responsive"> </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Chase Smith"  src="<%=asset_path("Chase_Hex.png") %>"> </div>
           </div>
         </div>
       </div>
@@ -172,7 +226,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="aboutText col-sm-8">CSC495 Spring 2016. An outstanding class. Huzzah! thanks... yow, bill </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Professor Krieger" src="<%=asset_path("Krieger_Hex.png") %>" class="img-responsive"> </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Professor Krieger" src="<%=asset_path("Krieger_Hex.png") %>">> </div>
           </div>
         </div>
       </div>
@@ -184,52 +238,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title">About Rachel Rayas</h2>
-        <h4 class="modal-title" style="color: #0088CB"> TITLE </h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="aboutText col-sm-8"> TEXT </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Rachel Rayas" src="<%=asset_path("placeholder_Hex.png") %>" class="img-responsive"> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="Row1_Hex5">
-  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title">About Nicholas Drazenovic</h2>
-        <h4 class="modal-title" style="color: #0088CB"> Front End Developer </h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="aboutText col-sm-8"> As a member of the UX/Bootstrap team, I helped in developing the front-end of the application. This included layout, design, and front-end functionalities of Odyssey. </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt=" Nicholas Drazenovic" src="<%=asset_path("NickD_Hex.png") %>" class="img-responsive"> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="Row1_Hex6">
-  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h2 class="modal-title">About Mark Prucha</h2>
-        <h4 class="modal-title" style="color: #0088CB"> TITLE </h4>
+        <h4 class="modal-title" style="color: #0088CB"> Database Developer </h4>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <div class="aboutText col-sm-8"> TEXT</div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Mark Prucha"  src="<%=asset_path("placeholder_Hex.png") %>" class="img-responsive"> </div>
+            <div class="aboutText col-sm-8"> Worked on the architecture team to develop the data model. Also worked to make the home page and pickup forms functional.</div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Mark Prucha" src="<%=asset_path("placeholder_Hex.png") %>">> </div>
           </div>
         </div>
       </div>
@@ -237,46 +253,10 @@
   </div>
 </div>
 
+
 <!-- ROW 2 -->
+
 <div class="modal fade" id="Row2_Hex1">
-  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title">About Bilal Adra</h2>
-        <h4 class="modal-title" style="color: #0088CB"> Database Development </h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="aboutText col-sm-8"> I'm Bilal Adra, a Computer Science Major at North Central College. I will earn my degree in June of 2016 and will begin pursuing my law degree at University of Illinois Urbana-Champaign in August of 2016 . For this project I was a part of the Architecture team, which worked on the Data Model and routing for the entire project. I also worked on the team that built the pages which handle the management of pickup days. I enjoyed learning about both rails and ruby to help create the final product and found them both to be intuitive and fast web development tools. </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Bill Moers"  src="<%=asset_path("Bilal_Hex.png") %>" class="img-responsive"> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="Row2_Hex2">
-  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title">About Gerardo Paleo </h2>
-        <h4 class="modal-title" style="color: #0088CB"> Developer </h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="aboutText col-sm-8"> Class of 2017. Aspiring software developer. Reports cell. </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Bill Moers"  src="<%=asset_path("Gerardo_Hex.png") %>" class="img-responsive"> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="Row2_Hex3">
   <div class="modal-dialog modal-lg" style="vertical-align: middle;">
     <div class="modal-content">
       <div class="modal-header">
@@ -288,33 +268,96 @@
         <div class="container-fluid">
           <div class="row">
             <div class="aboutText col-sm-8"> Helped make the pickup assistant look pretty.</div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Emily Huizenga"  src="<%=asset_path("Emily_Hex.png") %>" class="img-responsive" > </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Emily Huizenga" src="<%=asset_path("Emily_Hex.png") %>">> </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal fade" id="Row2_Hex4">
+<div class="modal fade" id="Row2_Hex2">
   <div class="modal-dialog modal-lg" style="vertical-align: middle;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h2 class="modal-title">About Jennifer Dust</h2>
-        <h4 class="modal-title" style="color: #0088CB"> TITLE </h4>
+        <h4 class="modal-title" style="color: #0088CB"> Assistant Project manager </h4>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
             <div class="aboutText col-sm-8"> TEXT </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Jennifer Dust"  src="<%=asset_path("Jen_Hex.png") %>" class="img-responsive"> </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Jennifer Dust" src="<%=asset_path("Jen_Hex.png") %>">> </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal fade" id="Row2_Hex5">
+<div class="modal fade" id="Row2_Hex3">
+  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">About Nicholas Drazenovic</h2>
+        <h4 class="modal-title" style="color: #0088CB"> Front End Developer </h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="aboutText col-sm-8"> As a member of the UX/Bootstrap team, I helped in developing the front-end of the application. This included layout, design, and front-end functionalities of Odyssey. </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt=" Nicholas Drazenovic" src="<%=asset_path("NickD_Hex.png") %>">> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ROW 3 -->
+
+<div class="modal fade" id="Row3_Hex1">
+  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">About Bilal Adra</h2>
+        <h4 class="modal-title" style="color: #0088CB"> Database Development </h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="aboutText col-sm-8"> I'm Bilal Adra, a Computer Science Major at North Central College. I will earn my degree in June of 2016 and will begin pursuing my law degree at University of Illinois Urbana-Champaign in August of 2016 . For this project I was a part of the Architecture team, which worked on the Data Model and routing for the entire project. I also worked on the team that built the pages which handle the management of pickup days. I enjoyed learning about both rails and ruby to help create the final product and found them both to be intuitive and fast web development tools. </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Bill Moers" src="<%=asset_path("Bilal_Hex.png") %>">> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="Row3_Hex2">
+  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">About Gerardo Paleo </h2>
+        <h4 class="modal-title" style="color: #0088CB"> Developer </h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="aboutText col-sm-8"> Class of 2017. Aspiring software developer. Reports cell. </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Bill Moers" src="<%=asset_path("Gerardo_Hex.png") %>">> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Row3_Hex3">
   <div class="modal-dialog modal-lg" style="vertical-align: middle;">
     <div class="modal-content">
       <div class="modal-header">
@@ -326,35 +369,14 @@
         <div class="container-fluid">
           <div class="row">
             <div class="aboutText col-sm-8"> TEXT</div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Charlie Miller"  src="<%=asset_path("placeholder_Hex.png") %>" class="img-responsive"> </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Charlie Miller" src="<%=asset_path("placeholder_Hex.png") %>">> </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal fade" id="Row2_Hex6">
-  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title">About Eric Zuidema</h2>
-        <h4 class="modal-title" style="color: #0088CB"> TITLE </h4>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="aboutText col-sm-8"> TEXT </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Eric Zuidema"  src="<%=asset_path("placeholder_Hex.png") %>" class="img-responsive"> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ROW 3 -->
-<div class="modal fade" id="Row3_Hex2">
+<div class="modal fade" id="Row3_Hex4">
   <div class="modal-dialog modal-lg" style="vertical-align: middle;">
     <div class="modal-content">
       <div class="modal-header">
@@ -366,14 +388,55 @@
         <div class="container-fluid">
           <div class="row">
             <div class="aboutText col-sm-8"> "A great attitude is not the result of success; success is the result of a great attitude." Contributions: Scrum master, GitHub co-owner, developed working code base, partner programmed Schedule pages, contributed to the Help pages, Ruby subject matter expert. </div>
-            <div class="col-sm-3"> <img class="img-responsive" alt="Nick Olmstead"  src="<%=asset_path("NickO_Hex.png") %>" class="img-responsive"> </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Nick Olmstead" src="<%=asset_path("NickO_Hex.png") %>">> </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="modal fade" id="Row3_Hex4">
+
+<!-- ROW 2 -->
+
+<div class="modal fade" id="Row4_Hex1">
+  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">About Eric Zuidema</h2>
+        <h4 class="modal-title" style="color: #0088CB"> TITLE </h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="aboutText col-sm-8"> TEXT </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Eric Zuidema" src="<%=asset_path("placeholder_Hex.png") %>">> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="Row4_Hex2">
+  <div class="modal-dialog modal-lg" style="vertical-align: middle;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">About Rachel Rayas</h2>
+        <h4 class="modal-title" style="color: #0088CB"> TITLE </h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="aboutText col-sm-8"> TEXT </div>
+            <div class="col-sm-3"> <img class="img-responsive" alt="Rachel Rayas" src="<%=asset_path("placeholder_Hex.png") %>">> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="Row4_Hex3">
 <div class="modal-dialog modal-lg" style="vertical-align: middle;">
   <div class="modal-content">
     <div class="modal-header">
@@ -385,7 +448,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="aboutText col-sm-8"> TEXT </div>
-          <div class="col-sm-3"> <img class="img-responsive" alt="Kyle Loveless"  src="<%=asset_path("placeholder_Hex.png") %>" class="img-responsive"> </div>
+          <div class="col-sm-3"> <img class="img-responsive" alt="Kyle Loveless" src="<%=asset_path("placeholder_Hex.png") %>">> </div>
         </div>
       </div>
     </div>
@@ -393,4 +456,6 @@
 </div>
 </div>
 </div>
+</div>
 </body>
+</html>
