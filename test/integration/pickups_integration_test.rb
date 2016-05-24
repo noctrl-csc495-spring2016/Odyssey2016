@@ -116,4 +116,24 @@ test "Make sure unschedule button appears for scheduled pickup on edit form" do
   assert_select "input[value=?]",  "Unschedule", true
 end
 
+test "should update scheduled pickup" do
+  log_in_as(users(:bill))
+  get edit_pickup_path(@pickup)
+  #puts(@pickup.donor_city)
+  patch '/pickups/' + @pickup.id.to_s, update_donor: true, id: @pickup.id, pickup: { donor_last_name:  'Prucha',
+                                    donor_phone:  '(630) 555-5555',
+                                    donor_address_line1:  '15 Drury Lane',
+                                    donor_city: 'Naperville',
+                                    donor_email: 'markprucha@yahoo.com',
+                                    donor_dwelling_type: 'Current residence',
+                                    donor_zip: '60540',
+                                    number_of_items: 2}
+   # @pickup = Pickup.find(@pickup.id)
+  #  puts(@pickup.donor_city)
+    assert_redirected_to '/days/' + @pickup.day_id.to_s
+    assert_not flash.empty?
+end
+
+
+
 end

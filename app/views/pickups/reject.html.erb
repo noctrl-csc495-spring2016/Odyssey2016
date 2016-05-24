@@ -1,10 +1,10 @@
+<% provide(:title, "Email") %>
 <%= render 'layouts/navbar' %>
 
     <div class='container white-container'>
         <h2>Preview of Email to be Sent</h2><br/>
         To: <%=@pickup.donor_email%><br/>
-        From: noreply@sharingconnections.org
-        <br/><br/>
+        <br/>
         <p><%if @pickup.donor_first_name.blank?%>
             Hello,
             <%else%>
