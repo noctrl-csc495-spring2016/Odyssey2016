@@ -1,6 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "fullcalendar";
+@import "font-awesome";
 
 /* Variables */
 
@@ -13,7 +14,6 @@ $gray: #777;
 $containerColor:white;
 
 /* Custom Styles */
-
 
 /* Give some extra padding for under the navbar*/
 
@@ -71,10 +71,6 @@ a {
     padding-bottom: 30px;
 }
 
-.full-width {
-    width: 100%;
-}
-
 
 /*
 Class to accompany a .well on certain pages if the container needs to be slightly wider
@@ -89,10 +85,6 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 
 /* Custom text sizing */
 
-.text-lg {
-    font-size: 18px;
-}
-
 .text-danger {
     color: $dangerColor;
 }
@@ -104,12 +96,8 @@ Class to accompany a .well on certain pages if the container needs to be slightl
     width: 40%;
 }
 
-.btn-50 {
-    width: 50%;
-}
 
-
-/* Just needed some extra margin for some of the buttons */
+/* Extra margin classes for various elements*/
 
 .extra-right-margin {
     margin-right: 65px;
@@ -123,10 +111,16 @@ Class to accompany a .well on certain pages if the container needs to be slightl
     margin-bottom: 5px;
 }
 
+
+/* Styles for the calendar on the Add Pickup Day screen*/
+
 .calendar {
     width: 100%;
     height: 60%;
 }
+
+
+/* Styles for the tables */
 
 .table-title {
     margin-left: 65px;
@@ -140,12 +134,11 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 
 /* formating for Home2*/
 
+
+/* Red required icon */
+
 .red {
     color: $redStar;
-}
-
-.half-width {
-    width: 50%;
 }
 
 .padding-top {
@@ -156,12 +149,8 @@ input[type=number] {
     text-align: right;
 }
 
-.checkbox {
-    margin: 20 0 0 0;
-}
 
-
-/* Header */
+/* Header, logo styling*/
 
 #logo {
     float: left;
@@ -225,16 +214,7 @@ nav.navbar {
     display: inline-block;
 }
 
-.img-icon {
-    display: inline;
-    float: right;
-    vertical-align: middle;
-    height: 10%;
-    width: 10%;
-    margin-left: 0.5%;
-}
-
-span.fa.fa-truck.helpIcon {
+span.fa.helpIcon {
     float: right;
     font-size: 48px;
 }
@@ -245,12 +225,17 @@ span.fa.fa-truck.helpIcon {
     }
 }
 
-.small-right-margin {
-    margin-right: 5px;
+@media (max-width: 992px) {
+    .question h4 {
+        font-size: 11px;
+    }
+    span.fa.helpIcon {
+        font-size: 24px;
+    }
 }
 
 
-/* Other circles */
+/* Other styles */
 
 .btn-circle {
     width: 30px;
