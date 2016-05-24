@@ -102,7 +102,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
 
     #pass = @user.password_digest
-    current_user.authenticate
     patch :update, id: @user, user: { confirm_password: "password", 
                                       password: "password", 
                                       password_confirmation: "password", 
