@@ -42,9 +42,7 @@
     </div>
     
 <!--In order to have the ability to download multiple files with a single request/click -->
-<!--of a button, I attached a javascript function to the export button. The alternative -->
-<!--is to bundle the two files together into a zipped folder. -->
-    
+<!--of a button, I attached a javascript function to the export button. -->
 <script>
 var submitButton = document.getElementById("exportButton");
 var selectMonth = document.getElementById("date_month");
@@ -71,6 +69,7 @@ function createiframe(url){
     iframe.style.display = "none";
     iframe.src = url ;
     document.body.appendChild(iframe);
+    
     //Used boolean to make sure the redirect did not happen before both files 
     //have been downloaded. If I redirect at the end of the exportFiles function
     //the redirect occurs  before the second report is downloaded. 
