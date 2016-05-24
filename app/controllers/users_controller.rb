@@ -48,7 +48,7 @@ class UsersController < ApplicationController
       flash[:success] = "Successfully created " + @user.username
       redirect_to action: "index"
     else
-      flash.now[:danger] = "Input Invalid"
+      flash.now[:danger] = "One or more entries was invalid.  Please check your information and try again."
       render 'new'
     end
   end
