@@ -61,7 +61,7 @@ class UsersController < ApplicationController
     if is_super? 
       
       #confirm password then update users info
-      if current_user.authenticate(params[:current_password]) && @user.update_attributes(admin_params)
+      if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
         flash[:success] = "The user " + @user.username + " has been updated."
         redirect_to action: "show"
       else
