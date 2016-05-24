@@ -106,7 +106,7 @@
                             <td class="hidden-xs col-xs-4">
                                 <% #display all the cities we are going to for the given day, if any %>
                                 <% if day.pickups.any? %>
-                                    <%= day.pickups.collect{|pickup| pickup.donor_city}.join(", ") %>
+                                    <%= day.pickups.collect{|pickup| pickup.donor_city}.uniq.join(", ") %>
                                 <% else %>
                                     <% # only show this if no pickups for the given day %>
                                     <small>No scheduled pickups</small>
