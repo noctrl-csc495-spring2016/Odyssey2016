@@ -66,21 +66,20 @@ function exportFiles()
     createiframe(url1);
     redirect = true;
     //Timeout needed to download multiple files in IE
-    window.setTimeout(function() {createiframe(url2)}, 500);
+    setTimeout(function() {createiframe(url2)}, 500);
 }
 
 // Creates a hidden iframe with the given url
 function createiframe(url){
     var iframe = document.createElement('iframe');
     iframe.style.display = "none";
-    iframe.src = url ;
+    iframe.src = url;
     document.body.appendChild(iframe);
     
     //Used boolean to make sure the redirect did not happen before both files 
     //have been downloaded. If I redirect at the end of the exportFiles function
     //the redirect occurs  before the second report is downloaded. 
-    if(redirect){
-        window.location = '/reports';
-    }
+    setTimeout(function() {if(redirect){
+        window.location = '/reports';}}, 1000);
 }
 </script>
