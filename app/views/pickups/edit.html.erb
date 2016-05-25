@@ -5,10 +5,12 @@
 
     <div class="container white-container">
         
-    <%= render 'layouts/flash_messages' %>  <!--Render any flash messages-->
         <!-- main row container -->
         <div class="row">
             <div class="col-xs-12">
+                
+                <%= render 'layouts/flash_messages' %>  <!--Render any flash messages-->
+                
                 <h2>Update Pickup</h2>
                 <% if !is_entry? %>
                 <p>Update pickup information, schedule it, or reject it.</p>
