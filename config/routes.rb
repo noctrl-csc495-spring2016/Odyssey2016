@@ -3,10 +3,6 @@ Rails.application.routes.draw do
   get    'about'                  => 'pages#about'
     get  'help'                     => 'pages#help'
 
-  get    'home/home1'             => 'pages#home1'
-  get    'home/home2'             => 'pages#home2'
-  get    'home/home3'             => 'pages#home3'
-  
   get    'reports'                => 'reports#index'
   get    'reports/donor'          => 'reports#donor'
   get    'reports/truck'          => 'reports#truck'
