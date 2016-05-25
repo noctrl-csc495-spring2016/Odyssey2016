@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(new_user_params)
     if @user.save
-      flash[:success] = "Successfully created " + @user.username
+      flash[:success] = "Successfully created <strong>" + @user.username + "</strong>"
       redirect_to action: "index"
     else
       flash.now[:danger] = "One or more entries was invalid.  Please check your information and try again."
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       
       #confirm password then update users info
       if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
-        flash[:success] = "The user " + @user.username + " has been updated."
+        flash[:success] = "The user <strong>" + @user.username + "</strong> has been updated."
         redirect_to action: "show"
       else
         flash[:danger] = "Passwords invalid or do not match"
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     elsif is_admin? && current_user.username != @user.username
       #confirm password then update users info
       if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
-        flash[:success] = "The user " + @user.username + " has been updated."
+        flash[:success] = "The user <strong>" + @user.username + "</strong> has been updated."
         redirect_to action: "show"
       else
         flash[:danger] = "Passwords invalid or do not match"
@@ -146,7 +146,7 @@ class UsersController < ApplicationController
       else  
         name = User.find(params[:id]).username
         User.find(params[:id]).destroy
-        flash[:success] = "Successfully deleted " + name
+        flash[:success] = "Successfully deleted <strong>" + name + "</strong>"
         redirect_to users_url
       end
       
