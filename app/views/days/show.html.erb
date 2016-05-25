@@ -3,8 +3,8 @@
 
 <div class='container white-container'>
     <div class="row">
-        <%= render 'layouts/flash_messages' %>
         <div class="col-xs-10 col-xs-offset-1">
+            <%= render 'layouts/flash_messages' %>
             <h2>Pickups for <span style="color: #22ADC9"><span class="hidden-xs"><%= @day.date.strftime("%A, %B %d, %Y") %></span><span class="hidden-sm hidden-md hidden-lg"><%= @day.date.strftime("%m/%d/%Y") %></span></span></h2>
             <p>Select a pickup from the list below to edit it.</p>
         </div>
@@ -16,7 +16,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Town</th>
-                        <th>Item Quantity</th>
+                        <th>Quantity</th>
                         <th class="hidden-xs">Item Description</th>
                     </tr>
                 </thead>
@@ -32,6 +32,11 @@
                                 </td>
                                 <td>
                                     <%= pickup.number_of_items %>
+                                    <% if pickup.number_of_items == 1 %> <!--Display item instead of items if 1-->
+                                      <%="item"%>
+                                    <% else %>
+                                        <%="items"%></td>
+                                    <%end%>   
                                 </td>
                                 <td class="hidden-xs col-md-5">
                                     <%if pickup.item_notes.blank?%>
