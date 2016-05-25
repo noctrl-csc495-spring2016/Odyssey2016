@@ -64,7 +64,7 @@ function exportFiles()
     url1 = "/reports/truck.pdf?pickupday=" + select.value;
     url2 = "/reports/truck.csv?pickupday=" + select.value;
     createiframe(url1);
-    redirect = true;
+    redirect = false;
     //Timeout needed to download multiple files in IE
     setTimeout(function() {createiframe(url2)}, 500);
 }

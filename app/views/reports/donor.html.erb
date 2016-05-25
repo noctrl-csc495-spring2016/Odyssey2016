@@ -58,7 +58,7 @@ function exportFiles()
     url1 = "/reports/donor.csv?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     url2 = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
     createiframe(url1);
-    redirect = true;
+    redirect = false;
     //Timeout needed to download multiple files in IE
     setTimeout(function() {createiframe(url2)}, 500);
 }
