@@ -54,7 +54,7 @@ body {
 .ncc-img {
     background-size: 100% 100%;
     background-repeat: no-repeat;
-	background-image:url(../images/transparent_Space.png);
+	background-image:url(<%=asset_path("transparent_Space.png") %>);
 }
 
 /*HEXAGONS */
