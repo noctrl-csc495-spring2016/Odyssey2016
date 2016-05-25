@@ -1,17 +1,66 @@
-/* HTML5 display-role reset for older browsers */
-section {
-	display: block;
+
+ /* Custom Styles */
+
+/* basic link coloring*/
+
+a {
+    color: #22ADC9;
 }
 
-/*page loader*/
-.loader {
-	position: fixed;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 100%;
-	z-index: 9999;
-	background: url('../images/Loading_icon.gif') 50% 50% no-repeat rgb(249,249,249);
+/* Simple design for the white box/background
+    seen on most pages
+*/
+
+.white-container {
+    background-color: white;
+    padding-top: 30px;
+    margin-bottom: 90px;
+    padding-bottom: 30px;
+}
+
+
+/* Custom text sizing */
+
+.text-lg {
+    font-size: 18px;
+}
+
+
+/* Needed to make the buttons larger for some screens */
+
+.btn-wide {
+    width: 40%;
+}
+
+.btn-50 {
+    width: 50%;
+}
+
+.ncc-button{
+	background-color: #000543;
+}
+
+
+body {
+    background-color: #22ADC9;
+    padding-top: 130px;
+}
+
+.ncc {
+    background-color: #000543;
+	
+}
+
+.ncc-img {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+	background-image:url(../images/transparent_Space.png);
+}
+
+/*HEXAGONS */
+
+section {
+	display: block;
 }
 
 #group {
