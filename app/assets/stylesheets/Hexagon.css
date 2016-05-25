@@ -159,28 +159,19 @@ section {
 }
 
 @media (max-width: 450px) {
-	#group article {
-	width: 300px;
+		#group article {
+		width: 300px;
+	}
+	
+	.group_item:nth-child(3n) {
+		margin-left: 0px;
+	}
+	
+	.group_item:nth-child(2n) {
+		margin-left: 102px;
+	}
+	
+	.group_item:nth-child(n+2) {
+		margin-top: -56px;
+	}
 }
-
-.group_item:nth-child(3n) {
-	margin-left: 0px;
-}
-
-.group_item:nth-child(2n) {
-	margin-left: 102px;
-}
-
-.group_item:nth-child(n+2) {
-	margin-top: -56px;
-}
-
-
-
-
-
-
-
-
-
-
