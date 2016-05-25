@@ -99,8 +99,8 @@ end
 #Permit the donor/pickup information and schedule information to be updated if schedule
 #button is clicked
 def day_and_pickup_params
-    params.require(:pickup).permit(:donor_name, :donor_first_name, :donor_email, :donor_address_line1, :donor_address_line2,
-    :donor_phone, :donor_city, :donor_state, :donor_zip, :donor_dwelling_type, :other_notes, :item_description, :number_of_items, :day_id)
+    params.require(:pickup).permit(:donor_title, :donor_last_name, :donor_first_name, :donor_email, :donor_address_line1, :donor_address_line2,
+    :donor_phone, :donor_city, :donor_state, :donor_zip, :donor_dwelling_type, :item_notes, :donor_notes, :number_of_items, :day_id)
 end
 
 #Permit the rejected fields to be updated in database if reject button is clicked
