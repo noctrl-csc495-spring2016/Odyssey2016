@@ -42,13 +42,14 @@
     </div>
 </div>
 <script>
-        //Stack menu when collapsed
+        //Change menu class when opened on mobile.
+        //This fixes the issue with the dropdown not opening on mobile devices
         $('#navbar').on('show.bs.collapse', function () {
             $('.nav').addClass('navbar-nav').removeClass('nav-pills');
 
         });
 
-        //Unstack menu when not collapsed
+        //Revert back to regular styles
         $('#navbar').on('hide.bs.collapse', function () {
             $('.nav').removeClass('navbar-nav').addClass('nav-pills');
         });
