@@ -53,11 +53,19 @@ class UsersController < ApplicationController
     end
   end
 
+
+  #The Update method has 5 cases
+  #super admins updating an account
+  #Admins updating themselves (admins cannot delete themselves)
+  #admins updating other accounts (cannot update superadmin)
+  #Entry or standard accounts updating themselves
+  #Entry or standard updating someone they do not have permission to update
+  
+  #Admins can delete other accounts, update passwords and permission levels
+  #
   def update
     @user = User.find(params[:id])
     
-    #if is_super? && @user.super_admin == true
-      
     if is_super? 
       
       #confirm password then update users info
@@ -126,6 +134,8 @@ class UsersController < ApplicationController
     redirect_to users_index_path
   end
 
+  #destroy is an action that admins can use to delete accounts
+  #but not themselves
   def destroy
     
     #check user is not deleting self
@@ -148,6 +158,9 @@ class UsersController < ApplicationController
     end
   end
 
+  #password and password confirmation are BCrypt defaults.  They must be called
+  #by these names for BCrypt to recognize them
+  #They are not part of the user model
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def super_params
