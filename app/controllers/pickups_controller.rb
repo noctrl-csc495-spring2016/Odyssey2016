@@ -224,14 +224,21 @@ def check_for_missing_rejected_fields(pickup, dayID)
     if @somethingMissing == true
         String error_messages = build_error_message_string(@pickup)     
         flash.now[:danger] = error_messages
+        
+        #Give the pickup back the day before re-rendering the edit form
+        #This is so the unschedule button remains
+        @pickup.day_id = dayID
+        @pickup.save
         render 'edit'
-        #In order to show the previously placed in fields for rejected, we must leave it
+        
+        
+        #In order to show the previously placed in fields for rejected, we must leave
         #them in the database to render the form. We can then reset the rejected fields
         #after the form has been rendered. This is so when a user checks the 
         #email box without an email present, it will still show the rejected
         #reason if it is there. Since render is not a redirect, the line of code below will
         #execute.
-        reset_reject_params(@pickup, @dayID)
+        reset_reject_params(@pickup)
     #Send to preview page if all is filled in 
     elsif @pickup.send_email == true && @pickup.donor_email.blank? == false && !@pickup.rejected_reason.blank? 
         render 'reject'
@@ -245,10 +252,9 @@ end
 #Method reset all reject fields for a pickup.
 #This method is only called if rejected fields are missing
 #when a user presses reject.
-def reset_reject_params(pickup, dayID)
+def reset_reject_params(pickup)
     @pickup = pickup
-    @pickup.day_id = dayID
-    @pickup.rejected = false                                                        #Reset rejected fields
+    @pickup.rejected = false                            #Reset rejected fields
     @pickup.rejected_reason = nil
     @pickup.send_email = false
     @pickup.save
