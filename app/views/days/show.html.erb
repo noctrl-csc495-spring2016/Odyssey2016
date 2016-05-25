@@ -16,7 +16,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Town</th>
-                        <th>Item Quantity</th>
+                        <th>Quantity</th>
                         <th class="hidden-xs">Item Description</th>
                     </tr>
                 </thead>
@@ -32,6 +32,11 @@
                                 </td>
                                 <td>
                                     <%= pickup.number_of_items %>
+                                    <% if pickup.number_of_items == 1 %> <!--Display item instead of items if 1-->
+                                      <%="item"%>
+                                    <% else %>
+                                        <%="items"%></td>
+                                    <%end%>   
                                 </td>
                                 <td class="hidden-xs col-md-5">
                                     <%if pickup.item_notes.blank?%>
