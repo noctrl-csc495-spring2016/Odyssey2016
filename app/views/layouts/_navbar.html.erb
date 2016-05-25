@@ -44,11 +44,12 @@
 <script>
         //Stack menu when collapsed
         $('#navbar').on('show.bs.collapse', function () {
-            $('.nav-pills').addClass('nav-stacked');
+            $('.nav').addClass('navbar-nav').removeClass('nav-pills');
+
         });
 
         //Unstack menu when not collapsed
         $('#navbar').on('hide.bs.collapse', function () {
-            $('.nav-pills').removeClass('nav-stacked');
+            $('.nav').removeClass('navbar-nav').addClass('nav-pills');
         });
     </script>
