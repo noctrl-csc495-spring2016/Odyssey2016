@@ -27,7 +27,7 @@ end
 def create
   @pickup = Pickup.new(pickup_params)                    #Pass pickup attributes from form into new pickup
     if @pickup.save                                      #Saves if required fields were filled in.
-      flash[:success] = "Pickup has been added."
+      flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been added."
       redirect_to "/pickups"                             
     else
       String error_messages = build_error_message_string(@pickup)
@@ -68,10 +68,10 @@ def update
         try_reject_pickup(@pickup)
     elsif params[:send]                                             #Send button was clicked
         @pickup.send_rejection_email
-        flash[:success] = "Email has been sent."
+        flash[:success] = "Email has been sent to <strong>" + @pickup.donor_last_name + "</strong>."
         redirect_to '/pickups'
     elsif params[:cancel_email]                                     #Cancel button on email preview was clicked
-        flash[:success] = "Pickup has been rejected. Email was not sent."
+        flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been rejected. Email was not sent."
         redirect_to '/pickups'
     end
 end
@@ -130,11 +130,11 @@ def try_update_pickup(pickup)
         #Redirect to proper page.
         #Edit form was accessed from the home index.
         if @pickup.day_id == nil
-            flash[:success] = "Pickup information has been updated."
+            flash[:success] = "Pickup information for <strong>" + @pickup.donor_last_name + "</strong> has been updated."
             redirect_to "/pickups"
         #Edit form was accessed from a schedule page.
         else
-            flash[:success] = "Pickup information has been updated."
+            flash[:success] = "Pickup information <strong>" + @pickup.donor_last_name + "</strong> has been updated."
             redirect_to "/days/" + @pickup.day_id.to_s               
         end
     #Could not update attributes. Display error.
@@ -152,10 +152,10 @@ def try_unschedule_pickup(pickup)
     if @pickup.update_attributes(pickup_params)
         @pickup.day_id = nil                                
         @pickup.save
-        flash[:success] = "Pickup has been unscheduled."
+        flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been unscheduled."
         redirect_to "/pickups"
     else                                           
-        flash.now[:danger] = "Pickup could not be unscheduled."
+        flash.now[:danger] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> could not be unscheduled."
         render 'edit'
     end    
 end
@@ -175,12 +175,12 @@ def try_schedule_pickup(pickup)
             flash.now[:danger] = error_messages
             render 'edit'
         else
-            flash[:success] = "Pickup has been scheduled."
+            flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been scheduled."
             redirect_to "/pickups"
         end
     #Could not update attributes. Display error.
     else 
-        flash.now[:danger] = "Pickup could not be scheduled."
+        flash.now[:danger] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> could not be scheduled."
         render 'edit'
     end
 end
@@ -200,7 +200,7 @@ def try_reject_pickup(pickup)
     else
         #If could not update the pickups attributes print out error message
         String error_messages = build_error_message_string(@pickup)
-        flash.now[:danger] = "Pickup could not be rejected. " + error_messages
+        flash.now[:danger] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> could not be rejected. " + error_messages
         render 'edit'
     end
 end
@@ -244,7 +244,7 @@ def check_for_missing_rejected_fields(pickup, dayID)
         render 'reject'
     #Otherwise leave it rejected and redirect to /pickups
     else
-        flash[:success] = "Pickup has been rejected."
+        flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been rejected."
         redirect_to "/pickups"
     end
 end
