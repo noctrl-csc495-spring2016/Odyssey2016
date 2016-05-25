@@ -27,7 +27,7 @@ end
 def create
   @pickup = Pickup.new(pickup_params)                    #Pass pickup attributes from form into new pickup
     if @pickup.save                                      #Saves if required fields were filled in.
-      flash[:success] = "Pickup has been added."
+      flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been added."
       redirect_to "/pickups"                             
     else
       String error_messages = build_error_message_string(@pickup)
@@ -68,10 +68,10 @@ def update
         try_reject_pickup(@pickup)
     elsif params[:send]                                             #Send button was clicked
         @pickup.send_rejection_email
-        flash[:success] = "Email has been sent."
+        flash[:success] = "Email has been sent to <strong>" + @pickup.donor_last_name + "</strong>."
         redirect_to '/pickups'
     elsif params[:cancel_email]                                     #Cancel button on email preview was clicked
-        flash[:success] = "Pickup has been rejected. Email was not sent."
+        flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been rejected. Email was not sent."
         redirect_to '/pickups'
     end
 end
@@ -99,8 +99,8 @@ end
 #Permit the donor/pickup information and schedule information to be updated if schedule
 #button is clicked
 def day_and_pickup_params
-    params.require(:pickup).permit(:donor_name, :donor_first_name, :donor_email, :donor_address_line1, :donor_address_line2,
-    :donor_phone, :donor_city, :donor_state, :donor_zip, :donor_dwelling_type, :other_notes, :item_description, :number_of_items, :day_id)
+    params.require(:pickup).permit(:donor_title, :donor_last_name, :donor_first_name, :donor_email, :donor_address_line1, :donor_address_line2,
+    :donor_phone, :donor_city, :donor_state, :donor_zip, :donor_dwelling_type, :item_notes, :donor_notes, :number_of_items, :day_id)
 end
 
 #Permit the rejected fields to be updated in database if reject button is clicked
@@ -130,11 +130,11 @@ def try_update_pickup(pickup)
         #Redirect to proper page.
         #Edit form was accessed from the home index.
         if @pickup.day_id == nil
-            flash[:success] = "Pickup information has been updated."
+            flash[:success] = "Pickup information for <strong>" + @pickup.donor_last_name + "</strong> has been updated."
             redirect_to "/pickups"
         #Edit form was accessed from a schedule page.
         else
-            flash[:success] = "Pickup information has been updated."
+            flash[:success] = "Pickup information <strong>" + @pickup.donor_last_name + "</strong> has been updated."
             redirect_to "/days/" + @pickup.day_id.to_s               
         end
     #Could not update attributes. Display error.
@@ -152,10 +152,10 @@ def try_unschedule_pickup(pickup)
     if @pickup.update_attributes(pickup_params)
         @pickup.day_id = nil                                
         @pickup.save
-        flash[:success] = "Pickup has been unscheduled."
+        flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been unscheduled."
         redirect_to "/pickups"
     else                                           
-        flash.now[:danger] = "Pickup could not be unscheduled."
+        flash.now[:danger] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> could not be unscheduled."
         render 'edit'
     end    
 end
@@ -175,12 +175,12 @@ def try_schedule_pickup(pickup)
             flash.now[:danger] = error_messages
             render 'edit'
         else
-            flash[:success] = "Pickup has been scheduled."
+            flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been scheduled."
             redirect_to "/pickups"
         end
     #Could not update attributes. Display error.
     else 
-        flash.now[:danger] = "Pickup could not be scheduled."
+        flash.now[:danger] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> could not be scheduled."
         render 'edit'
     end
 end
@@ -200,7 +200,7 @@ def try_reject_pickup(pickup)
     else
         #If could not update the pickups attributes print out error message
         String error_messages = build_error_message_string(@pickup)
-        flash.now[:danger] = "Pickup could not be rejected. " + error_messages
+        flash.now[:danger] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> could not be rejected. " + error_messages
         render 'edit'
     end
 end
@@ -224,20 +224,27 @@ def check_for_missing_rejected_fields(pickup, dayID)
     if @somethingMissing == true
         String error_messages = build_error_message_string(@pickup)     
         flash.now[:danger] = error_messages
+        
+        #Give the pickup back the day before re-rendering the edit form
+        #This is so the unschedule button remains
+        @pickup.day_id = dayID
+        @pickup.save
         render 'edit'
-        #In order to show the previously placed in fields for rejected, we must leave it
+        
+        
+        #In order to show the previously placed in fields for rejected, we must leave
         #them in the database to render the form. We can then reset the rejected fields
         #after the form has been rendered. This is so when a user checks the 
         #email box without an email present, it will still show the rejected
         #reason if it is there. Since render is not a redirect, the line of code below will
         #execute.
-        reset_reject_params(@pickup, @dayID)
+        reset_reject_params(@pickup)
     #Send to preview page if all is filled in 
     elsif @pickup.send_email == true && @pickup.donor_email.blank? == false && !@pickup.rejected_reason.blank? 
         render 'reject'
     #Otherwise leave it rejected and redirect to /pickups
     else
-        flash[:success] = "Pickup has been rejected."
+        flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been rejected."
         redirect_to "/pickups"
     end
 end
@@ -245,10 +252,9 @@ end
 #Method reset all reject fields for a pickup.
 #This method is only called if rejected fields are missing
 #when a user presses reject.
-def reset_reject_params(pickup, dayID)
+def reset_reject_params(pickup)
     @pickup = pickup
-    @pickup.day_id = dayID
-    @pickup.rejected = false                                                        #Reset rejected fields
+    @pickup.rejected = false                            #Reset rejected fields
     @pickup.rejected_reason = nil
     @pickup.send_email = false
     @pickup.save

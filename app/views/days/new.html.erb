@@ -5,6 +5,27 @@
     $(document).ready(function() {
         // CALENDAR CONFIGURATION
         $('#calendar').fullCalendar({
+            // restrict dates we are going to show
+            viewRender: function(view,element) {
+                var start = new Date(new Date().getFullYear(), 0, 1); //first day of this year
+                var end = new Date(new Date().getFullYear() + <%= @years_to_show - 1 %>, 11, 31); //last day of next year
+    
+                if ( end < view.end) {
+                    $("#calendar .fc-next-button").hide();
+                    return false;
+                }
+                else {
+                    $("#calendar .fc-next-button").show();
+                }
+    
+                if ( view.start < start) {
+                    $("#calendar .fc-prev-button").hide();
+                    return false;
+                }
+                else {
+                    $("#calendar .fc-prev-button").show();
+                }
+            },
             events: null,
             weekends: false,
             defaultView: 'month',
@@ -73,8 +94,8 @@
 
 <div class="container white-container">
     <div class="row">
-        <%= render 'layouts/flash_messages' %>
         <div class="col-xs-10 col-xs-offset-1">
+            <%= render 'layouts/flash_messages' %>
             <h2>Add Pickup Day</h2>
             <p class="hidden-xs">Select the date from the calendar below to add a pickup day.</p>
             <p class="visible-xs-block">Select the date from the fields below to add a pickup day.</p>

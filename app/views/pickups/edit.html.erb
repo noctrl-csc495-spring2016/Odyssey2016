@@ -5,10 +5,12 @@
 
     <div class="container white-container">
         
-    <%= render 'layouts/flash_messages' %>  <!--Render any flash messages-->
         <!-- main row container -->
         <div class="row">
             <div class="col-xs-12">
+                
+                <%= render 'layouts/flash_messages' %>  <!--Render any flash messages-->
+                
                 <h2>Update Pickup</h2>
                 <% if !is_entry? %>
                 <p>Update pickup information, schedule it, or reject it.</p>
@@ -192,9 +194,16 @@
                     <div class="col-xs-12">
                         <div class="form-group">
                             <%= f.submit "Update", name: "update_donor", class: "btn btn-success btn-wide extra-right-margin" %>
-                            <a href="/pickups">
-                                <btn class="btn btn-danger btn-wide">Cancel</btn>
-                            </a>
+                            <%if @pickup.day_id == nil%>
+                                <a href="/pickups">
+                                    <btn class="btn btn-danger btn-wide">Cancel</btn>
+                                </a>
+                            <%else%>
+                                <%@urlString = "/days/" + @pickup.day_id.to_s + ""%>
+                                <a href= <%=@urlString%>>
+                                    <btn class="btn btn-danger btn-wide">Cancel</btn>
+                                </a>
+                            <%end%>
                         </div>
                     </div>
                 </div>
