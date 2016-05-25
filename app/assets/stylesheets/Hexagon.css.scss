@@ -1,11 +1,7 @@
 
  /* Custom Styles */
 
-/* basic link coloring*/
 
-a {
-    color: #22ADC9;
-}
 
 /* Simple design for the white box/background
     seen on most pages
@@ -26,6 +22,12 @@ a {
 }
 
 
+/* basic link coloring*/
+
+a {
+    color: #22ADC9;
+}
+
 /* Needed to make the buttons larger for some screens */
 
 .btn-wide {
@@ -36,21 +38,13 @@ a {
     width: 50%;
 }
 
+
+/*Button color*/
 .ncc-button{
 	background-color: #000543;
 }
 
-
-body {
-    background-color: #000543;
-    padding-top: 130px;
-}
-
-.ncc {
-    background-color: #000543;
-	
-}
-
+/*Background image*/
 .ncc-img {
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -59,8 +53,12 @@ body {
 
 .navbarAbout {
     padding-bottom: 50px;
-	opacity: .8;
-	background-color: #000543;
+    opacity: .8;
+    background-color: #000543;
+}
+
+.padding-top {
+    padding-top: 20px;
 }
 
 
