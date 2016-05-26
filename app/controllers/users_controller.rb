@@ -130,7 +130,7 @@ class UsersController < ApplicationController
         count += 1
       end
     end
-    flash[:success] = pluralize(count, 'pickup was', 'pickups were') + " removed."
+    flash[:success] = count.to_s + " pickup".pluralize(count) + " removed."
     redirect_to users_index_path
   end
 
