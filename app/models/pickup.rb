@@ -20,6 +20,7 @@ class Pickup < ActiveRecord::Base
   #Function that builds csv file with address info. Called in reports controller. 
   def self.to_routes_csv
     headers = ["Street","City","State","Zip", "Country", "Notes"]
+    sc_address = ["5111 Chase Ave", "Downers Grove", "IL", "60515", "US", ""]
     
     #Creates array with given values. 
     attributes = %w{address donor_city donor_state donor_zip country donor_notes}
@@ -27,6 +28,7 @@ class Pickup < ActiveRecord::Base
     #Generate csv file
     CSV.generate(headers: true) do |csv|
       csv << headers
+      csv << sc_address
       
       #For each pickup, a new row is added and the columns are filled with the 
       #values specified in the attributes array
