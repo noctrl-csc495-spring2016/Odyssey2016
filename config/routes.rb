@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   get    'reports'                => 'reports#index'
   get    'reports/donor'          => 'reports#donor'
   get    'reports/truck'          => 'reports#truck'
-
-  get    'reports/rejected_history'   => 'reports#rejected_history'
+  get    'reports/mapquest'       => 'reports#mapquest'
+  get    'reports/rejected'       => 'reports#rejected'
 
   get    'days'                   => 'days#index'
   get    'days/new'               => 'days#new'

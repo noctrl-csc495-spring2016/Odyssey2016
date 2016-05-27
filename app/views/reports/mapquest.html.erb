@@ -1,4 +1,4 @@
-<% provide(:title, "Pickup Report") %>
+<% provide(:title, "MapQuest Routes") %>
 <%= render 'layouts/navbar' %>
 
    <div class="container">
@@ -7,17 +7,20 @@
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                         <div id="flash"></div>
-                        <h2>Truck Reports</h2>
-                        <p>Select a pickup date below to export the daily truck report information.</p>
+                        <h2>MapQuest Routes</h2>
+                        <p>Select a pickup date below to export the daily MapQuest route information.</p>
                         <!--<p>-->
-                        <!--The truck report is saved as <strong>truck_[DATE].pdf</strong> <br>-->
+                        <!--The mapquest report is saved as <strong>mapquest_[DATE].csv</strong>-->
                         <!--</p>-->
+                        <p>
+                            Import CSV into <a href="http://classic.mapquest.com/routeplanner">MapQuest</a>.
+                        </p>
                         <br>
                     </div>
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <%= form_tag('/reports/truck.pdf', :method => 'get') do %>
+                        <%= form_tag('/reports/mapquest.csv', :method => 'get') do %>
                             <div class="form-group">
                                 Pickup Day:
                                 <!--Checks to see if there are scheduled pickups and populates options accordingly-->
@@ -38,7 +41,7 @@
                                 <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
                                 </div>
                             </div>
-                            <% end %>
+                        <% end %>
                     </div>
                 </div>
             </div>
@@ -62,7 +65,7 @@ function flash(){
     var fullDay = select.value.split("-");
     var month = getMonth(fullDay[1]);
     var day = getDay(fullDay[2]);
-    flashdiv.innerHTML =  "Truck Report was saved as <strong>truck_" + month + day + ".pdf</strong>";
+    flashdiv.innerHTML =  "MapQuest report was saved as <strong>mapquest_" + month + day + ".csv</strong>";
 }
 
 function getMonth(strMon){
