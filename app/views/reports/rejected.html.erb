@@ -1,4 +1,4 @@
-<% provide(:title, "Donor Report") %>
+<% provide(:title, "Rejected Pickups Report") %>
 <%= render 'layouts/navbar' %>
 
     <div class="container">
@@ -7,18 +7,17 @@
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                         <div id="flash"></div>
-                        <%= render 'layouts/flash_messages' %>
-                        <h2>Donor CSV Export</h2>
-                        <p>Select a month and year to export data for all donors for that month.</p>
+                        <h2>Rejected Pickups Report</h2>
+                        <p>Select a month and year to export data for all rejected pickups for that month.</p>
                         <!--<p>-->
-                        <!--The donors report is saved as <strong>donors_[MONTH][YEAR].csv</strong> <br>-->
+                        <!--The rejected pickups report is saved as <strong>rejected_[MONTH][YEAR].csv</strong>-->
                         <!--</p>-->
                         <!--<br>-->
                     </div>
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <%= form_tag('/reports/donor.csv', :method => 'get') do %>
+                         <%= form_tag('/reports/rejected.csv', :method => 'get') do %>
                             <div class="form-group">
                                 Month:
                                 <%= select_month(Date.today, {}, {:class => "extra-right-margin form-control"} ) %>
@@ -31,13 +30,13 @@
                             <br>
                             <div class="form-group">
 
-                            <div class="col-xs-12 text-center">
-                              <!--builds submit and cancel buttons.-->
-                               <%= submit_tag 'Export', id: 'exportButton', class: 'btn btn-success btn-wide'%>
-                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+                                <div class="col-xs-12 text-center">
+                                  <!--builds submit and cancel buttons.-->
+                                  <%= submit_tag 'Export', id: "exportButton", class: 'btn btn-success btn-wide'%>
+                                  <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+                                </div>
+                                <% end %>
                             </div>
-                            <% end %>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -55,7 +54,7 @@ exportButton.addEventListener("click", flash);
 function flash(){
     flashdiv.className = "alert alert-success";
     var month = getMonth(monthselect.value);
-    flashdiv.innerHTML =  "Donor report was saved as <strong>donor_" + month + yearselect.value + ".csv</strong>";
+    flashdiv.innerHTML =  "Rejected pickups report was saved as <strong>rejected_" + month + yearselect.value + ".csv</strong>";
 }
 
 function getMonth(strMon){
