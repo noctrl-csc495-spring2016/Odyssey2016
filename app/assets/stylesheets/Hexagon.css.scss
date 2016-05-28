@@ -8,14 +8,12 @@
     width: 50%;
 }
 
-.ncc-button{
-	background-color: #000543;
-}
-
-
 .ncc-img {
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+	min-height: 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
 	background-image: image-url("transparent_Space.png");
 }
 
