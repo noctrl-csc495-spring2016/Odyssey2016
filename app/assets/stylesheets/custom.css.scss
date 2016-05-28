@@ -15,6 +15,7 @@ $containerColor:white;
 
 /* Custom Styles */
 
+
 /* Give some extra padding for under the navbar*/
 
 body {
@@ -251,4 +252,9 @@ span.fa.helpIcon {
 
 .popover {
     max-width: 550px;
+}
+
+btn.btn.btn-warning.btn-lg {
+    min-width: 100%;
+    max-width: 100%;
 }
