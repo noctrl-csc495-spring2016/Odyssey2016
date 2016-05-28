@@ -1,4 +1,4 @@
-<% provide(:title, "Rejected Pickups Report") %>
+<% provide(:title, "Rejected") %>
 <%= render 'layouts/navbar' %>
 
     <div class="container">
@@ -7,12 +7,10 @@
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                         <div id="flash"></div>
-                        <h2>Rejected Pickups Report</h2>
-                        <p>Select a month and year to export data for all rejected pickups for that month.</p>
-                        <!--<p>-->
-                        <!--The rejected pickups report is saved as <strong>rejected_[MONTH][YEAR].csv</strong>-->
-                        <!--</p>-->
-                        <!--<br>-->
+                        <h2>Rejected</h2>
+                        <p>Select a month and year to export data for all rejected donations on that month.</p>
+                        <div id="filename"></div>
+                        <br>
                     </div>
                 </div>
                 <div class="row">
@@ -48,13 +46,22 @@ var exportButton = document.getElementById("exportButton");
 var monthselect = document.getElementById('date_month');
 var yearselect = document.getElementById('date_year')
 var flashdiv = document.getElementById('flash');
+var filenamediv = document.getElementById('filename');
 
+changeFilename();
 exportButton.addEventListener("click", flash);
+monthselect.addEventListener("change", changeFilename);
+yearselect.addEventListener("change", changeFilename);
 
 function flash(){
     flashdiv.className = "alert alert-success";
     var month = getMonth(monthselect.value);
-    flashdiv.innerHTML =  "Rejected pickups report was saved as <strong>rejected_" + month + yearselect.value + ".csv</strong>";
+    flashdiv.innerHTML =  "Rejected pickups report was saved as <strong>rejected_" + month + yearselect.value + ".csv</strong>.";
+}
+
+function changeFilename(){
+    var month = getMonth(monthselect.value);
+    filenamediv.innerHTML =  "The rejected pickups report is saved as <strong>rejected_" + month + yearselect.value + ".csv</strong>.";
 }
 
 function getMonth(strMon){

@@ -1,4 +1,4 @@
-<% provide(:title, "MapQuest Routes") %>
+<% provide(:title, "MapQuest") %>
 <%= render 'layouts/navbar' %>
 
    <div class="container">
@@ -7,14 +7,10 @@
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                         <div id="flash"></div>
-                        <h2>MapQuest Routes</h2>
-                        <p>Select a pickup date below to export the daily MapQuest route information.</p>
-                        <!--<p>-->
-                        <!--The mapquest report is saved as <strong>mapquest_[DATE].csv</strong>-->
-                        <!--</p>-->
-                        <p>
-                            Import CSV into <a href="http://classic.mapquest.com/routeplanner">MapQuest</a>.
-                        </p>
+                        <h2>MapQuest</h2>
+                        <p>Select a date below to export pickup data for <a href="http://classic.mapquest.com/routeplanner" target="_blank">
+                            MapQuest Route Planner</a>.</p>
+                        <div id="filename"></div>
                         <br>
                     </div>
                 </div>
@@ -49,15 +45,18 @@
     </div>
     
 <script>
-var submitButton = document.getElementById("exportButton");
+var exportButton = document.getElementById('exportButton');
 var select = document.getElementById('pickupday');
 var flashdiv = document.getElementById('flash');
+var filenamediv = document.getElementById('filename');
 
 if (select.value == "No scheduled pickups"){
     // Disables export button if there are not scheduled pickups
-    submitButton.disabled = true;
+    exportButton.disabled = true;
 }else{
-    submitButton.addEventListener("click", flash);
+    changeFilename();
+    exportButton.addEventListener("click", flash);
+    select.addEventListener("change", changeFilename);
 }
 
 function flash(){
@@ -65,7 +64,14 @@ function flash(){
     var fullDay = select.value.split("-");
     var month = getMonth(fullDay[1]);
     var day = getDay(fullDay[2]);
-    flashdiv.innerHTML =  "MapQuest report was saved as <strong>mapquest_" + month + day + ".csv</strong>";
+    flashdiv.innerHTML =  "MapQuest report was saved as <strong>mapquest_" + month + day + ".csv</strong>.";
+}
+
+function changeFilename(){
+    var fullDay = select.value.split("-");
+    var month = getMonth(fullDay[1]);
+    var day = getDay(fullDay[2]);
+    filenamediv.innerHTML = "The MapQuest report is saved as <strong>mapquest_" + month + day + ".csv</strong>.";
 }
 
 function getMonth(strMon){
@@ -85,7 +91,6 @@ function getMonth(strMon){
     case "11": month = "nov"; break;
     case "12": month = "dec"; break;
     }
-    
     return month
 }
 
@@ -104,8 +109,6 @@ function getDay(strDay){
     case "09": day = "9"; break;
     default: day = strDay; break;
     }
-    
     return day;
 }
 </script>
-
