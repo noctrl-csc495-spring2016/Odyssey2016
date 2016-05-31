@@ -1,6 +1,6 @@
 # Create Prof. Bill
 User.create!(
-  username:           "wtkrieger",
+  username:           "profbill",
   email:              "wtkrieger@noctrl.edu",
   password_digest:    User.digest("password"),
   permission_level:   2,
