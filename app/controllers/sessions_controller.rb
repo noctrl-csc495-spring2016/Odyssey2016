@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
   #  is unsuccessful.
   def create
     # Find the user by their user ID
-    user = User.find_by(username: params[:session][:username])
+    user = User.find_by(username: params[:session][:username].strip)
     
     # If the user exists and the password is valid, send them to the home1 page
     if user && user.authenticate(params[:session][:password])
