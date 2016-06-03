@@ -1,8 +1,8 @@
 <% provide(:title, 'Add New User') %>
-<body>
+
     <%= render 'layouts/navbar' %>
     <!-- Begin main content -->
-  <div class="container">
+  <div class="container" id="container">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2 well extra-spacing">
             <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
@@ -23,7 +23,8 @@
                 </div>
 
                 <div class="form-group">
-                    <%= f.label :permission_level, "User Level:" %>
+                  <%= f.label :permission_level, "User Level:" %>
+                  <a tabindex="0" class="btn btn-circle glyphicon glyphicon-question-sign" role="button" data-toggle="popover" data-trigger="hover" title="User Level"></a>
                   <%= f.select :permission_level, [['Entry','0'],['Standard','1'],['Admin','2']], {:include_blank => true}, {:class => 'form-control'} %>
                 </div>
             
@@ -48,4 +49,32 @@
       </div>
     </div>
   </div>
-</body>
+
+<div id="popover" style="display:none;">
+  <table class="table table-borderless">
+    <tbody>
+      <tr>
+        <td class="text-right col-xs-3"><small><strong>Entry User</strong></small></td>
+        <td><small>An entry user is the lowest level user. An entry user only has permissions to view and update pickups. An entry level user does not have permissions to reject or schedule a pickup.</small></td>
+      </tr>
+      <tr>
+        <td class="text-right col-xs-3"><small><strong>Standard User</strong></small></td>
+        <td><small>A standard user is the basic user. A basic user has the ability to add pickup days, add/edit pickups, as well as the ability to reject or schedule pickups to a day.</small></td>
+      </tr>
+      <tr>
+        <td class="text-right col-xs-3"><small><strong>Admin User</strong></small></td>
+        <td><small>An admin user is the highest level user. An admin user has the ability to do all of the things a standard user can do, however, an admin can also add, edit, and delete users. An admin can also change a user's password.</small></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(function () {
+    $('[data-toggle="popover"]').popover({
+      container: '#container',
+      content: $('#popover').html(),
+      html: true
+    })
+  })
+</script>

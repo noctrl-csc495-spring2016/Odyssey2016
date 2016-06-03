@@ -9,6 +9,7 @@ gem 'fog',                     '1.36.0'
 gem 'will_paginate',           '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'bootstrap-sass',          '3.3.6.0'
+gem "font-awesome-rails"
 gem 'sass-rails',              '5.0.2'
 gem 'uglifier',                '2.5.3'
 gem 'coffee-rails',            '4.1.0'
@@ -20,7 +21,11 @@ gem 'sdoc',                    '0.4.0', group: :doc
 gem 'fullcalendar-rails',      '2.6.1.0'
 gem 'momentjs-rails',          '2.11.1'
 gem 'prawn',                   '2.1.0' 
+<<<<<<< HEAD
 gem 'prawn-table',             '0.2.2' 
+=======
+gem 'prawn-table',             '0.2.2'
+>>>>>>> 71e5fd49f51f06db7d6cfd6028a59cb253e5fe96
 gem 'figaro'
 
 group :development, :test do

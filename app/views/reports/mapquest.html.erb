@@ -1,0 +1,114 @@
+<% provide(:title, "MapQuest") %>
+<%= render 'layouts/navbar' %>
+
+   <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <div id="flash"></div>
+                        <h2>MapQuest</h2>
+                        <p>Select a date below to export pickup data for <a href="http://classic.mapquest.com/routeplanner" target="_blank">
+                            MapQuest Route Planner</a>.</p>
+                        <div id="filename"></div>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <%= form_tag('/reports/mapquest.csv', :method => 'get') do %>
+                            <div class="form-group">
+                                Pickup Day:
+                                <!--Checks to see if there are scheduled pickups and populates options accordingly-->
+                                <%if @days.empty?%>
+                                    <%= select_tag 'pickupday' , "<option>No scheduled pickups</option>".html_safe, 
+                                    class: "form-control" %>
+                                <%else%>
+                                    <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
+                                                    [d.date.strftime("%A %b %-d, %Y"), d.date]}),
+                                                    class: "form-control" %> 
+                                <%end%>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                              <!--Export and cancel buttons-->
+                                <div class="col-xs-12 text-center">
+                                <%= submit_tag 'Export', id: 'exportButton', class: 'btn btn-success btn-wide' %>
+                                <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
+                                </div>
+                            </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+var exportButton = document.getElementById('exportButton');
+var select = document.getElementById('pickupday');
+var flashdiv = document.getElementById('flash');
+var filenamediv = document.getElementById('filename');
+
+if (select.value == "No scheduled pickups"){
+    // Disables export button if there are not scheduled pickups
+    exportButton.disabled = true;
+}else{
+    changeFilename();
+    exportButton.addEventListener("click", flash);
+    select.addEventListener("change", changeFilename);
+}
+
+function flash(){
+    flashdiv.className = "alert alert-success";
+    var fullDay = select.value.split("-");
+    var month = getMonth(fullDay[1]);
+    var day = getDay(fullDay[2]);
+    flashdiv.innerHTML =  "MapQuest report was saved as <strong>mapquest_" + month + day + ".csv</strong>.";
+}
+
+function changeFilename(){
+    var fullDay = select.value.split("-");
+    var month = getMonth(fullDay[1]);
+    var day = getDay(fullDay[2]);
+    filenamediv.innerHTML = "The MapQuest report is saved as <strong>mapquest_" + month + day + ".csv</strong>.";
+}
+
+function getMonth(strMon){
+    var month;
+    switch (strMon)
+    {
+    case "01": month = "jan"; break;
+    case "02": month = "feb"; break;
+    case "03": month = "mar"; break;
+    case "04": month = "apr"; break;
+    case "05": month = "may"; break;
+    case "06": month = "jun"; break;
+    case "07": month = "jul"; break;
+    case "08": month = "aug"; break;
+    case "09": month = "sep"; break;
+    case "10": month = "oct"; break;
+    case "11": month = "nov"; break;
+    case "12": month = "dec"; break;
+    }
+    return month
+}
+
+function getDay(strDay){
+    var day;
+    switch (strDay)
+    {
+    case "01": day = "1"; break;
+    case "02": day = "2"; break;
+    case "03": day = "3"; break;
+    case "04": day = "4"; break;
+    case "05": day = "5"; break;
+    case "06": day = "6"; break;
+    case "07": day = "7"; break;
+    case "08": day = "8"; break;
+    case "09": day = "9"; break;
+    default: day = strDay; break;
+    }
+    return day;
+}
+</script>

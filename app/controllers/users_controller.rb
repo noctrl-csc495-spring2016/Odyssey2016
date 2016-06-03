@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :is_admin, except: [:update, :edit]
   before_action :is_super, only: [:prune]
   
+  #Diplays all users, each user in a row
   def index
     #display superadmin only if superadmin is logged in
     if !is_super? 
@@ -13,6 +14,9 @@ class UsersController < ApplicationController
     end
   end
 
+  #Called when an admin clicks on a user in the table on the users index page.
+  #Displays the user's info and allows admin to change their password and/or
+  #permission level.
   def show
     @user = User.find(params[:id])
     
@@ -28,7 +32,8 @@ class UsersController < ApplicationController
   end
 
     
-  #admins have a different profile page so we redirect them to 'show'
+  #Called when a user selects "Settings".  If the user is admin, they are
+  #redirected to 'show'.
   def edit
     @user = User.find(params[:id])
     if @user.permission_level == 2
@@ -36,27 +41,36 @@ class UsersController < ApplicationController
     end
   end
 
+  #Called when the admin wants to create a new user
   def create
     @user = User.new(new_user_params)
     if @user.save
-      flash[:success] = "Successfully created " + @user.username
+      flash[:success] = "Successfully created <strong>" + @user.username + "</strong>"
       redirect_to action: "index"
     else
-      flash.now[:danger] = "Input Invalid"
+      flash.now[:danger] = "One or more entries was invalid.  Please check your information and try again."
       render 'new'
     end
   end
 
+
+  #The Update method has 5 cases
+  #super admins updating an account
+  #Admins updating themselves (admins cannot delete themselves)
+  #admins updating other accounts (cannot update superadmin)
+  #Entry or standard accounts updating themselves
+  #Entry or standard updating someone they do not have permission to update
+  
+  #Admins can delete other accounts, update passwords and permission levels
+  #
   def update
     @user = User.find(params[:id])
     
-    #if is_super? && @user.super_admin == true
-      
     if is_super? 
       
       #confirm password then update users info
-      if current_user.authenticate(params[:current_password]) && @user.update_attributes(admin_params)
-        flash[:success] = "The user " + @user.username + " has been updated."
+      if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
+        flash[:success] = "The user <strong>" + @user.username + "</strong> has been updated."
         redirect_to action: "show"
       else
         flash[:danger] = "Passwords invalid or do not match"
@@ -67,7 +81,7 @@ class UsersController < ApplicationController
     elsif is_admin? && current_user.username != @user.username
       #confirm password then update users info
       if current_user.authenticate(params[:user][:current_password]) && @user.update_attributes(admin_params)
-        flash[:success] = "The user " + @user.username + " has been updated."
+        flash[:success] = "The user <strong>" + @user.username + "</strong> has been updated."
         redirect_to action: "show"
       else
         flash[:danger] = "Passwords invalid or do not match"
@@ -116,10 +130,12 @@ class UsersController < ApplicationController
         count += 1
       end
     end
-    flash[:success] = pluralize(count, 'pickup was', 'pickups were') + "removed."
+    flash[:success] = count.to_s + " pickup".pluralize(count) + " removed."
     redirect_to users_index_path
   end
 
+  #destroy is an action that admins can use to delete accounts
+  #but not themselves
   def destroy
     
     #check user is not deleting self
@@ -130,7 +146,7 @@ class UsersController < ApplicationController
       else  
         name = User.find(params[:id]).username
         User.find(params[:id]).destroy
-        flash[:success] = "Successfully deleted " + name
+        flash[:success] = "Successfully deleted <strong>" + name + "</strong>"
         redirect_to users_url
       end
       
@@ -142,6 +158,9 @@ class UsersController < ApplicationController
     end
   end
 
+  #password and password confirmation are BCrypt defaults.  They must be called
+  #by these names for BCrypt to recognize them
+  #They are not part of the user model
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def super_params

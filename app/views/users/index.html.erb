@@ -1,11 +1,7 @@
 <% provide(:title, 'All Users') %>
 
 <!-- Designed by Nicholas Drazenovic & Emily Huizenga -->
-<!DOCTYPE html>
-<head>
-</head>
 
-<body>
    <%= render 'layouts/navbar' %>
 
 
@@ -39,7 +35,7 @@
                         </tr>
                     </thead>
                         <% @users.each do |user| %> 
-                        <tr onclick="location.href='<%=user_path(user)%>'">
+                        <tr style="cursor:pointer;" onclick="location.href='<%=user_path(user)%>'">
                             <td>
                                 <%= user.username %>
                             </td>
@@ -52,5 +48,3 @@
             </div>
         </div>
     </div>
-</body>
-</html>

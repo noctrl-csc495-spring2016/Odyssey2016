@@ -1,0 +1,86 @@
+<% provide(:title, "Rejected") %>
+<%= render 'layouts/navbar' %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <div id="flash"></div>
+                        <h2>Rejected</h2>
+                        <p>Select a month and year to export data for all rejected donations on that month.</p>
+                        <div id="filename"></div>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                         <%= form_tag('/reports/rejected.csv', :method => 'get') do %>
+                            <div class="form-group">
+                                Month:
+                                <%= select_month(Date.today, {}, {:class => "extra-right-margin form-control"} ) %>
+                            </div>
+                            <div class="form-group">
+                                Year:
+                                <%= select_year(Date.today, {:start_year => Time.now.year, :end_year => 2016},
+                                {:class => "form-control"}) %>
+                            </div>
+                            <br>
+                            <div class="form-group">
+
+                                <div class="col-xs-12 text-center">
+                                  <!--builds submit and cancel buttons.-->
+                                  <%= submit_tag 'Export', id: "exportButton", class: 'btn btn-success btn-wide'%>
+                                  <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+                                </div>
+                                <% end %>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+var exportButton = document.getElementById("exportButton");
+var monthselect = document.getElementById('date_month');
+var yearselect = document.getElementById('date_year')
+var flashdiv = document.getElementById('flash');
+var filenamediv = document.getElementById('filename');
+
+changeFilename();
+exportButton.addEventListener("click", flash);
+monthselect.addEventListener("change", changeFilename);
+yearselect.addEventListener("change", changeFilename);
+
+function flash(){
+    flashdiv.className = "alert alert-success";
+    var month = getMonth(monthselect.value);
+    flashdiv.innerHTML =  "Rejected pickups report was saved as <strong>rejected_" + month + yearselect.value + ".csv</strong>.";
+}
+
+function changeFilename(){
+    var month = getMonth(monthselect.value);
+    filenamediv.innerHTML =  "The rejected pickups report is saved as <strong>rejected_" + month + yearselect.value + ".csv</strong>.";
+}
+
+function getMonth(strMon){
+    var month;
+    switch (strMon)
+    {
+    case "1": month = "jan"; break;
+    case "2": month = "feb"; break;
+    case "3": month = "mar"; break;
+    case "4": month = "apr"; break;
+    case "5": month = "may"; break;
+    case "6": month = "jun"; break;
+    case "7": month = "jul"; break;
+    case "8": month = "aug"; break;
+    case "9": month = "sep"; break;
+    case "10": month = "oct"; break;
+    case "11": month = "nov"; break;
+    case "12": month = "dec"; break;
+    }
+    return month
+}
+</script>

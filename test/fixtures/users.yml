@@ -25,3 +25,10 @@ gerardo:
   password_digest: <%= User.digest('password') %>
   permission_level: 2
   super_admin: true
+  
+mark:
+  username: 'mark'
+  email: 'mark@valid.com'
+  password_digest: <%= User.digest('password') %>
+  permission_level: 0
+  super_admin: false

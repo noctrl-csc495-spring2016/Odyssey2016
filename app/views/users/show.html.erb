@@ -1,5 +1,5 @@
 <% provide(:title, @user.username) %>
-<body>
+
 <%= render 'layouts/navbar' %>
 <!-- Begin main content -->
 <div class="container">
@@ -38,8 +38,8 @@
                 <%= f.password_field :password_confirmation, class: 'form-control' %>
                 </div>
                 
+                 <% if current_user.super_admin == true && @user.super_admin == true %>
                 <div class="form-group">
-                <% if current_user.super_admin == true && @user.super_admin == true %>
                 <h5>Number of pickups on record: &nbsp;
                     <%= Pickup.all.count %></h5>
                 </div>

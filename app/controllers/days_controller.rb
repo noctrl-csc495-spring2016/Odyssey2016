@@ -35,11 +35,13 @@ class DaysController < ApplicationController
     end
     
     # All the year options for our form. By default we start with the
-    #   current year. Also are starting by showing up to 5 years in advance.
+    #   current year. Also are starting by showing up to @years_to_show years in advance.
     #   Change the number in (#).times in parens to change the number of years
     #   to show.
+    @years_to_show = 2
+    
     @year_options = []
-    (2).times do |y|
+    (@years_to_show).times do |y|
       @year_options[y] = [(Time.new.year + y).to_s, (Time.new.year + y)]
     end
   end
@@ -53,7 +55,8 @@ class DaysController < ApplicationController
     end
   end
   
-  # UPDATE
+  # Use this action to create an event. Take in params of :month, :day, and :year where the :month comes
+  # in as the fully qualified month (i.e. 'January').
   def create
     # Check that the date entered is valid
     # i.e. NOT Feb 31, 2017

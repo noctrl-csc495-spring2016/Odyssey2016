@@ -1,12 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "fullcalendar";
+@import "font-awesome";
 
 /* Variables */
 
 $background:#22ADC9;
 $links:#22ADC9;
-$backgroundNCC: #C1272D;
+$backgroundNCC: #000543;
 $redStar: #FD0004;
 $dangerColor: #d9534f;
 $gray: #777;
@@ -71,10 +72,6 @@ a {
     padding-bottom: 30px;
 }
 
-.full-width {
-    width: 100%;
-}
-
 
 /*
 Class to accompany a .well on certain pages if the container needs to be slightly wider
@@ -89,10 +86,6 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 
 /* Custom text sizing */
 
-.text-lg {
-    font-size: 18px;
-}
-
 .text-danger {
     color: $dangerColor;
 }
@@ -104,12 +97,8 @@ Class to accompany a .well on certain pages if the container needs to be slightl
     width: 40%;
 }
 
-.btn-50 {
-    width: 50%;
-}
 
-
-/* Just needed some extra margin for some of the buttons */
+/* Extra margin classes for various elements*/
 
 .extra-right-margin {
     margin-right: 65px;
@@ -123,10 +112,16 @@ Class to accompany a .well on certain pages if the container needs to be slightl
     margin-bottom: 5px;
 }
 
+
+/* Styles for the calendar on the Add Pickup Day screen*/
+
 .calendar {
     width: 100%;
     height: 60%;
 }
+
+
+/* Styles for the tables */
 
 .table-title {
     margin-left: 65px;
@@ -140,12 +135,11 @@ Class to accompany a .well on certain pages if the container needs to be slightl
 
 /* formating for Home2*/
 
+
+/* Red required icon */
+
 .red {
     color: $redStar;
-}
-
-.half-width {
-    width: 50%;
 }
 
 .padding-top {
@@ -156,12 +150,8 @@ input[type=number] {
     text-align: right;
 }
 
-.checkbox {
-    margin: 20 0 0 0;
-}
 
-
-/* Header */
+/* Header, logo styling*/
 
 #logo {
     float: left;
@@ -182,10 +172,6 @@ input[type=number] {
 
 .navbar {
     padding-bottom: 37px;
-}
-
-.navbarAbout {
-    padding-bottom: 70px;
 }
 
 .custom-navbar {
@@ -225,16 +211,50 @@ nav.navbar {
     display: inline-block;
 }
 
-.img-icon {
-    display: inline;
+span.fa.helpIcon {
     float: right;
-    vertical-align: middle;
-    height: 10%;
-    width: 10%;
+    font-size: 48px;
 }
 
 @media print {
     .hidden-default {
         display: inline;
     }
+}
+
+@media (max-width: 992px) {
+    .question h4 {
+        font-size: 11px;
+    }
+    span.fa.helpIcon {
+        font-size: 24px;
+    }
+}
+
+
+/* Other styles */
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.table-borderless tbody tr td,
+.table-borderless tbody tr th,
+.table-borderless thead tr th {
+    border: none;
+}
+
+.popover {
+    max-width: 550px;
+}
+
+btn.btn.btn-warning.btn-lg {
+    min-width: 100%;
+    max-width: 100%;
 }

@@ -1,4 +1,4 @@
-<% provide(:title, "Trcuk Report") %>
+<% provide(:title, "Truck Report") %>
 <%= render 'layouts/navbar' %>
 
    <div class="container">
@@ -6,63 +6,108 @@
             <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <h2>Truck Reports</h2>
-                        <p>Select a pickup date below to export the daily truck report and MapQuest route information.</p>
-                        <p>
-                        The truck report is saved as file truck_[DATE].pdf <br>
-                        The mapquest report is saved as file mapquest_[DATE].csv
-                        </p>
+                        <div id="flash"></div>
+                        <h2>Truck Report</h2>
+                        <p>Select a date below to report all the pickups on that day.</p>
+                        <div id="filename"></div>
                         <br>
                     </div>
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <%= form_tag('/reports/truck.pdf', :method => 'get') do %>
                             <div class="form-group">
                                 Pickup Day:
-                                <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
-                                  [d.date.strftime("%b %-d"), d.date]}),
-                                  class: "form-control" %>   
+                                <!--Checks to see if there are scheduled pickups and populates options accordingly-->
+                                <%if @days.empty?%>
+                                    <%= select_tag 'pickupday' , "<option>No scheduled pickups</option>".html_safe, 
+                                    class: "form-control" %>
+                                <%else%>
+                                    <%= select_tag 'pickupday', options_for_select(@days.collect{|d| 
+                                                    [d.date.strftime("%A %b %-d, %Y"), d.date]}),
+                                                    class: "form-control" %> 
+                                <%end%>
                             </div>
                             <br>
                             <div class="form-group">
-
                               <!--Export and cancel buttons-->
                                 <div class="col-xs-12 text-center">
-                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
-                              <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
+                                <%= submit_tag 'Report', id: 'exportButton', class: 'btn btn-success btn-wide' %>
+                                <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>  
                                 </div>
                             </div>
+                            <% end %>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
-<!--In order to have the ability to download multiple files with a single request/click -->
-<!--of a button, I attached a javascript function to the export button. The alternative -->
-<!--is to bundle the two files together into a zipped folder. -->
+    
 <script>
-var submitButton = document.getElementById("exportButton");
-var select = document.getElementById("pickupday");
+var exportButton = document.getElementById('exportButton');
+var select = document.getElementById('pickupday');
+var flashdiv = document.getElementById('flash');
+var filenamediv = document.getElementById('filename');
 
-// Attaches an onClick listener to the export button 
-submitButton.addEventListener("click", exportFiles);    
-
-//This function is called everytime the user clicks the export button
-function exportFiles()
-{
-  //Used iframes to be able to download multiple files
-    url1 = "/reports/truck.pdf?pickupday=" + select.value;
-    url2 = "/reports/truck.csv?pickupday=" + select.value;
-    createiframe(url1);
-    window.setTimeout(function() {createiframe(url2)}, 500);
+if (select.value == "No scheduled pickups"){
+    // Disables export button if there are not scheduled pickups
+    exportButton.disabled = true;
+}else{
+    changeFilename();
+    exportButton.addEventListener("click", flash);
+    select.addEventListener("change", changeFilename);
 }
 
-function createiframe(url){
-    var iframe1 = document.createElement('iframe');
-    iframe1.style.display = "none";
-    iframe1.src = url ;
-    document.body.appendChild(iframe1);
+function flash(){
+    flashdiv.className = "alert alert-success";
+    var fullDay = select.value.split("-");
+    var month = getMonth(fullDay[1]);
+    var day = getDay(fullDay[2]);
+    flashdiv.innerHTML =  "Truck report was saved as <strong>truck_" + month + day + ".pdf</strong>.";
+}
+
+function changeFilename(){
+    var fullDay = select.value.split("-");
+    var month = getMonth(fullDay[1]);
+    var day = getDay(fullDay[2]);
+    filenamediv.innerHTML = "The truck report is saved as <strong>truck_" + month + day + ".pdf</strong>.";
+}
+
+function getMonth(strMon){
+    var month;
+    switch (strMon)
+    {
+    case "01": month = "jan"; break;
+    case "02": month = "feb"; break;
+    case "03": month = "mar"; break;
+    case "04": month = "apr"; break;
+    case "05": month = "may"; break;
+    case "06": month = "jun"; break;
+    case "07": month = "jul"; break;
+    case "08": month = "aug"; break;
+    case "09": month = "sep"; break;
+    case "10": month = "oct"; break;
+    case "11": month = "nov"; break;
+    case "12": month = "dec"; break;
+    }
+    return month
+}
+
+function getDay(strDay){
+    var day;
+    switch (strDay)
+    {
+    case "01": day = "1"; break;
+    case "02": day = "2"; break;
+    case "03": day = "3"; break;
+    case "04": day = "4"; break;
+    case "05": day = "5"; break;
+    case "06": day = "6"; break;
+    case "07": day = "7"; break;
+    case "08": day = "8"; break;
+    case "09": day = "9"; break;
+    default: day = strDay; break;
+    }
+    return day;
 }
 </script>

@@ -1,10 +1,10 @@
+<% provide(:title, "Email") %>
 <%= render 'layouts/navbar' %>
 
     <div class='container white-container'>
         <h2>Preview of Email to be Sent</h2><br/>
         To: <%=@pickup.donor_email%><br/>
-        From: noreply@sharingconnections.org
-        <br/><br/>
+        <br/>
         <p><%if @pickup.donor_first_name.blank?%>
             Hello,
             <%else%>
@@ -38,9 +38,7 @@
                 <%= form_for(@pickup) do |f| %>
                 <div class="form-group">
                     <%= f.submit "Send", name: "send", class: "btn btn-success btn-wide extra-right-margin" %>
-                    <a href="/pickups">
-                        <btn class="btn btn-danger btn-wide">Cancel</btn>
-                    </a>
+                    <%= f.submit "Cancel", name: "cancel_email", class: "btn btn-danger btn-wide" %>
                 </div>
                 <%end%>
             </div>

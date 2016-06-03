@@ -1,9 +1,9 @@
-<% provide(:title, "About") %>
+<% provide(:title, "Help") %>
 <%= render 'layouts/navbar' %>
 
 <div class="container white-container">
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12  col-sm-10 col-sm-offset-2">
     <h2>Help</h2>
     <p>Click on a question below to view its answer.</p>
     </div>
@@ -13,60 +13,155 @@
 
     <div class="col-xs-12 col-sm-8 col-sm-offset-2">
 
-    <div class="well question">
-        <h4>What's a pickup?</h4><img src="<%=asset_path("dg.jpg") %>" class="img-responsive img-icon" alt="Village of Downer's Grove">
-        <div class="answer hidden-default">
-            <ul>
-                <li>Pickup = pickup items donated to Sharing Connections, like furniture.</li>
-                <li>People call or email Sharing Connections to donate items. We take their info. In Odyssey, this is when you create a new Pickup. Later, the donor is called and the Pickup is scheduled.</li>
-                <li>Odyssey helps manage this process.</li>
-            </ul>
-        </div>
-        </div>
-
         <div class="well question">
-            <h4>How do I add a new Pickup?</h4>
+            <h4>What is the Odyssey Pickup Assistant?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-space-shuttle helpIcon"></span>
             <div class="answer hidden-default">
+                <p>Odyssey is a web application specifically written for Sharing Connections. Odyssey works to support the Sharing Connections donation/pickup process. This process is:</p>
                 <ol>
-                    <li>Click Home at the top</li>
-                    <li>Click on the green plus sign</li>
-                    <li>Fill in the form with donor/pickup info</li>
-                </ol>
-            </div>
-        </div>
-
-         <div class="well question">
-            <h4>How do I schedule a Pickup?</h4>
-            <div class="answer hidden-default">
-                <ol>
-                    <li>First you have to add the Pickup (See Question 2)</li>
-                    <li>Click on Home at the top</li>
-                    <li>Select the pickup you want to schedule.</li>
-                    <li>Under “Schedule:”, select a day and you’re set</li>
+                    <li>Donors call or email to donate furniture or other items to Sharing Connections.</li>
+                    <li>Sharing Connections calls the donor to vet items and schedule a pickup.</li>
+                    <li>The Sharing Connections truck personnel print a list of all pickups for the day and collects items from donors.</li>
+                    <li>At the end of each month, donor data is exported to a Donor Database.</li>
                 </ol>
             </div>
         </div>
 
         <div class="well question">
-            <h4>How do I change Pickup or donor info?</h4>
+            <h4>What is a pickup?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-truck helpIcon"></span>
             <div class="answer hidden-default">
-                <ol>
-                    <li>For pickups that are unscheduled, go to the Home page</li>
-                    <ol>
-                        <li>From the Home page, click on the pickup you want to edit</li>
-                    </ol>
-                    <li>For pickups that are already schedule, go to the Schedule page</li>
-                    <ol>
-                        <li>Select the pickup day that the pickup is scheduled for</li>
-                        <li>On the Pickup Day screen, select the pickup you want to edit</li>
-                    </ol>
-                    <li>Make your changes to the pickup or donor information</li>
-                    <li>Click the 'Update Pickup' button at the bottom of the page to save your changes</li>
-                </ol>
+                <p>A Pickup is when Sharing Connections sends their truck to a donor’s residence to “pickup” donated furniture or other items. 
+                In Odyssey, a Pickup includes donor information, a description of the items being donated, and eventually, a date for the pickup.</p>
+            </div>
+            </div>
+
+        <div class="well question">
+            <h4>What is the "Home" page?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-home helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>Home is the first page you see when logging in. It lists all currently unscheduled Pickups. At Home, you can create a new Pickup or schedule an existing one.</p>
             </div>
         </div>
-    </div>
-    </div>
+
+        <div class="well question">
+            <h4>How do I create a new Pickup?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-plus-square-o helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>From the Home page, select the green plus sign with “Add New Pickup”. After you add a new Pickup, it will appear on the Home page.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How can I edit the donor or item information in a Pickup?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-pencil-square-o helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>From the Home page, select the Pickup you wish to edit from the list.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How do I schedule a Pickup?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-calendar helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>From the Home page, select any Pickup from the list to schedule it.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How do I indicate that a Pickup has been rejected?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-calendar-times-o helpIcon"></span>
+            <div class="answer hidden-default">
+                <p> From the Home page, select the Pickup. From here, you can choose a reason for the rejection and select Reject. Once rejected, the Pickup is removed from the Home page.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>What is the "Schedule" page?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-question helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>The Schedule page lists all future pickup days that are currently scheduled for the Sharing Connections truck.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How can I see the Pickups scheduled for a day?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-list-alt helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>From the Schedule page, select a day to see the scheduled Pickups.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How do I add a new pickup day for the truck?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-calendar-plus-o helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>From the Schedule page, select the green plus sign with “Add New Pickup Day”. After you add a new day, it will appear on the Schedule page.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>Can I re-schedule a Pickup?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-repeat    helpIcon"></span>
+            <div class="answer hidden-default">
+                <span>Yes, in three steps:
+                <ol>
+                    <li>From the Schedule page, select the day from the list.</li>
+                    <li>Select the Pickup you want to reschedule.</li>
+                    <li>Select the red Unschedule button.</li>
+                    <li>The Pickup will now be on the Home page. You can select it to reschedule.</li>
+                </ol>
+                </span>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>Can I view pickup days from the past?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-history helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>Yes. On the Schedule page, change the View dropdown from “Days in the future” to “In the past 30 days”. This will list all pickup days within the last 30 days.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>What is the "Reports" page?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-file helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>The Reports page lists helpful reports for truck personnel or Sharing Connections’ donor database.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>What is the MapQuest Truck Report?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-map helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>This report is a CSV file compatible with <a href="http://classic.mapquest.com/routeplanner" target="_blank">MapQuest’s Route Planner</a>. At this page, select “Import Spreadsheet” to use your MapQuest CSV file. The MapQuest site can be used to plan the truck’s route for the day and to print turn-by-turn directions.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>Why don't I have "Schedule" or "Reports" at the top of the page?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-user-times helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>If you don’t see these pages, then you are an Entry level user. You are restricted to adding new Pickups and editing them. Scheduling Pickups and other reports are not available to Entry users.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How do I log out of the Odyssey Pickup Assistant?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-sign-out helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>Select "Account" at the top, then "Logout".</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>How do I change my password?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-key helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>Select "Account" at the top, then "Settings".</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>Oops, I forgot my password. What now?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-question-circle-o helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>If you can't login for any reasons, then please contact your Odyssey administrator. They can reset your password.</p>
+            </div>
+        </div>
+
+        <div class="well question">
+            <h4>I'm an Admin. How can I manage users of the system?&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-gears helpIcon"></span>
+            <div class="answer hidden-default">
+                <p>Select "Accounts" and then "Admin". From there, you can apply your many admin powers: create a new user, change user passwords, change a user's level, or delete users.</p>
+            </div>
+        </div>
+
+    </div><!-- End column -->
+    </div><!-- End row-->
 
 
 </div><!-- End main container-->
@@ -74,8 +169,23 @@
 <script>
 
 $(document).ready(function() {
-    $(".question").on('click',  function() {
+    $(".question").on('click', function() {
+        if($(this).hasClass("answer")) return;
+        var glyph = $(this).find(".glyphicon");
+        if (glyph.hasClass("glyphicon-chevron-down"))
+            {
+                glyph.removeClass('glyphicon-chevron-down')
+                glyph.addClass('glyphicon-chevron-up');
+            }
+        else
+            {
+                glyph.removeClass('glyphicon-chevron-up');
+                glyph.addClass('glyphicon-chevron-down');
+            }
         $(this).find('.answer').slideToggle();
+    });
+    $(".answer").on('click', function(){
+        return false;
     });
 
 

@@ -10,17 +10,19 @@ one:
   donor_address_line2: MyString
   donor_city: MyString
   donor_zip: MyString
-  donor_dwelling_type: MyString
-  donor_phone: MyString
-  donor_email: MyString
+  donor_state: "Illinois"
+  donor_dwelling_type: "Current Residence"
+  donor_phone: "(630) 555-5555"
+  donor_email: "foo@valid.com"
   number_of_items: 1
   item_notes: MyText
   donor_notes: MyText
   rejected: false
   rejected_reason: MyString
+  send_email: false
 
 two:
-  day_id: 1
+  day_id:
   donor_title: MyString
   donor_first_name: MyString
   donor_last_name: MyString
@@ -29,9 +31,31 @@ two:
   donor_address_line2: MyString
   donor_city: MyString
   donor_zip: MyString
-  donor_dwelling_type: MyString
+  donor_state: "Illinois"
+  donor_dwelling_type: "Current Residence"
+  donor_phone: "(630) 555-5555"
+  donor_email: "foo@valid.com"
+  number_of_items: 1
+  item_notes: MyText
+  donor_notes: MyText
+  rejected: false
+  rejected_reason:
+  send_email: false
+  
+three:
+  day_id: 1
+  donor_title: MyString
+  donor_first_name: MyString
+  donor_last_name: MyString
+  donor_spouse_name: MyString
+  donor_address_line1: MyString
+  donor_address_line2: MyString
+  donor_city: MyString
+  donor_state: "Illinois"
+  donor_dwelling_type: "Current Residence"
+  donor_zip: MyString
   donor_phone: MyString
-  donor_email: MyString
+  donor_email: "foo@valid.com"
   number_of_items: 1
   item_notes: MyText
   donor_notes: MyText

@@ -1,4 +1,4 @@
-<% provide(:title, "Donor Report") %>
+<% provide(:title, "Donors") %>
 <%= render 'layouts/navbar' %>
 
     <div class="container">
@@ -6,17 +6,17 @@
             <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                        <h2>Donor CSV Export</h2>
-                        <p>Select a month and year to export data for all donors for that month.</p>
-                        <p>
-                        The donors report is saved as donors_[MONTH][YEAR].pdf <br>
-                        The rejected pickups report is saved as rejected_[MONTH][YEAR].csv
-                        </p>
+                        <div id="flash"></div>
+                        <%= render 'layouts/flash_messages' %>
+                        <h2>Donors</h2>
+                        <p>Select a month and year to export data for all donors on that month.</p>
+                        <div id="filename"></div>
                         <br>
                     </div>
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <%= form_tag('/reports/donor.csv', :method => 'get') do %>
                             <div class="form-group">
                                 Month:
                                 <%= select_month(Date.today, {}, {:class => "extra-right-margin form-control"} ) %>
@@ -31,10 +31,11 @@
 
                             <div class="col-xs-12 text-center">
                               <!--builds submit and cancel buttons.-->
-                              <%=button_tag 'Export', type: 'button', id: 'exportButton', class: 'btn btn-success btn-wide'%>
-                              <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+                               <%= submit_tag 'Export', id: 'exportButton', class: 'btn btn-success btn-wide'%>
+                               <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
                             </div>
-                            </div>
+                            <% end %>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,23 +43,45 @@
     </div>
     
 <script>
-var submitButton = document.getElementById("exportButton");
-var selectMonth = document.getElementById("date_month");
-var selectYear = document.getElementById("date_year");
+var exportButton = document.getElementById("exportButton");
+var monthselect = document.getElementById('date_month');
+var yearselect = document.getElementById('date_year')
+var flashdiv = document.getElementById('flash');
+var filenamediv = document.getElementById('filename');
 
-submitButton.addEventListener("click", exportFiles);
-function exportFiles()
-{
-    url1 = "/reports/donor.csv?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
-    url2 = "/reports/rejected_history?datemonth=" +  selectMonth.value + "&dateyear=" + selectYear.value;
-    createiframe(url1);
-    window.setTimeout(function() {createiframe(url2)}, 500);
+changeFilename();
+exportButton.addEventListener("click", flash);
+monthselect.addEventListener("change", changeFilename);
+yearselect.addEventListener("change", changeFilename);
+
+function flash(){
+    flashdiv.className = "alert alert-success";
+    var month = getMonth(monthselect.value);
+    flashdiv.innerHTML =  "Donors report was saved as <strong>donors_" + month + yearselect.value + ".csv</strong>.";
 }
 
-function createiframe(url){
-    var iframe1 = document.createElement('iframe');
-    iframe1.style.display = "none";
-    iframe1.src = url ;
-    document.body.appendChild(iframe1);
+function changeFilename(){
+    var month = getMonth(monthselect.value);
+    filenamediv.innerHTML =  "The donors report is saved as <strong>donors_" + month + yearselect.value + ".csv</strong>.";
+}
+
+function getMonth(strMon){
+    var month;
+    switch (strMon)
+    {
+    case "1": month = "jan"; break;
+    case "2": month = "feb"; break;
+    case "3": month = "mar"; break;
+    case "4": month = "apr"; break;
+    case "5": month = "may"; break;
+    case "6": month = "jun"; break;
+    case "7": month = "jul"; break;
+    case "8": month = "aug"; break;
+    case "9": month = "sep"; break;
+    case "10": month = "oct"; break;
+    case "11": month = "nov"; break;
+    case "12": month = "dec"; break;
+    }
+    return month
 }
 </script>
