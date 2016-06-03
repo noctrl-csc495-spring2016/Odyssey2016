@@ -21,12 +21,8 @@ gem 'sdoc',                    '0.4.0', group: :doc
 gem 'fullcalendar-rails',      '2.6.1.0'
 gem 'momentjs-rails',          '2.11.1'
 gem 'prawn',                   '2.1.0' 
-<<<<<<< HEAD
-gem 'prawn-table',             '0.2.2' 
-=======
 gem 'prawn-table',             '0.2.2'
->>>>>>> 71e5fd49f51f06db7d6cfd6028a59cb253e5fe96
-gem 'figaro'
+gem 'figaro',                  '1.1.1'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
