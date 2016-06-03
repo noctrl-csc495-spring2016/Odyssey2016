@@ -22,6 +22,7 @@ gem 'fullcalendar-rails',      '2.6.1.0'
 gem 'momentjs-rails',          '2.11.1'
 gem 'prawn',                   '2.1.0' 
 gem 'prawn-table',             '0.2.2'
+gem 'figaro'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
