@@ -1,0 +1,41 @@
+<% provide(:title, "Search") %>
+<%= render 'layouts/navbar' %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                        <div id="flash"></div>
+                        <h2>Search</h2>
+                        <p>Enter a last name and a city to search for a donor.</p>
+                        <br>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
+                         <%= form_tag('/reports/rejected.csv', :method => 'get') do %>
+                            <div class="form-group">
+                                Last Name:
+                                <%= text_field :search_name, class: 'form_control' %>
+                                <br>
+                                City: 
+                                <%= text_field :search_city, class: 'form_control' %>
+                            </div>
+                            
+                            <br>
+                            <div class="form-group">
+
+                                <div class="col-xs-12 text-center">
+                                  <!--builds submit and cancel buttons.-->
+                                  <%= submit_tag 'Search', id: "searchButton", class: 'btn btn-success btn-wide'%>
+                                  <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
+                                </div>
+                                <% end %>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
