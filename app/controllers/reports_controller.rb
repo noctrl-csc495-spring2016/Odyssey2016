@@ -132,6 +132,7 @@ class ReportsController < ApplicationController
   
   def search
     @pickup = Pickup.all
+    flash[:notice] = :search_name
   end
   
 
