@@ -129,6 +129,12 @@ class ReportsController < ApplicationController
         }
       end
   end
+  
+  def search
+    @pickup = Pickup.all
+    flash[:notice] = :search_name
+  end
+  
 
   private 
   #get 3 letter month abreviation from month number

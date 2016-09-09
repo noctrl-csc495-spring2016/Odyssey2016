@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get    'reports/truck'          => 'reports#truck'
   get    'reports/mapquest'       => 'reports#mapquest'
   get    'reports/rejected'       => 'reports#rejected'
+  get    'reports/search'         => 'reports#search'
 
   get    'days'                   => 'days#index'
   get    'days/new'               => 'days#new'
