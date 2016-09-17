@@ -14,13 +14,15 @@
                 </div>
                 <div class="row">
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
-                         <%= form_tag('/reports/rejected.csv', :method => 'get') do %>
+                         <%= form_tag('/reports/search', :method => 'get') do %>
                             <div class="form-group">
                                 Last Name:
-                                <%= text_field :search_name, class: 'form_control' %>
+                                <br>
+                                <%= text_field_tag :search_name %>
                                 <br>
                                 City: 
-                                <%= text_field :search_city, class: 'form_control' %>
+                                <br>
+                                <%= text_field_tag :search_city %>
                             </div>
                             
                             <br>
@@ -28,7 +30,7 @@
 
                                 <div class="col-xs-12 text-center">
                                   <!--builds submit and cancel buttons.-->
-                                  <%= submit_tag 'Search', id: "searchButton", class: 'btn btn-success btn-wide'%>
+                                  <%= submit_tag 'Search', name: "searchButton", class: 'btn btn-success btn-wide'%>
                                   <%= link_to 'Cancel', '/reports', class: 'btn btn-danger btn-wide'%>
                                 </div>
                                 <% end %>
@@ -39,7 +41,4 @@
         </div>
     </div>
     
-<script>
-  
-</script>
     

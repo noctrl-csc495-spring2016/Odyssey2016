@@ -131,8 +131,10 @@ class ReportsController < ApplicationController
   end
   
   def search
-    @pickup = Pickup.all
-    flash[:notice] = :search_name
+    if params[:searchButton]
+      pickup = Pickup.where("donor_last_name = ? AND donor_city = ?", params[:search_name], params[:search_city]).first.id
+      redirect_to edit_pickup_path(pickup)
+    end
   end
   
 
