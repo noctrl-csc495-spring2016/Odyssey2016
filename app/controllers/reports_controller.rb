@@ -132,7 +132,13 @@ class ReportsController < ApplicationController
   
   def search
     if params[:searchButton]
-      pickup = Pickup.where("donor_last_name = ? AND donor_city = ?", params[:search_name], params[:search_city]).first
+      
+      if params[:search_city].empty?
+        pickup = Pickup.where("donor_last_name = ?", params[:search_name]).first
+      else
+        pickup = Pickup.where("donor_last_name = ? AND donor_city = ?", params[:search_name], params[:search_city]).first
+      end
+      
       if pickup.nil?
         redirect_to "/reports/search"
       else
