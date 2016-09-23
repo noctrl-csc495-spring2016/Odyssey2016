@@ -26,6 +26,7 @@ end
 #Accessed on POST from new form.
 def create
   @pickup = Pickup.new(pickup_params)                    #Pass pickup attributes from form into new pickup
+
     if @pickup.save                                      #Saves if required fields were filled in.
       flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been added."
       redirect_to "/pickups"                             
@@ -34,6 +35,7 @@ def create
       flash.now[:danger] = error_messages
       render 'new'
     end
+
 end
 
 #Reject page. Reject pickup whose id was accessed.

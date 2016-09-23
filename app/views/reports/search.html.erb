@@ -1,7 +1,7 @@
 <% provide(:title, "Search") %>
 <%= render 'layouts/navbar' %>
 
-    <div class="container">
+    <div class="container white-container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-xs-12 well extra-spacing">
                 <div class="row">
@@ -16,13 +16,8 @@
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                          <%= form_tag('/reports/search', :method => 'get') do %>
                             <div class="form-group">
-                                Last Name:
-                                <br>
-                                <%= text_field_tag :search_name %>
-                                <br>
-                                City: 
-                                <br>
-                                <%= text_field_tag :search_city %>
+                                Last Name: <%= text_field_tag :search_name %>
+                                City: <%= text_field_tag :search_city %>
                             </div>
                             
                             <br>
@@ -37,6 +32,52 @@
                             </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <br />
+        <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+                <% if !@pickup.nil? %>
+                <table class="table table-hover table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Last Name</th>
+                            <th>Town</th>
+                            <th>Quantity</th>
+                            <th class="hidden-xs">Item Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--Display Unscheduled Pickups-->
+                        <%@pickup.each do |pickup|%>
+                            <tr style="cursor:pointer;" onclick="location.href='<%=edit_pickup_path(pickup)%>'">
+                                <td><%=pickup.donor_last_name%></td>
+                                <td><%=pickup.donor_city%></td>
+                                <td><% if pickup.number_of_items >= 10 %>
+                                          <%='10+' %>
+                                      <% else %>
+                                          <%=pickup.number_of_items%>
+                                      <% end %>
+                                      <% if pickup.number_of_items == 1 %> <!--Display item instead of items if 1-->
+                                          <%="item"%>
+                                        <% else %>
+                                            <%="items"%></td>
+                                        <%end%>    
+                                <td class="hidden-xs col-md-5"><%if pickup.item_notes.blank?%> <!--Display none if item_notes is blank-->
+                                        <%="None"%>
+                                    <%end%>
+                                <%= truncate(pickup.item_notes, length: 30) %></td>
+                            </tr>
+                            <%end%>
+                        <%end%>
+                        <% if @pickup.nil? %>
+                          <tr>
+                            <td colspan="4"> All pickups are currently scheduled! Check out the <a href="/days"><span style="color:orange;">schedule</span></a> to see when.</td>
+                          </tr>
+                        <% end %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
