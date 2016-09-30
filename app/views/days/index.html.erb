@@ -91,7 +91,7 @@
                                 <%= 'class=future-date' %>
                                 <% future_days_count += 1 %>
                             <%end %>
-                            style="cursor:pointer; <%= if group_qualifier then 'border-top:2px solid black' end %>" data-link="<%= days_path %>/<%= day.id %>">
+                            style="cursor:pointer; <%= if group_qualifier then 'border-top:2px solid black' end %>" data-link="<%= edit_day_path(day.id) %>">
                             
                             <td class="text-right col-xs-2">
                                 <strong><%= group_qualifier %></strong>
@@ -116,7 +116,7 @@
                         <% group_qualifier = nil %>
                     <% end %>
                     <% if future_days_count == 0 %>
-                        <tr class="future-date"><td></td> <td colspan="3">There are currently no pickup days. You can <a href="/days/new"><span style="color:orange;">add some</span></a> by clicking the 'Add New Pickup Day' button.</td></tr>
+                        <tr class="future-date"><td></td> <td colspan="3">There are currently no pickup days. You can <a href="/days/new"><span styllor:orange;">add some</span></a> by clicking the 'Add New Pickup Day' button.</td></tr>
                     <% end %>
                     <% if past_days_count == 0 %>
                         <tr class="past-date"><td></td> <td colspan="3">There are currently no pickups days that have been scheduled within the past 30 days.</td></tr>
