@@ -29,20 +29,20 @@ def create
   
   @check_duplicate = Pickup.where("donor_last_name = ? AND donor_city = ?", @pickup.donor_last_name, @pickup.donor_city).first
   
-  if(@check_duplicate.donor_last_name == @pickup.donor_last_name && @check_duplicate.donor_city == @pickup.donor_city)
-      flash[:danger] = "<strong>There is already a pickup with the same last name and city.</strong>"
-      redirect_to '/pickups/new'
-
-  else
-    if @pickup.save                                      #Saves if required fields were filled in.
-      flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been added."
-      redirect_to "/pickups"                             
-    else
-      String error_messages = build_error_message_string(@pickup)
-      flash.now[:danger] = error_messages
-      render 'new'
-    end
-  end
+      if(@check_duplicate.donor_last_name == @pickup.donor_last_name && @check_duplicate.donor_city == @pickup.donor_city && @check_duplicate.day_id.nil? && @check_duplicate.rejected == false )
+          flash[:danger] = "<strong>There is already an unscheduled pickup with the same last name and city. Please schedule that pickup first.</strong>"
+          redirect_to '/pickups/new'
+    
+      else
+        if @pickup.save                                      #Saves if required fields were filled in.
+          flash[:success] = "Pickup for <strong>" + @pickup.donor_last_name + "</strong> has been added."
+          redirect_to "/pickups"                             
+        else
+          String error_messages = build_error_message_string(@pickup)
+          flash.now[:danger] = error_messages
+          render 'new'
+        end
+      end
 end
 
 #Reject page. Reject pickup whose id was accessed.
