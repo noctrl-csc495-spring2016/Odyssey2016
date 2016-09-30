@@ -14,7 +14,14 @@ class DaysController < ApplicationController
   def show
     @day = Day.find(params[:id])
     @pickups = @day.pickups
+    
   end
+  
+  def edit
+    @day = Day.find(params[:id])
+    @pickups = @day.pickups
+  end
+
   
   # Show the screen to show a new day. This screen has calendar and a form.
   # previously schedule2.html.erb

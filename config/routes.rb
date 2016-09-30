@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get    'reports/mapquest'       => 'reports#mapquest'
   get    'reports/rejected'       => 'reports#rejected'
   get    'reports/search'         => 'reports#search'
-  get    'reports/results'        => 'reports#results'
+  get    'reports/results'        => 'reports#result'
 
   get    'days'                   => 'days#index'
   get    'days/new'               => 'days#new'
@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   post    'users/prune'           => 'users#prune'
   resources :pickups
   resources :users
+  resources :days
 
 end
