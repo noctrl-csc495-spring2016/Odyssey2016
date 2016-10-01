@@ -16,9 +16,10 @@
                     <div class='col-md-8 col-md-offset-2 col-sm-6 col-sm-offset-3 col-xs-8 col-xs-offset-2'>
                          <%= form_tag('/reports/search', :method => 'get') do %>
                             <div class="form-group">
-                                Last Name: <%= text_field_tag :search_name %>
-                                <br>
-                                City: <%= text_field_tag :search_city %>
+                                Last Name: <br> <%= text_field_tag( :search_name,"", :class => "extra-right-margin form-control") %>
+                            </div>
+                            <div class="form-group">
+                                City: <br> <%= text_field_tag( :search_city, '', :class => "extra-right-margin form-control") %>
                             </div>
                             
                             <br>
@@ -72,11 +73,6 @@
                             </tr>
                             <%end%>
                         <%end%>
-                        <% if @pickup.nil? %>
-                          <tr>
-                            <td colspan="4"> All pickups are currently scheduled! Check out the <a href="/days"><span style="color:orange;">schedule</span></a> to see when.</td>
-                          </tr>
-                        <% end %>
                     </tbody>
                 </table>
             </div>
