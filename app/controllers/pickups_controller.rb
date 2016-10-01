@@ -30,8 +30,8 @@ def create
   @check_duplicate = Pickup.where("donor_last_name = ? AND donor_city = ?", @pickup.donor_last_name, @pickup.donor_city).first
   
       if(!@check_duplicate.nil? && @check_duplicate.donor_last_name == @pickup.donor_last_name && @check_duplicate.donor_city == @pickup.donor_city && @check_duplicate.day_id.nil? && @check_duplicate.rejected == false )
-          flash[:danger] = "<strong>There is already an unscheduled pickup with the same last name and city. Please schedule that pickup first.</strong>"
-          redirect_to '/pickups/new'
+          flash.now[:danger] = "There is already an unscheduled pickup with the same last name and city. Please schedule that pickup first."
+          render 'new'
     
       else
         if @pickup.save                                      #Saves if required fields were filled in.
