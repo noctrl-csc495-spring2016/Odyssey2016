@@ -21,7 +21,15 @@ class DaysController < ApplicationController
     @day = Day.find(params[:id])
     @pickups = @day.pickups
   end
-
+  
+  def update
+    @day = Day.find(params[:id])
+    @day.day_notes = params[:day][:day_notes]
+    @day.save
+    redirect_to "/days"
+    
+  end
+  
   
   # Show the screen to show a new day. This screen has calendar and a form.
   # previously schedule2.html.erb
@@ -119,6 +127,8 @@ class DaysController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def day_params
-      params.permit(:month, :day, :year)
+      params.permit(:day_notes)
     end
+  
+
 end
