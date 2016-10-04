@@ -258,3 +258,12 @@ btn.btn.btn-warning.btn-lg {
     min-width: 100%;
     max-width: 100%;
 }
+
+.pickup-label {
+    text-align: center;
+}
+
+.table-hover tbody tr:hover td.pickup-label {
+    background-color: $background !important;
+    color: white;
+}
