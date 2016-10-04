@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930174043) do
+ActiveRecord::Schema.define(version: 20161004204032) do
 
   create_table "days", force: :cascade do |t|
     t.date     "date",       null: false
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(version: 20160930174043) do
     t.datetime "updated_at",                          null: false
     t.string   "donor_state"
     t.boolean  "send_email",          default: false
+    t.string   "pickup_label"
+    t.string   "pickup_label_color"
   end
 
   create_table "users", force: :cascade do |t|

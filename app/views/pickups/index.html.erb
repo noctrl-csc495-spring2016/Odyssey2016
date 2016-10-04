@@ -27,6 +27,7 @@
                             <th>Town</th>
                             <th>Quantity</th>
                             <th class="hidden-xs">Item Description</th>
+                            <th>Label</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,10 +46,11 @@
                                         <% else %>
                                             <%="items"%></td>
                                         <%end%>    
-                                <td class="hidden-xs col-md-5"><%if pickup.item_notes.blank?%> <!--Display none if item_notes is blank-->
+                                <td class="hidden-xs col-md-3"><%if pickup.item_notes.blank?%> <!--Display none if item_notes is blank-->
                                         <%="None"%>
                                     <%end%>
                                 <%= truncate(pickup.item_notes, length: 30) %></td>
+                                <td class="pickup-label" style="background-color: '<%=pickup.pickup_label_color%>'"><%=pickup.pickup_label%></td>
                             </tr>
                         <%end%> 
                         <% if !@pickups.any? %>
