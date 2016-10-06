@@ -136,9 +136,9 @@
                             &nbsp;&nbsp;
                         </div>
                         <%if (@isScheduled == false)%>
-                           <%= f.submit "Schedule", name: 'schedule', class: "btn btn-success btn-wide extra-right-margin" %>
+                           <%= f.submit "Schedule", name: 'schedule', class: "btn btn-block btn-success btn-wide extra-right-margin" %>
                         <%else%>
-                           <%= f.submit "Unschedule", name: 'unschedule', class: "btn btn-danger btn-wide extra-right-margin" %>
+                           <%= f.submit "Unschedule", name: 'unschedule', class: "btn btn-block btn-danger btn-wide extra-right-margin" %>
                         <%end%>
                     </div>
                     <div class="col-xs-12 col-md-6">
@@ -155,7 +155,7 @@
                              <%= f.check_box :send_email, {:checked => true}%> &nbsp;&nbsp;&nbsp;Email Donor
                              <%end%>
                         </div>
-                        <%= f.submit "Reject", name: "reject", class: "btn btn-danger btn-wide" %>
+                        <%= f.submit "Reject", name: "reject", class: "btn btn-block btn-danger btn-wide" %>
                         
                     </div>
                     
@@ -191,29 +191,38 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-8">
+                    <div class="col-xs-6">
                         <div class="form-group">
                             <label>Label</label>
+                            <%= f.text_field :pickup_label,  :maxlength=> 10, class: 'form-control'%>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label>Label Color</label>
                             <%=f.select(:pickup_label_color, options_for_select(populate_label_colors,:selected => @pickup.pickup_label_color),{},:class => "form-control")%>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">
                         <div class="form-group">
-                            <%= f.submit "Update", name: "update_donor", class: "btn btn-success btn-wide extra-right-margin" %>
-                            <%if @pickup.day_id == nil%>
-                                <a href="/pickups">
-                                    <btn class="btn btn-danger btn-wide">Cancel</btn>
-                                </a>
-                            <%else%>
-                                <%@urlString = "/days/" + @pickup.day_id.to_s + ""%>
-                                <a href= <%=@urlString%>>
-                                    <btn class="btn btn-danger btn-wide">Cancel</btn>
-                                </a>
-                            <%end%>
+                            <div class="col-xs-6">
+                                <%= f.submit "Update", name: "update_donor", class: "btn btn-block btn-success btn-wide extra-right-margin" %>
+                            </div>
+                            <div class="col-xs-6">
+                                <%if @pickup.day_id == nil%>
+                                    <a href="/pickups">
+                                        <btn class="btn btn-block btn-danger btn-md">Cancel</btn>
+                                    </a>
+                                <%else%>
+                                    <%@urlString = "/days/" + @pickup.day_id.to_s + ""%>
+                                    <a href= <%=@urlString%>>
+                                        <btn class="btn btn-block btn-danger btn-md">Cancel</btn>
+                                    </a>
+                                <%end%>
+                            </div>
                         </div>
-                    </div>
+                    
                 </div>
             </div>
             <!-- end right column -->
