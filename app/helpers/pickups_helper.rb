@@ -53,6 +53,11 @@ def populate_state_options
             ['WI'], ['WY']]
 end
 
+#Method to populate the color options for the edit pickups form
+def populate_label_colors
+    return [["Aqua"],["LightGreen"], ["MediumPurple"], ["Orange"], ["Pink"], ["Red"], ["White"], ["Yellow"]]
+end
+
 #Method to build error messages for a pickup
 def build_error_message_string(pickup)
     

@@ -50,7 +50,7 @@
                                         <%="None"%>
                                     <%end%>
                                 <%= truncate(pickup.item_notes, length: 30) %></td>
-                                <td class="pickup-label" style="background-color: '<%=pickup.pickup_label_color%>'"><%=pickup.pickup_label%></td>
+                                <td class="pickup-label" style="background-color: <%=pickup.pickup_label_color%>;"><%=pickup.pickup_label%></td>
                             </tr>
                         <%end%> 
                         <% if !@pickups.any? %>
