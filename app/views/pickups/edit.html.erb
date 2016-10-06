@@ -191,6 +191,14 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xs-8">
+                        <div class="form-group">
+                            <label>Label</label>
+                            <%=f.select(:pickup_label_color, options_for_select(populate_label_colors,:selected => @pickup.pickup_label_color),{},:class => "form-control")%>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-xs-12">
                         <div class="form-group">
                             <%= f.submit "Update", name: "update_donor", class: "btn btn-success btn-wide extra-right-margin" %>
