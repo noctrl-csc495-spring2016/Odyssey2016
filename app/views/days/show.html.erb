@@ -18,6 +18,7 @@
                         <th>Town</th>
                         <th>Quantity</th>
                         <th class="hidden-xs">Item Description</th>
+                        <th>Label</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,8 +43,9 @@
                                     <%if pickup.item_notes.blank?%>
                                         <%="None"%>
                                     <%end%>
-                                    <%= truncate(pickup.item_notes, length:65) %>
+                                    <%= truncate(pickup.item_notes, length:30) %>
                                 </td>
+                                <td class="pickup-label" style="background-color: <%=pickup.pickup_label_color%>;"><%=pickup.pickup_label%></td>
                             </tr>
                         <% end %>
                     <% # show a different message depending on if our date is in the past or not %>
