@@ -1,4 +1,4 @@
-class CreatePickups < ActiveRecord::Migration
+class CreatePickups < ActiveRecord::Migration[4.2]
   def change
     create_table :pickups do |t|
       t.integer :day_id
