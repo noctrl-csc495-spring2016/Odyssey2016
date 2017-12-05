@@ -1,4 +1,4 @@
-class Pickup < ActiveRecord::Base
+class Pickup < ApplicationRecord
   belongs_to :day
   
   validates :donor_last_name,     presence: { message: "is required." }

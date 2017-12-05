@@ -22,6 +22,7 @@ class PickupsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+# NOTE FROM KEVIN M: If you want to uncomment these, refer to https://hashrocket.com/blog/posts/how-to-upgrade-to-rails-5 and ctrl + f for "so if you had this in you tests" (nice grammar, I know) for how to make them work 
 #  test "should create pickup" do
 #    log_in_as(users(:bill))
 #    
@@ -41,7 +42,7 @@ class PickupsControllerTest < ActionController::TestCase
 
   test "should get edit" do
   log_in_as(users(:bill))
-  get :edit, id: @pickup
+  get :edit, params: { id: @pickup }
   assert_response :success
   assert_template 'pickups/edit' #should be on edit
   assert_select "a[href=?]", pickups_path #There should be a link to index
@@ -88,7 +89,7 @@ test "should get reject" do
                                     send_email: true,
                                     rejected: true,
                                     rejected_reason: 'Out of area')
-  get :reject, id: @pickup
+  get :reject, params: { id: @pickup }
   assert_response :success
   assert_template 'pickups/reject' #Make sure we are on rejected page.
   assert_select "a[href=?]", pickups_path #Make sure there is a link to index.
