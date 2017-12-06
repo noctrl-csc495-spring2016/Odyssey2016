@@ -55,7 +55,10 @@
                         <%end%> 
                         <% if !@pickups.any? %>
                           <tr>
-                            <td colspan="4"> All pickups are currently scheduled! Check out the <a href="/days"><span style="color:orange;">schedule</span></a> to see when.</td>
+                            <td colspan="4"> All pickups are currently scheduled! 
+                            <% if !is_entry?%>  <!--Entry level users don't have access to schedule, no reason to show the option to them-->
+                                Check out the <a href="/days"><span style="color:orange;">schedule</span></a> to see when.</td>
+                            <%end%>
                           </tr>
                         <% end %>
                     </tbody>

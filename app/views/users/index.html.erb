@@ -50,8 +50,7 @@
                 <hr>
                 <h2>Odyssey Stats</h2>
                 <br>
-                <% if current_user.permission_level == 2%>
-                    <div class="form-group">
+                <div class="form-group">
                     <h5>Number of days on record:  &nbsp;
                         <%= Day.all.count %></h5>
                     </div>
@@ -64,9 +63,8 @@
                     <div class="form-group">
                     <h5>Number of rejected pickups on record: &nbsp;
                         <%= Pickup.where(rejected: true).all.count %></h5>
-                    </div>
-                    <br>
-                <% end %>
+                </div>
+                <br>
             </div>
         </div>
     </div>

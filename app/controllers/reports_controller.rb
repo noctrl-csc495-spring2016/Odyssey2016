@@ -1,8 +1,6 @@
 class ReportsController < ApplicationController  
   before_action :logged_in
-  before_action :admin_or_standard
-
-  
+  before_action :admin_or_standard, only: [:donor, :rejected, :search]
 
 #Render the html page, mapquest csv, or pdf files. csv and pdf downloads are in pickup.rb
   def truck

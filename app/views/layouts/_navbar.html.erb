@@ -18,9 +18,9 @@
             <ul class="nav nav-pills navbar-right custom-navbar">
                 <% if logged_in? %>
                     <li role="presentation"><a href="/pickups">Home</a></li>
+                    <li role="presentation"><a href="/reports">Reports</a></li>
                     <% if !is_entry? %>
                         <li role="presentation"><a href="/days">Schedule</a></li>
-                        <li role="presentation"><a href="/reports">Reports</a></li>
                     <% end %>
                     <li role="presentation" class="dropdown">
                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
