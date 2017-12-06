@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get    'days/all'               => 'days#all'
   post   'days/create'            => 'days#create'
   get    'days/:id'               => 'days#show'
-  delete 'days/:id'               => 'days#destroy'
+  delete 'days/:id/edit'          => 'days#destroy'
 
   get    'login'                  => 'sessions#new'
   post   'login'                  => 'sessions#create'

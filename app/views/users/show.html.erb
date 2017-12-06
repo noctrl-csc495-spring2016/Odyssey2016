@@ -37,20 +37,6 @@
                 <%= f.label :password_confirmation, "Confirm:" %>
                 <%= f.password_field :password_confirmation, class: 'form-control' %>
                 </div>
-                
-                 <% if current_user.super_admin == true && @user.super_admin == true %>
-                <div class="form-group">
-                <h5>Number of pickups on record: &nbsp;
-                    <%= Pickup.all.count %></h5>
-                </div>
-                <br>
-                <div class="form-group">
-                <h5>Number of days on record:  &nbsp;
-                    <%= Day.all.count %></h5>
-                </div>
-                <br>
-
-                <% end %>
 
                 <div class="form-group">
                     <div class="col-xs-12 text-center">
