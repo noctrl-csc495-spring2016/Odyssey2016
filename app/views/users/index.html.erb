@@ -48,14 +48,46 @@
                 
                 <!-- Stats listing -->
                 <hr>
-                <h2>Odyssey Stats</h2>
-                <h4>Number of days on record:  &nbsp;
-                    <%= Day.all.count %></h4>
-                <h4>Number of pickups on record: &nbsp;
-                    <%= Pickup.all.count %></h4>
-                <h4>Number of rejected pickups on record: &nbsp;
-                    <%= Pickup.where(rejected: true).all.count %></h4>
                 <br>
+                <div class="well question">
+                    <h4>Odyssey Stats&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-down"></span></h4><span class="fa fa-bar-chart helpIcon"></span>
+                    <div class="answer hidden-default">
+                        <h5>Number of days on record:  &nbsp;
+                            <%= Day.all.count %></h5>
+                        <h5>Number of pickups on record: &nbsp;
+                            <%= Pickup.all.count %></h5>
+                        <h5>Number of rejected pickups on record: &nbsp;
+                            <%= Pickup.where(rejected: true).all.count %></h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    
+
+<script>
+
+$(document).ready(function() {
+    $(".question").on('click', function() {
+        if($(this).hasClass("answer")) return;
+        var glyph = $(this).find(".glyphicon");
+        if (glyph.hasClass("glyphicon-chevron-down"))
+            {
+                glyph.removeClass('glyphicon-chevron-down')
+                glyph.addClass('glyphicon-chevron-up');
+            }
+        else
+            {
+                glyph.removeClass('glyphicon-chevron-up');
+                glyph.addClass('glyphicon-chevron-down');
+            }
+        $(this).find('.answer').slideToggle();
+    });
+    $(".answer").on('click', function(){
+        return false;
+    });
+
+
+});
+
+</script>
