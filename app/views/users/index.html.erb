@@ -49,21 +49,12 @@
                 <!-- Stats listing -->
                 <hr>
                 <h2>Odyssey Stats</h2>
-                <br>
-                <div class="form-group">
-                    <h5>Number of days on record:  &nbsp;
-                        <%= Day.all.count %></h5>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                    <h5>Number of pickups on record: &nbsp;
-                        <%= Pickup.all.count %></h5>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                    <h5>Number of rejected pickups on record: &nbsp;
-                        <%= Pickup.where(rejected: true).all.count %></h5>
-                </div>
+                <h4>Number of days on record:  &nbsp;
+                    <%= Day.all.count %></h4>
+                <h4>Number of pickups on record: &nbsp;
+                    <%= Pickup.all.count %></h4>
+                <h4>Number of rejected pickups on record: &nbsp;
+                    <%= Pickup.where(rejected: true).all.count %></h4>
                 <br>
             </div>
         </div>
