@@ -64,11 +64,11 @@ class ReportsController < ApplicationController
       respond_to do |format|
         format.html
         format.csv { 
-          headers = ["Title", "First", "Spouse", "Last", "Address", "Town",
+          headers = ["Title", "First", "Last", "Address", "Town",
                     "State", "Zip", "Phone", "E-Mail", "Date Donated", "Items Donated"]
                     
           #Creates array with given values.
-          attributes = %w{donor_title donor_first_name donor_spouse_name donor_last_name address
+          attributes = %w{donor_title donor_first_name donor_last_name address
                           donor_city donor_state donor_zip donor_phone donor_email
                           date item_notes}
 
