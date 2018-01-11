@@ -24,6 +24,7 @@ gem 'momentjs-rails',          '2.11.1'
 gem 'prawn',                   '2.2.2'
 gem 'prawn-table',             '0.2.2'
 gem 'figaro',                  '1.1.1'
+gem 'strip_attributes',        '1.8.0'
 gem 'web-console',             '3.5.1', group: :development #as of rails 5.0, it's not a good idea to have this in :test
 
 group :development, :test do

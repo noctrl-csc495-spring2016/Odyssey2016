@@ -1,6 +1,7 @@
 class Pickup < ApplicationRecord
   belongs_to :day
   
+  validates :donor_title,         presence: { message: "is required." }
   validates :donor_last_name,     presence: { message: "is required." }
   validates :donor_phone,         presence: { message: "number is required." } 
   validates :donor_address_line1, presence: { message: "is required." } 
@@ -9,13 +10,15 @@ class Pickup < ApplicationRecord
   validates :donor_dwelling_type, presence: { message: "is required." } 
   validates :number_of_items,     presence: { message: "is required." }, numericality: {greater_than: 0}
 
+  strip_attributes allow_empty: true #Uses strip_attributes gem to remove whitespace from all values
+                                     #ignores empty ones
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
   
   def send_rejection_email 
     RejectionMailer.reject_pickup(self).deliver_now
   end
-  
 
   #Function that builds csv file with address info. Called in reports controller. 
   def self.to_routes_csv
