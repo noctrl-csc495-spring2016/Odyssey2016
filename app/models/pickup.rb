@@ -10,11 +10,19 @@ class Pickup < ApplicationRecord
   validates :donor_dwelling_type, presence: { message: "is required." } 
   validates :number_of_items,     presence: { message: "is required." }, numericality: {greater_than: 0}
 
-  strip_attributes allow_empty: true #Uses strip_attributes gem to remove whitespace from all values
-                                     #ignores empty ones
-
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
+  
+  strip_attributes allow_empty: true #Uses strip_attributes gem to remove whitespace from all values
+                                     #ignores empty ones
+  
+  before_save :titleize_address
+  
+  def titleize_address #Titleizes addresses and cities. Unfortunately, ! doesn't work with titelize.
+    self.donor_address_line1 = self.donor_address_line1.downcase.titleize
+    self.donor_address_line2 = self.donor_address_line2.downcase.titleize
+    self.donor_city = self.donor_city.downcase.titleize
+  end
   
   def send_rejection_email 
     RejectionMailer.reject_pickup(self).deliver_now
