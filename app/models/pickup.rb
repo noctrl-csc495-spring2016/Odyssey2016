@@ -16,12 +16,32 @@ class Pickup < ApplicationRecord
   strip_attributes allow_empty: true #Uses strip_attributes gem to remove whitespace from all values
                                      #ignores empty ones
   
-  before_save :titleize_address
+  before_save :titleize_address, :line1_conversion
   
-  def titleize_address #Titleizes addresses and cities. Unfortunately, ! doesn't work with titelize.
+  def titleize_address #Titleizes addresses and cities. Unfortunately, ! doesn't work with titleize.
     self.donor_address_line1 = self.donor_address_line1.downcase.titleize
     self.donor_address_line2 = self.donor_address_line2.downcase.titleize
     self.donor_city = self.donor_city.downcase.titleize
+  end
+  
+  def line1_conversion
+    conv = self.donor_address_line1.split(" ")
+    if (conv.last.downcase == "st." || conv.last.downcase == "st")
+      conv.pop
+      conv.push("Street")
+    elsif (conv.last.downcase == "ct." || conv.last.downcase == "ct")
+      conv.pop
+      conv.push("Court")
+    elsif (conv.last.downcase == "rd." || conv.last.downcase == "rd")
+      conv.pop
+      conv.push("Road")
+    elsif (conv.last.downcase == "blvd." || conv.last.downcase == "blvd")
+      conv.pop
+      conv.push("Boulevard")
+    end
+    
+    
+    self.donor_address_line1 = conv.join(" ")
   end
   
   def send_rejection_email 
