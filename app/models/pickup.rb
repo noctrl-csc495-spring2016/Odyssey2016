@@ -1,9 +1,7 @@
 class Pickup < ApplicationRecord
   belongs_to :day
-  
-  validates :donor_title,         presence: { message: "is required." }
+
   validates :donor_last_name,     presence: { message: "is required." }
-  validates :donor_phone,         presence: { message: "number is required." } 
   validates :donor_address_line1, presence: { message: "is required." } 
   validates :donor_city,          presence: { message: "is required." } 
   validates :donor_zip,           presence: { message: "is required." } 

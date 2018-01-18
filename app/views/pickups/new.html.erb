@@ -23,8 +23,8 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-2">
                         <div class="form-group">
-                            <label>Title<span class="red">*</span></label>
-                            <%=f.select(:donor_title, options_for_select(populate_title_options,:selected => @pickup.donor_title),{},:class => "form-control")%>
+                            <label>Title</label>
+                            <%=f.select(:donor_title, options_for_select(populate_title_options,:selected => 'Mr.'),{},:class => "form-control")%>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-5">
@@ -47,7 +47,6 @@
                     <div class="col-md-6 col-xs-12">
                         <div class="form-group">
                             <label>Phone Number</label>
-                            <span class="red">*</span>
                             <%= f.text_field :donor_phone, class: 'form-control', pattern: "[0-9]{10}", 
                             title: "phone numbers should be plain and 10 numbers long (I.E. 6305551234)"%>
                         </div>
