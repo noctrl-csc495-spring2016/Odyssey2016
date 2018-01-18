@@ -1,4 +1,5 @@
-class ReportsController < ApplicationController  
+class ReportsController < ApplicationController 
+  include ActionView::Helpers::NumberHelper #for number_to_phone in CSV export
   before_action :logged_in
   before_action :admin_or_standard, only: [:donor, :rejected, :search]
 
@@ -81,6 +82,7 @@ class ReportsController < ApplicationController
                 #Add donor info of all the pickups from the month and year specified on the 
                 #form where the dwelling type is Current Residence to the the csv file
                 d.pickups.all.each do |p|
+                  p.donor_phone = number_to_phone(p.donor_phone, area_code: "true")
                   if p.donor_dwelling_type == "Current Residence" && p.rejected == false
                     csv << attributes.map{ |attr| p.send(attr) }
                   end

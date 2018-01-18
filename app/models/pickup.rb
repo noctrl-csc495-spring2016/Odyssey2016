@@ -17,14 +17,14 @@ class Pickup < ApplicationRecord
                                      #ignores empty ones
   
   before_save :titleize_address, :line1_conversion
-  
+
   def titleize_address #Titleizes addresses and cities. Unfortunately, ! doesn't work with titleize.
     self.donor_address_line1 = self.donor_address_line1.downcase.titleize
     self.donor_address_line2 = self.donor_address_line2.downcase.titleize
     self.donor_city = self.donor_city.downcase.titleize
   end
   
-  def line1_conversion
+  def line1_conversion #turns common address contractions into their longform versions
     conv = self.donor_address_line1.split(" ")
     if (conv.last.downcase == "st." || conv.last.downcase == "st")
       conv.pop
@@ -39,7 +39,6 @@ class Pickup < ApplicationRecord
       conv.pop
       conv.push("Boulevard")
     end
-    
     
     self.donor_address_line1 = conv.join(" ")
   end
