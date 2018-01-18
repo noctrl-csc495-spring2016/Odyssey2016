@@ -28,7 +28,7 @@
                     <div class="col-xs-12 col-md-2">
                         <div class="form-group">
                             <label>Title<span class="red">*</span></label>
-                            <%= f.text_field :donor_title, class: 'form-control' %>
+                            <%=f.select(:donor_title, options_for_select(populate_title_options,:selected => @pickup.donor_title),{},:class => "form-control")%>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-5">
