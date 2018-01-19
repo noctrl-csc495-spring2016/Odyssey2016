@@ -1,8 +1,7 @@
-class ReportsController < ApplicationController  
+class ReportsController < ApplicationController 
+  include ActionView::Helpers::NumberHelper #for number_to_phone in CSV export
   before_action :logged_in
-  before_action :admin_or_standard
-
-  
+  before_action :admin_or_standard, only: [:donor, :rejected, :search]
 
 #Render the html page, mapquest csv, or pdf files. csv and pdf downloads are in pickup.rb
   def truck
@@ -66,11 +65,11 @@ class ReportsController < ApplicationController
       respond_to do |format|
         format.html
         format.csv { 
-          headers = ["Title", "First", "Spouse", "Last", "Address", "Town",
+          headers = ["Title", "First", "Last", "Address", "Town",
                     "State", "Zip", "Phone", "E-Mail", "Date Donated", "Items Donated"]
                     
           #Creates array with given values.
-          attributes = %w{donor_title donor_first_name donor_spouse_name donor_last_name address
+          attributes = %w{donor_title donor_first_name donor_last_name address
                           donor_city donor_state donor_zip donor_phone donor_email
                           date item_notes}
 
@@ -83,6 +82,7 @@ class ReportsController < ApplicationController
                 #Add donor info of all the pickups from the month and year specified on the 
                 #form where the dwelling type is Current Residence to the the csv file
                 d.pickups.all.each do |p|
+                  p.donor_phone = number_to_phone(p.donor_phone, area_code: "true")
                   if p.donor_dwelling_type == "Current Residence" && p.rejected == false
                     csv << attributes.map{ |attr| p.send(attr) }
                   end
@@ -114,7 +114,7 @@ class ReportsController < ApplicationController
           csvFile = CSV.generate(headers: true) do |csv|
             csv << headers
             Pickup.all.each do |p|
-              
+              p.donor_phone = number_to_phone(p.donor_phone, area_code: "true")
               #Add info of all the pickups that were rejected at the month and year specified on the 
               #form the the csv file
               if p.rejected == true  && p.updated_at.mon.to_s == params[:date][:month] && p.updated_at.year.to_s == params[:date][:year]

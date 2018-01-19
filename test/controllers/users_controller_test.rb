@@ -40,7 +40,7 @@ class UsersControllerTest < ActionController::TestCase
   test "should create user" do
     log_in_as(users(:bill))
     assert_difference('User.count') do
-      post :create, user: { email: "cjmiller@noctrl.edu", password: "charlie", password_confirmation: "charlie", permission_level: 2, username: "charlie miller" }
+      post :create, params: { user: { email: "cjmiller@noctrl.edu", password: "charlie", password_confirmation: "charlie", permission_level: 2, username: "charlie miller" } }
     end
 
     assert_redirected_to users_index_path
@@ -50,7 +50,7 @@ class UsersControllerTest < ActionController::TestCase
   test "should not create user - permission level" do
     log_in_as(users(:corey))
     assert_no_difference('User.count') do
-      post :create, user: { email: "cjmiller@noctrl.edu", password: "charlie", password_confirmation: "charlie", permission_level: 2, username: "charlie miller" }
+      post :create, params: { user: { email: "cjmiller@noctrl.edu", password: "charlie", password_confirmation: "charlie", permission_level: 2, username: "charlie miller" } }
     end
 
     assert_redirected_to pickups_path
@@ -60,7 +60,7 @@ class UsersControllerTest < ActionController::TestCase
   test "should not create user - bad input" do
     log_in_as(users(:bill))
     assert_no_difference('User.count') do
-      post :create, user: { email: "cjmiller@noctrl.edu", password: "cha", password_confirmation: "char", permission_level: 2, username: "charlie miller" }
+      post :create, params: { user: { email: "cjmiller@noctrl.edu", password: "cha", password_confirmation: "char", permission_level: 2, username: "charlie miller" } }
     end
 
     assert_template "new"
@@ -69,14 +69,14 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should get edit" do
     log_in_as(users(:corey))
-    get :edit, id: @corey
+    get :edit, params: { id: @corey }
     assert_response :success
   end
   
   test "should not get edit" do
     log_in_as(users(:corey))
 
-    get :show, id: 100
+    get :show, params: { id: 100 }
     assert_redirected_to pickups_path
     assert_not flash.empty?
   end
@@ -84,28 +84,28 @@ class UsersControllerTest < ActionController::TestCase
   test "should get show" do
     log_in_as(users(:bill))
 
-    get :show, id: @user
+    get :show, params: { id: @user }
     assert_response :success
   end
   
   test "should not get show" do
     log_in_as(users(:bill))
 
-    get :show, id: 100
+    get :show, params: { id: 100 }
     assert_redirected_to pickups_path
     assert_not flash.empty?
   end
 
   test "should update user" do
     log_in_as(users(:bill))
-    get :show, id: @user
+    get :show, params: { id: @user }
     assert_response :success
 
     #pass = @user.password_digest
-    patch :update, id: @user, user: { confirm_password: "password", 
-                                      password: "password", 
-                                      password_confirmation: "password", 
-                                      permission_level: @user.permission_level }
+    patch :update, params: { id: @user, user: { confirm_password: "password", 
+                                                password: "password", 
+                                                password_confirmation: "password", 
+                                                permission_level: @user.permission_level } }
                                       
     assert_redirected_to user_path(assigns(:user))
     assert_not flash.empty?
@@ -116,8 +116,8 @@ class UsersControllerTest < ActionController::TestCase
     #try as entry user
     log_in_as(users(:corey))
     
-    patch :update, id: @corey, user: { password: "passwor", 
-                                       password_confirmation: "passwor" }
+    patch :update, params: { id: @corey, user: { password: "passwor", 
+                                                 password_confirmation: "passwor" } }
     assert_redirected_to user_path(assigns(:user))
     assert_not flash.empty?
     
@@ -128,10 +128,10 @@ class UsersControllerTest < ActionController::TestCase
     #try as superadmin
     log_in_as(users(:gerardo))
     assert is_logged_in?
-    put :update, id: @gerardo, user: { confirm_password: "", 
-                                         password: "", 
-                                         password_confirmation: "passwor", 
-                                         permission_level: @gerardo.permission_level }
+    put :update, params: { id: @gerardo, user: { confirm_password: "", 
+                                                 password: "", 
+                                                 password_confirmation: "passwor", 
+                                                 permission_level: @gerardo.permission_level } }
     
     assert_redirected_to user_path(assigns(:user))
   end
@@ -140,12 +140,12 @@ class UsersControllerTest < ActionController::TestCase
     log_in_as(users(:corey))
 
     #entry update someone else
-    patch :update, id: @user, user: { email: @user.email, password_digest: @user.password_digest, permission_level: @user.permission_level, username: @user.username }
+    patch :update, params: { id: @user, user: { email: @user.email, password_digest: @user.password_digest, permission_level: @user.permission_level, username: @user.username } }
     assert_redirected_to pickups_path
     assert_not flash.empty?
     
     #entry update self with bad input
-    patch :update, id: @corey, user: { password: "p", password_confirmation: "password" }
+    patch :update, params: { id: @corey, user: { password: "p", password_confirmation: "password" } }
     assert_redirected_to action: "edit"
     assert_not flash.empty?
   end
@@ -154,7 +154,7 @@ class UsersControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
 
     assert_difference('User.count', -1) do
-      delete :destroy, id: @other
+      delete :destroy, params: { id: @other }
     end
 
     assert_redirected_to users_path
@@ -166,7 +166,7 @@ class UsersControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
 
     assert_no_difference('User.count') do
-      delete :destroy, id: @user
+      delete :destroy, params: { id: @user }
     end
     
     assert_redirected_to action: "show"
@@ -177,7 +177,7 @@ class UsersControllerTest < ActionController::TestCase
     #try as admin
     log_in_as(users(:bill))
 
-    get :show, id: @gerardo
+    get :show, params: { id: @gerardo }
     assert_redirected_to pickups_path
     assert_not flash.empty?
     
@@ -186,7 +186,7 @@ class UsersControllerTest < ActionController::TestCase
     
     #try as entry user
     log_in_as(users(:corey))
-    get :show, id: @gerardo
+    get :show, params: { id: @gerardo }
     assert_redirected_to pickups_path
     assert_not flash.empty?
   end
@@ -194,7 +194,7 @@ class UsersControllerTest < ActionController::TestCase
   test "should show superadmin" do
     log_in_as(users(:gerardo))
 
-    get :show, id: @gerardo
+    get :show, params: { id: @gerardo }
     assert_response :success
   end
   

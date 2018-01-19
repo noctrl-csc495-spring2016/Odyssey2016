@@ -27,13 +27,13 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_difference('Day.count') do
-      post :create, { month:"June" , day:12 , year: 2016}
+      post :create, params: { month:"June" , day:12 , year: 2016}
     end
     
     assert_redirected_to days_path
     
     assert_no_difference('Day.count') do
-      post :create, { month:"June" , day:12 , year: 2016}
+      post :create, params: { month:"June" , day:12 , year: 2016}
     end
 
     assert_redirected_to days_new_url
@@ -42,7 +42,7 @@ class DaysControllerTest < ActionController::TestCase
   test "should show day" do
     log_in_as(users(:bill))
     
-    get :show, id: @day
+    get :show, params: { id: @day }
     assert_response :success
     assert_select "title", "Odyssey | " + @day.date.strftime("%B %d, %Y")
   end
@@ -51,7 +51,7 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_difference('Day.count', -1) do
-      delete :destroy, id: @day
+      delete :destroy, params: { id: @day }
     end
 
     assert_redirected_to days_path
@@ -61,7 +61,7 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_no_difference('Day.count') do
-      post :create, { month:"June" , day:23 , year: 1994}
+      post :create, params: { month:"June" , day:23 , year: 1994}
     end
 
     assert_redirected_to days_new_url
@@ -71,7 +71,7 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_no_difference('Day.count') do
-      delete :destroy, id: @day_in_past
+      delete :destroy, params: { id: @day_in_past }
     end
 
     assert_redirected_to days_path
@@ -93,11 +93,11 @@ class DaysControllerTest < ActionController::TestCase
                               number_of_items:               1,
                               item_notes:                   "Autographed baseball" )
     
-    get :show, id: @day
+    get :show, params: { id: @day }
     assert_select "div[id=delete-button]", false
     
     assert_no_difference('Day.count') do
-      delete :destroy, id: @day
+      delete :destroy, params: { id: @day }
     end
 
     assert_redirected_to days_path
@@ -107,7 +107,7 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_no_difference('Day.count') do
-      post :create, { month:"February" , day:31 , year: 2017}
+      post :create, params: { month:"February" , day:31 , year: 2017}
     end
 
     assert_redirected_to days_new_url

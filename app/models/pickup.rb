@@ -1,8 +1,7 @@
-class Pickup < ActiveRecord::Base
+class Pickup < ApplicationRecord
   belongs_to :day
-  
+
   validates :donor_last_name,     presence: { message: "is required." }
-  validates :donor_phone,         presence: { message: "number is required." } 
   validates :donor_address_line1, presence: { message: "is required." } 
   validates :donor_city,          presence: { message: "is required." } 
   validates :donor_zip,           presence: { message: "is required." } 
@@ -12,10 +11,39 @@ class Pickup < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :donor_email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }
   
+  strip_attributes allow_empty: true #Uses strip_attributes gem to remove whitespace from all values
+                                     #ignores empty ones
+  
+  before_save :titleize_address, :line1_conversion
+
+  def titleize_address #Titleizes addresses and cities. Unfortunately, ! doesn't work with titleize.
+    self.donor_address_line1 = self.donor_address_line1.downcase.titleize
+    self.donor_address_line2 = self.donor_address_line2.downcase.titleize
+    self.donor_city = self.donor_city.downcase.titleize
+  end
+  
+  def line1_conversion #turns common address contractions into their longform versions
+    conv = self.donor_address_line1.split(" ")
+    if (conv.last.downcase == "st." || conv.last.downcase == "st")
+      conv.pop
+      conv.push("Street")
+    elsif (conv.last.downcase == "ct." || conv.last.downcase == "ct")
+      conv.pop
+      conv.push("Court")
+    elsif (conv.last.downcase == "rd." || conv.last.downcase == "rd")
+      conv.pop
+      conv.push("Road")
+    elsif (conv.last.downcase == "blvd." || conv.last.downcase == "blvd")
+      conv.pop
+      conv.push("Boulevard")
+    end
+    
+    self.donor_address_line1 = conv.join(" ")
+  end
+  
   def send_rejection_email 
     RejectionMailer.reject_pickup(self).deliver_now
   end
-  
 
   #Function that builds csv file with address info. Called in reports controller. 
   def self.to_routes_csv

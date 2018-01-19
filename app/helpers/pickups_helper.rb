@@ -53,6 +53,11 @@ def populate_state_options
             ['WI'], ['WY']]
 end
 
+#Method to populate the title options for the new and edit pickup forms. Added in 1.2.
+def populate_title_options
+        return [['None'], ['Mr.'], ['Ms.'], ['Mrs.'], ['Dr.'], ['Prof.'], ['Rev.']]
+end
+
 #Method to populate the color options for the edit pickups form
 def populate_label_colors
     return [["Aqua"],["LightGreen"], ["MediumPurple"], ["Orange"], ["Pink"], ["Red"], ["White"], ["Yellow"]]

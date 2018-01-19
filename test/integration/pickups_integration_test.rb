@@ -16,13 +16,14 @@ test "should create new pickup from form" do
   
   #Check count to make sure pickup is created.
   assert_difference 'Pickup.count', 1 do
-  post_via_redirect pickups_path, pickup: { donor_last_name:  'Brown',
-                                            donor_phone:  '(630) 555-5555',
-                                            donor_address_line1:  '15 Drury Lane',
-                                            donor_city: 'Naperville',
-                                            donor_dwelling_type: 'Current residence',
-                                            donor_zip: '60540',
-                                            number_of_items: 2}
+  post pickups_path, params: { pickup: { donor_last_name:  'Brown',
+                                         donor_phone:  '(630) 555-5555',
+                                         donor_address_line1:  '15 Drury Lane',
+                                         donor_city: 'Naperville',
+                                         donor_dwelling_type: 'Current residence',
+                                         donor_zip: '60540',
+                                         number_of_items: 2} }
+  follow_redirect!
   end
   
   #Make sure you are on the index page upon successful submission
@@ -39,13 +40,13 @@ test "failed to create new pickup from form because of missing attributes" do
   #Make sure pickup isn't created by checking the count difference
   #If its 0 then pickup wasn't created.
   assert_difference 'Pickup.count', 0 do
-  post_via_redirect pickups_path, pickup: { donor_last_name:  ' ',               #missing requirement
-                                            donor_phone:  '(630) 555-5555',
-                                            donor_address_line1:  '15 Drury Lane',
-                                            donor_city: 'Naperville',
-                                            donor_dwelling_type: 'Current residence',
-                                            donor_zip: '60540',
-                                            number_of_items: 2}
+  post pickups_path, params: { pickup: { donor_last_name:  ' ',               #missing requirement
+                                         donor_phone:  '(630) 555-5555',
+                                         donor_address_line1:  '15 Drury Lane',
+                                         donor_city: 'Naperville',
+                                         donor_dwelling_type: 'Current residence',
+                                         donor_zip: '60540',
+                                         number_of_items: 2} }
   end
   assert flash.empty? == false    #There should be a flash message with errors
   assert_template 'pickups/new'   #Should be on new page
@@ -63,14 +64,14 @@ test "Failed to accept email submitted in form" do
   #Fill in form fields and post. Check difference in count to make sure
   #pickup was not created.
   assert_difference 'Pickup.count', 0 do
-  post_via_redirect pickups_path, pickup: { donor_last_name:  'Prucha',
-                                            donor_phone:  '(630) 555-5555',
-                                            donor_address_line1:  '15 Drury Lane',
-                                            donor_email: 'foo@invalid',                 
-                                            donor_city: 'Naperville',
-                                            donor_dwelling_type: 'Current residence',
-                                            donor_zip: '60540',
-                                            number_of_items: 2}
+  post pickups_path, params: { pickup: { donor_last_name:  'Prucha',
+                                         donor_phone:  '(630) 555-5555',
+                                         donor_address_line1:  '15 Drury Lane',
+                                         donor_email: 'foo@invalid',                 
+                                         donor_city: 'Naperville',
+                                         donor_dwelling_type: 'Current residence',
+                                         donor_zip: '60540',
+                                         number_of_items: 2} }
   end
   assert flash.empty? == false    #There should be a flash message with invalid email
   assert_template 'pickups/new'   #Should be on new page
@@ -87,15 +88,15 @@ test "Should update scheduled pickup" do
   #Upon doing so, we enter the update action in the controller.
   #The button pressed in this case should be update_donor button, which is why
   #we set it to true as a parameter in the patch command.
-  patch '/pickups/' + @pickup.id.to_s, update_donor: true, id: @pickup.id, pickup: { 
-                                    donor_last_name:  "Prucha",
-                                    donor_phone: "(630) 555-5555",
-                                    donor_address_line1:  "15 Drury Lane",
-                                    donor_city: "Naperville",
-                                    donor_email: "markprucha@yahoo.com",
-                                    donor_dwelling_type: "Current residence",
-                                    donor_zip: "60540",
-                                    number_of_items: 2}
+  patch '/pickups/' + @pickup.id.to_s, params: { update_donor: true, id: @pickup.id, pickup: { 
+                                          donor_last_name:  "Prucha",
+                                          donor_phone: "(630) 555-5555",
+                                          donor_address_line1:  "15 Drury Lane",
+                                          donor_city: "Naperville",
+                                          donor_email: "markprucha@yahoo.com",
+                                          donor_dwelling_type: "Current residence",
+                                          donor_zip: "60540",
+                                          number_of_items: 2} }
                                     
   #We must refresh the pickup after update to see if the new fields took.                             
   @pickup.reload
@@ -134,15 +135,15 @@ test "should update unscheduled pickup" do
   
   #Go to edit form and patch with edited pickup information
   get edit_pickup_path(@pickup)
-  patch '/pickups/' + @pickup.id.to_s, update_donor: true, id: @pickup.id, pickup: { 
-                                    donor_last_name:  "Prucha",
-                                    donor_phone: "(630) 555-5555",
-                                    donor_address_line1:  "15 Drury Lane",
-                                    donor_city: "Naperville",
-                                    donor_email: "markprucha@yahoo.com",
-                                    donor_dwelling_type: "Current residence",
-                                    donor_zip: "60540",
-                                    number_of_items: 2}
+  patch '/pickups/' + @pickup.id.to_s, params: { update_donor: true, id: @pickup.id, pickup: { 
+                                          donor_last_name:  "Prucha",
+                                          donor_phone: "(630) 555-5555",
+                                          donor_address_line1:  "15 Drury Lane",
+                                          donor_city: "Naperville",
+                                          donor_email: "markprucha@yahoo.com",
+                                          donor_dwelling_type: "Current residence",
+                                          donor_zip: "60540",
+                                          number_of_items: 2} }
   
   #Refresh the pickup to make sure update took.
   @pickup.reload
@@ -179,8 +180,8 @@ test "Should schedule pickup" do
   
   #Get edit page for pickup and assign it a day id.
   get edit_pickup_path(@pickup)
-  patch '/pickups/' + @pickup.id.to_s, schedule: true, id: @pickup.id, pickup: { 
-                                    day_id: 1}
+  patch '/pickups/' + @pickup.id.to_s, params: { schedule: true, id: @pickup.id, pickup: { 
+                                                  day_id: 1} }
                                     
   #Refresh pickup information
   @pickup.reload
@@ -209,8 +210,8 @@ test "Should fail to schedule pickup" do
   #if schedule spinner is empty when user clicks schedule).
   log_in_as(users(:bill))
   get edit_pickup_path(@pickup)
-  patch '/pickups/' + @pickup.id.to_s, schedule: true, id: @pickup.id, pickup: { 
-                                    day_id: ""}
+  patch '/pickups/' + @pickup.id.to_s, params: { schedule: true, id: @pickup.id, pickup: { 
+                                                  day_id: ""} }
                                     
   #Refresh pickup with updated attributes
   @pickup.reload
@@ -236,8 +237,8 @@ test "Should unschedule pickup" do
   
   #Patch it the day_id, clicking the unschedule button. This is why
   #unschedule is set to true.
-  patch '/pickups/' + @pickup.id.to_s, unschedule: true, id: @pickup.id, pickup: { 
-                                    day_id: nil}
+  patch '/pickups/' + @pickup.id.to_s, params: { unschedule: true, id: @pickup.id, pickup: { 
+                                                  day_id: nil} }
                                     
   #Refresh the pickup with updated information
   @pickup.reload
@@ -265,8 +266,8 @@ test "Should reject pickup without sending to email preview" do
   
   #Go to edit page and select reject with the checkbox set to false.
   get edit_pickup_path(@pickup)
-  patch '/pickups/' + @pickup.id.to_s, reject: true, id: @pickup.id, pickup: { 
-                                    rejected: true, rejected_reason: "Out of area", send_email: false}
+  patch '/pickups/' + @pickup.id.to_s, params: { reject: true, id: @pickup.id, pickup: { 
+                                                  rejected: true, rejected_reason: "Out of area", send_email: false} }
                                     
   #Refresh pickup with updated info.
   @pickup.reload
@@ -292,8 +293,8 @@ test "Should not reject pickup because of missing email and email donor checked"
   
   #Go to edit page for pickup and reject with missing email and email donor checkbox checked.
   get edit_pickup_path(@pickup)
-  patch '/pickups/' + @pickup.id.to_s, reject: true, id: @pickup.id, pickup: { 
-                                    donor_email: "", rejected: true, rejected_reason: "Out of area", send_email: true}
+  patch '/pickups/' + @pickup.id.to_s, params: { reject: true, id: @pickup.id, pickup: { 
+                                                 donor_email: "", rejected: true, rejected_reason: "Out of area", send_email: true} }
                                     
   #Refresh the pickup information.
   @pickup.reload
@@ -321,11 +322,11 @@ test "Should reject pickup and send to email preview" do
   
   #Try to reject pickup when email donor checkbox is true, donor email is present
   #and rejected reason is present.
-  patch '/pickups/' + @pickup.id.to_s, reject: true, id: @pickup.id, pickup: { 
-                                    donor_email: "markprucha@yahoo.com", 
-                                    rejected: true, 
-                                    rejected_reason: "Out of area", 
-                                    send_email: true}
+  patch '/pickups/' + @pickup.id.to_s, params: { reject: true, id: @pickup.id, pickup: { 
+                                                  donor_email: "markprucha@yahoo.com", 
+                                                  rejected: true, 
+                                                  rejected_reason: "Out of area", 
+                                                  send_email: true} } 
                                     
   #Refresh pickup information.  
   @pickup.reload
