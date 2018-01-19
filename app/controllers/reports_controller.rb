@@ -114,7 +114,7 @@ class ReportsController < ApplicationController
           csvFile = CSV.generate(headers: true) do |csv|
             csv << headers
             Pickup.all.each do |p|
-              
+              p.donor_phone = number_to_phone(p.donor_phone, area_code: "true")
               #Add info of all the pickups that were rejected at the month and year specified on the 
               #form the the csv file
               if p.rejected == true  && p.updated_at.mon.to_s == params[:date][:month] && p.updated_at.year.to_s == params[:date][:year]
