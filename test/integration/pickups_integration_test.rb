@@ -173,7 +173,7 @@ test "Should schedule pickup" do
   @pickup.save
   
   #Proof that pickup is not scheduled
-  assert_equal nil, @pickup.day_id
+  assert_nil @pickup.day_id
   
   #Log in
   log_in_as(users(:bill))
@@ -204,7 +204,7 @@ test "Should fail to schedule pickup" do
   @pickup.save
   
   #Proof that pickup is unscheduled
-  assert_equal nil, @pickup.day_id
+  assert_nil @pickup.day_id
   
   #Login and go to edit page. Patch the update with an empty day_id (will occur
   #if schedule spinner is empty when user clicks schedule).
@@ -221,7 +221,7 @@ test "Should fail to schedule pickup" do
   assert_not flash.empty?
   
   #Proof that pickup doesn't have a day id (not scheduled).
-  assert_equal nil, @pickup.day_id
+  assert_nil @pickup.day_id
 end
 
 #Test for what happens when unschedule button is pressed.
@@ -250,7 +250,7 @@ test "Should unschedule pickup" do
   assert_not flash.empty?
  
   #Proof that pickup is not scheduled.
-  assert_equal nil, @pickup.day_id
+  assert_nil @pickup.day_id
 end
 
 #Test for when reject is pressed and send email checkbox is not checked.
@@ -392,7 +392,7 @@ test "Make sure schedule button appears for unscheduled pickup on edit form" do
   @pickup.save
   
   #Proof that pickup is unscheduled.
-  assert_equal nil, @pickup.day_id
+  assert_nil @pickup.day_id
   
   #Go to edit page.
   get edit_pickup_path(@pickup)

@@ -18,7 +18,9 @@ class Pickup < ApplicationRecord
 
   def titleize_address #Titleizes addresses and cities. Unfortunately, ! doesn't work with titleize.
     self.donor_address_line1 = self.donor_address_line1.downcase.titleize
-    self.donor_address_line2 = self.donor_address_line2.downcase.titleize
+    if( self.donor_address_line2)
+      self.donor_address_line2 = self.donor_address_line2.downcase.titleize
+    end
     self.donor_city = self.donor_city.downcase.titleize
   end
   
