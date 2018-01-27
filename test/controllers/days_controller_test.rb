@@ -27,13 +27,13 @@ class DaysControllerTest < ActionController::TestCase
     log_in_as(users(:bill))
     
     assert_difference('Day.count') do
-      post :create, params: { month:"June" , day:12 , year: 2016}
+      post :create, params: { month:"June" , day:12 , year: 2026}
     end
     
     assert_redirected_to days_path
     
     assert_no_difference('Day.count') do
-      post :create, params: { month:"June" , day:12 , year: 2016}
+      post :create, params: { month:"June" , day:12 , year: 2026}
     end
 
     assert_redirected_to days_new_url

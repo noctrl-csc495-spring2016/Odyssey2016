@@ -39,9 +39,9 @@ class PickupTest < ActiveSupport::TestCase
   end
   
   #TESTS FOR MISSING REQUIREMENTS
-  test "donor_phone should be present" do
+  test "donor_phone should not be required" do
     @pickup.donor_phone = "  "
-    assert_not @pickup.valid?
+    assert @pickup.valid?
   end
   
   test "donor_name should be present" do
