@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.4.6"
 
 gem 'rails',                   '5.2.3'
 gem 'railties',                '5.2.3'
