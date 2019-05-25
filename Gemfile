@@ -11,6 +11,7 @@ gem 'fog',                     '1.36.0'
 gem 'will_paginate',           '3.1.6'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'bootstrap-sass',          '3.4.1'
+gem 'puma',                    '~> 3.12'
 gem "font-awesome-rails",      '4.7.0.5'
 gem 'sass-rails',              '5.0.7'
 gem 'uglifier',                '2.5.3'
@@ -44,5 +45,4 @@ end
 group :production do
   gem 'pg',             '~>0.18'
   gem 'rails_12factor', '0.0.2'
-  gem 'puma',           '3.1.0'
 end
