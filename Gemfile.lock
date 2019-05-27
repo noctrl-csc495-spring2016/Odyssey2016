@@ -81,7 +81,7 @@ GEM
     execjs (2.7.0)
     faker (1.4.2)
       i18n (~> 0.5)
-    ffi (1.11.0)
+    ffi (1.11.1)
     figaro (1.1.1)
       thor (~> 0.14)
     fission (0.5.0)
@@ -419,7 +419,7 @@ DEPENDENCIES
   will_paginate (= 3.1.6)
 
 RUBY VERSION
-   ruby 2.4.6p354
+   ruby 2.5.5p157
 
 BUNDLED WITH
    2.0.1
